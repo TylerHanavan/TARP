@@ -1,0 +1,141 @@
+body{
+	margin: 0;
+	padding: 0;
+	background-color: #3399ff;
+	color: black;
+}
+
+ul {
+	margin: 0;
+	padding: 0;
+	text-align: center;
+	overflow: auto;
+}
+
+li {
+	display: inline-block;
+}
+
+li a {
+    display: block;
+    color: white;
+    padding: 16px 16px;
+    text-decoration: none;
+}
+
+li a:hover {
+    background-color: #111;
+}
+header {
+    background-color: #d9d9d9;
+	padding:0;
+    margin:0;
+	overflow: auto;
+}
+.dashBoard{
+	width: 90%;
+	height: 600px;
+	background: #ffffff;
+	color: black;
+	text-align: center;
+	top: 50%;
+	left: 50%;
+	margin: 0 auto;
+	position: absolute;
+	transform: translate(-50%, -50%);
+	box-sizing: border-box;
+	box-shadow: 8px 8px 8px 8px rgba(0,0,0,0.2);
+	overflow: auto;	
+}
+
+.modal{
+	display:none;
+	position: fixed;
+	z-index: 1;
+	left: 0;
+	top: 0;
+	height: 100%;
+	width: 100%;
+	overflow: auto;
+	background-color: rgba(0,0,0,0.5);
+	text-align: left;
+}
+
+.modal-content{
+	background-color: #f4f4f4;
+	margin: 10% auto;
+	padding: 20px;
+	width: 70%;
+	box-shadow: 0 5px 8px 0 rgba(0,0,0,0.2),0 7px 20px 0 rgba(0,0,0,17);
+	overflow: auto;
+}
+.closeBtn{
+	color: #000;
+	float: right;
+	font-size: 30px;
+}
+.closeBtn:hover, closeBtn:focus{
+	color: #000;
+	text-decoration:none;
+	cursor:pointer;
+}
+.button{
+	font-family: "Trebuchet MS", Helvetica, sans-serif;
+	background-color: #4CAF50;
+    border: none;
+    color: white;
+    padding: 14px 32px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    margin: 4px 2px;
+    cursor: pointer;
+	
+}
+
+.button2{
+	font-family: "Trebuchet MS", Helvetica, sans-serif;
+	background-color: #0066ff;
+	width: 55% auto;
+    border: none;
+    color: white;
+    padding: 14px 32px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    margin: 4px 2px;
+    cursor: pointer;
+	
+}
+
+.button3{
+	font-family: "Trebuchet MS", Helvetica, sans-serif;
+	background-color: red;
+	width: 55% auto;
+    border: none;
+    color: white;
+    padding: 14px 14px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    margin: 4px 2px;
+    cursor: pointer;
+	
+}
+#myDIV {
+	font-family: "Trebuchet MS", Helvetica, sans-serif;
+    width: 15%;
+	height: 50%;
+    padding: 20px 16px;
+    text-align: center;
+	margin-left: 3%;
+	margin-right: 30%;
+    background-color: lightblue;
+    margin-top: 20px;
+	box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
+	display: none;
+	overflow:auto;
+}

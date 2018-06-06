@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Evaluation Form</title>
+	<script src="functionality.js"></script>
+	<style type="text/css">
+		
+		input[type=submit] {
+			background-size: 100%;
+			background-color: #4CAF50; /* Green */
+			border: none;
+			color: white;
+			padding: 15px 32px;
+			text-align: center;
+			text-decoration: none;
+			display: inline-block;
+			font-size: 16px;
+			margin: 4px 2px;
+			cursor: pointer;
+			width: 40%;
+			margin-left: 30%;
+			margin-right: 30%
+		}
+		
+		input[type=range] {
+			width: 80%;
+		}
+		
+		input[type=text] {
+			width: 100%;
+			box-sizing: border-box;
+			border: 2px solid #ccc;
+			border-radius: 4px;
+			font-size: 16px;
+			background-color: white;
+			background-position: 10px 10px; 
+			background-repeat: no-repeat;
+			padding: 12px 20px 12px 20px;
+			
+		}		
+	
+		.boxed{
+			border: 5px black;
+			box-shadow: 8px 8px 8px 8px rgba(0,0,0,0.2);
+			padding: 2px 16px;
+			margin: auto;
+			width: 50%;
+			background-color: #ffffff;
+			font-family: "Trebuchet MS", Helvetica, sans-serif;
+			overflow-x:auto;
+		}
+		h2{
+			text-align: center;
+		}
+		body{
+			background-color: #3399ff
+		}
+		
+	</style>
+
+</head>
+<body>
+	<div class="boxed">
+		<h2>TA Feedback Form</h2><hr/>
+		<p>Your Name (Optional):<p>
+		<input type="text" name="name" autocomplete="off">
+		<p>TA Name:<p>
+		<input type="text" name="TAname" autocomplete="off">
+		<p>Description of TA:<p>
+		<input type="text" name="TAdescription" autocomplete="off" placeholder="Blonde haired guy who teaches Mondays at 8AM...">
+		<p>Please rate your overall experience with the TA from 1 to 5:<p>
+		<input type="range" id="Roverall" min="1" max="5" value="3" onchange="sliderChange(this.value)" />
+		<span id="range_overall">3</span>
+		<p>How well do you feel your TA communicated the material on a scale from 1 to 5 <p>
+		<input type="range" id="Rcomm" min="1" max="5" value="3" onchange="sliderChange2(this.value)" />
+		<span id="range_comm">3</span>
+		<p>Has the TA ever missed an office hour session?<p>
+		<form action="/action_page.php">
+			<input type="radio" name="officeHour" value="yes" checked> Yes
+			<input type="radio" name="officeHour" value="no"> No
+		</form>
+		<p>If you picked No, please list the dates</p>
+		<input type="text" name="missedOHexplanation" autocomplete="off" placeholder="Ex: 9/21/2018, 10/24/2018, 11/4/2018, 11/15/2018"><p><p><br />
+		<input type="submit" value="Submit">
+		<p><p><br/>
+		
+	</div>
+</body>
+</html>

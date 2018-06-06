@@ -1,0 +1,59 @@
+body{
+	margin: 0;
+	padding: 0;
+	background-color: #3399ff;
+	color: black;
+		
+}
+h1 {
+    color: black;
+	font-family: "Trebuchet MS", Helvetica, sans-serif;
+	
+}
+
+.loginbox{
+	width:320px;
+	height: 375px;
+	background: #ffffff;
+	color: #fff;
+	top: 50%;
+	left: 50%;
+	position: absolute;
+	transform: translate(-50%, -50%);
+	box-sizing: border-box;
+	padding: 30px 30px;
+	box-shadow: 8px 8px 8px 8px rgba(0,0,0,0.2);
+	border-radius: 10%;
+}
+.avatar {
+	width: 75px;
+	height: 75px;
+	border-radius:20%;
+	position: absolute;
+	top: -50px;
+	left: calc(50% - 50px);
+}
+.loginbox p{
+	color: black;
+	font-weight: bold;
+	font-family: "Trebuchet MS", Helvetica, sans-serif;
+}
+.loginbox input[type="text"], input[type="password"]{
+	font-family: "Trebuchet MS", Helvetica, sans-serif;
+	border-bottom: 2px #3399ff;
+	
+}
+.loginbox input[type="submit"]{
+	font-family: "Trebuchet MS", Helvetica, sans-serif;
+	background-color: #4CAF50;
+    border: none;
+    color: white;
+    padding: 14px 32px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    margin: 4px 2px;
+    cursor: pointer;
+	
+}

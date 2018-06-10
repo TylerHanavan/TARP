@@ -11,6 +11,7 @@ h1 {
 	
 }
 
+/*style for overall the overall login container*/
 .loginbox{
 	width:320px;
 	height: 375px;
@@ -25,14 +26,7 @@ h1 {
 	box-shadow: 8px 8px 8px 8px rgba(0,0,0,0.2);
 	border-radius: 10%;
 }
-.avatar {
-	width: 75px;
-	height: 75px;
-	border-radius:20%;
-	position: absolute;
-	top: -50px;
-	left: calc(50% - 50px);
-}
+
 .loginbox p{
 	color: black;
 	font-weight: bold;
@@ -56,4 +50,15 @@ h1 {
     margin: 4px 2px;
     cursor: pointer;
 	
+}
+
+
+/*style for avatar picture file*/
+.avatar {
+	width: 75px;
+	height: 75px;
+	border-radius:20%;
+	position: absolute;
+	top: -50px;
+	left: calc(50% - 50px);
 }

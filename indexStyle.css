@@ -1,3 +1,4 @@
+/*Styling for overall body*/
 body{
 	margin: 0;
 	padding: 0;
@@ -5,25 +6,25 @@ body{
 	color: black;
 }
 
-ul {
+header ul {
 	margin: 0;
 	padding: 0;
 	text-align: center;
 	overflow: auto;
 }
 
-li {
+header li {
 	display: inline-block;
 }
 
-li a {
+header li a {
     display: block;
     color: white;
     padding: 16px 16px;
     text-decoration: none;
 }
 
-li a:hover {
+header li a:hover {
     background-color: #111;
 }
 header {
@@ -32,6 +33,7 @@ header {
     margin:0;
 	overflow: auto;
 }
+/*Style for background box*/
 .dashBoard{
 	width: 90%;
 	height: 600px;
@@ -48,6 +50,7 @@ header {
 	overflow: auto;	
 }
 
+/*Modal Styling*/
 .modal{
 	display:none;
 	position: fixed;
@@ -68,7 +71,27 @@ header {
 	width: 70%;
 	box-shadow: 0 5px 8px 0 rgba(0,0,0,0.2),0 7px 20px 0 rgba(0,0,0,17);
 	overflow: auto;
+	text-align: left;
+	
 }
+
+.modal-content ul{
+    list-style-type: none;
+	margin: 0;
+    padding: 0;
+}
+.modal-content li a {
+    display: block;
+    color: black;
+    padding: 16px 16px;
+    text-decoration: none;
+}
+
+.modal-content li a:hover {
+    background-color: #e6e6e6;
+}
+
+
 .closeBtn{
 	color: #000;
 	float: right;
@@ -79,7 +102,9 @@ header {
 	text-decoration:none;
 	cursor:pointer;
 }
-.button{
+
+/*Button Styling */
+.buttonView{
 	font-family: "Trebuchet MS", Helvetica, sans-serif;
 	background-color: #4CAF50;
     border: none;
@@ -94,7 +119,7 @@ header {
 	
 }
 
-.button2{
+.buttonEdit{
 	font-family: "Trebuchet MS", Helvetica, sans-serif;
 	background-color: #0066ff;
 	width: 55% auto;
@@ -110,21 +135,32 @@ header {
 	
 }
 
-.button3{
+.buttonDelete{
 	font-family: "Trebuchet MS", Helvetica, sans-serif;
 	background-color: red;
 	width: 55% auto;
     border: none;
     color: white;
-    padding: 14px 14px;
+    padding: 14px 23px;
     text-align: center;
     text-decoration: none;
     display: inline-block;
     font-size: 16px;
     margin: 4px 2px;
     cursor: pointer;
-	
 }
+
+.buttonDelete:hover {
+    box-shadow: 0 12px 16px 0 rgba(0,0,0,0.24), 0 17px 50px 0 rgba(0,0,0,0.19);
+}
+.buttonEdit:hover {
+    box-shadow: 0 12px 16px 0 rgba(0,0,0,0.24), 0 17px 50px 0 rgba(0,0,0,0.19);
+}
+.buttonView:hover {
+    box-shadow: 0 12px 16px 0 rgba(0,0,0,0.24), 0 17px 50px 0 rgba(0,0,0,0.19);
+}
+
+/*Card Styling*/
 #myDIV {
 	font-family: "Trebuchet MS", Helvetica, sans-serif;
     width: 15%;
@@ -135,7 +171,7 @@ header {
 	margin-right: 30%;
     background-color: lightblue;
     margin-top: 20px;
-	box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
+	box-shadow: 4px 4px 8px 4px rgba(0,0,0,0.2);
 	display: none;
 	overflow:auto;
 }

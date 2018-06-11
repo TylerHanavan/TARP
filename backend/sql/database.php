@@ -17,8 +17,8 @@
 
     function connect() {
 
-      $this->pdo = new PDO('mysql:host='.$address.';dbname='.$database, $username, $password);
-      
+      $this->pdo = new PDO('mysql:host='.$this->address.';dbname='.$this->database, $this->username, $this->password);
+
     }
 
   }

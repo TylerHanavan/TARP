@@ -18,6 +18,10 @@
     assertStringEquals($database->username, 'username');
     assertStringEquals($database->password, 'password');
 
+    $database = new Database($CREDENTIALS['address'], $CREDENTIALS['database'], $CREDENTIALS['username'], $CREDENTIALS['password']);
+
+    $database->connect();
+
     /* End Unit Testing Here */
     /* DO NOT ADD UNIT TESTS BEYOND THIS COMMENT */
 

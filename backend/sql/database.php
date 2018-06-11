@@ -25,7 +25,8 @@
 
     /* General-case query; Queries the database and returns the result. */
     function query($query) {
-
+      $st = $this->pdo->prepare($query);
+      $st->execute();
     }
 
   }

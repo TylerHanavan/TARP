@@ -1,10 +1,29 @@
 <?php
 
-  /* Begin Unit Testing Here */
+  ini_set('display_errors', 1);
+  ini_set('display_startup_errors', 1);
+  error_reporting(E_ALL);
 
+  include $_SERVER['DOCUMENT_ROOT'] . '/CSE442-542/2018-Summer/team03/backend/sql/database.php';
 
-  /* End Unit Testing Here */
-  /* DO NOT ADD UNIT TESTS BEYOND THIS COMMENT */
+  try {
+
+    /* Begin Unit Testing Here */
+
+    $database = new Database('localhost', 'database', 'username', 'password');
+
+    assertStringEquals($database->address, 'localhost');
+    assertStringEquals($database->database, 'database');
+    assertStringEquals($database->username, 'username');
+    assertStringEquals($database->password, 'password');
+
+    /* End Unit Testing Here */
+    /* DO NOT ADD UNIT TESTS BEYOND THIS COMMENT */
+
+  } catch(Exception $e) {
+    echo '<b>An exception occurred during testing!</b>';
+    exit();
+  }
 
   echo 'All test cases passed. Congratulations.';
 
@@ -23,7 +42,7 @@
   }
 
   function assertStringEquals($a, $b, $message = 'Two strings were not equal!') {
-    if(strcmp($a, $b) != 0) {
+    if($a !== $b) {
       echo '<b>Test Case Failed for assertStringEquals: ',$message,'</b>';
       exit();
     }

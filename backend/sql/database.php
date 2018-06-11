@@ -23,6 +23,11 @@
 
     }
 
+    /* General-case query; Queries the database and returns the result. */
+    function query($query) {
+
+    }
+
   }
 
  ?>

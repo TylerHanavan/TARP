@@ -29,4 +29,11 @@
     }
   }
 
+  function assertEquals($a, $b, $message = 'Two points were not equal!') {
+    if($a != $b) {
+      echo '<b>Test Case Failed for assertEquals: ',$message,'</b>';
+      exit();
+    }
+  }
+
  ?>

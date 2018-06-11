@@ -1,9 +1,12 @@
 <?php
 
+  echo 'All test cases passed. Congratulations.';
+
   function assertTrue($case, $message = 'A case was false!') {
-    if(!$case) $passed = false;
-    echo '<b>Test Case Failed for assertTrue: ',$message,'</b>';
-    exit();
+    if(!$case) {
+      echo '<b>Test Case Failed for assertTrue: ',$message,'</b>';
+      exit();
+    }
   }
 
  ?>

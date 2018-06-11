@@ -9,4 +9,11 @@
     }
   }
 
+  function assertFalse($case, $message = 'A case was true!') {
+    if($case) {
+      echo '<b>Test Case Failed for assertFalse: ',$message,'</b>';
+      exit();
+    }
+  }
+
  ?>

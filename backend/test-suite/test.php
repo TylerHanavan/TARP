@@ -5,6 +5,7 @@
   error_reporting(E_ALL);
 
   include $_SERVER['DOCUMENT_ROOT'] . '/CSE442-542/2018-Summer/team03/backend/sql/database.php';
+  include $_SERVER['DOCUMENT_ROOT'] . '/CSE442-542/2018-Summer/team03/backend/sql/credentials.php';
 
   try {
 
@@ -22,6 +23,7 @@
 
   } catch(Exception $e) {
     echo '<b>An exception occurred during testing!</b>';
+    var_dump($e);
     exit();
   }
 

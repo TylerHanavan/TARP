@@ -15,6 +15,12 @@
 
     }
 
+    function connect() {
+
+      $this->pdo = new PDO('mysql:host='.$address.';dbname='.$database, $username, $password);
+      
+    }
+
   }
 
  ?>

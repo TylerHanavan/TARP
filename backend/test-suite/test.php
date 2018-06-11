@@ -25,6 +25,8 @@
 
     $database->connect(); // Test the database to see if we can successfully connect. No assertX needed; exception will cause the test to fail if connection is unsuccessful
 
+    $database->query('CREATE TABLE feedback (id INT PRIMARY KEY AUTO_INCREMENT, course INT, ta INT, description VARCHAR(2048), ts TIMESTAMP DEFAULT CURRENT_TIMESTAMP)');
+
     /* End Unit Testing Here */
     /* DO NOT ADD UNIT TESTS BEYOND THIS COMMENT */
 

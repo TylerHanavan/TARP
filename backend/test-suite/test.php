@@ -4,6 +4,7 @@
   ini_set('display_startup_errors', 1);
   error_reporting(E_ALL);
 
+  /* Basic Includes, such as database, credentials, etc. */
   include $_SERVER['DOCUMENT_ROOT'] . '/CSE442-542/2018-Summer/team03/backend/sql/database.php';
   include $_SERVER['DOCUMENT_ROOT'] . '/CSE442-542/2018-Summer/team03/backend/sql/credentials.php';
 
@@ -11,16 +12,18 @@
 
     /* Begin Unit Testing Here */
 
+    // Create a dummy database to check to ensure the constructor accepts the proper parameters in the proper order
     $database = new Database('localhost', 'database', 'username', 'password');
 
-    assertStringEquals($database->address, 'localhost');
-    assertStringEquals($database->database, 'database');
-    assertStringEquals($database->username, 'username');
-    assertStringEquals($database->password, 'password');
+    assertStringEquals($database->address, 'localhost'); // Test the database to see if its address is correct
+    assertStringEquals($database->database, 'database'); // Test the database to see if its database name is correct
+    assertStringEquals($database->username, 'username'); // Test the database to see if its username is correct
+    assertStringEquals($database->password, 'password'); // Test the database to see if its password is correct
 
+    // Create a connection to the real database
     $database = new Database($CREDENTIALS['address'], $CREDENTIALS['database'], $CREDENTIALS['username'], $CREDENTIALS['password']);
 
-    $database->connect();
+    $database->connect(); // Test the database to see if we can successfully connect. No assertX needed; exception will cause the test to fail if connection is unsuccessful
 
     /* End Unit Testing Here */
     /* DO NOT ADD UNIT TESTS BEYOND THIS COMMENT */
@@ -31,7 +34,7 @@
     exit();
   }
 
-  echo 'All test cases passed. Congratulations.';
+  echo 'All test cases passed. Congratulations.'; // If the test suite reaches this point, then we have successfully passed each test case
 
   function assertTrue($case, $message = 'A case was false!') {
     if(!$case) {

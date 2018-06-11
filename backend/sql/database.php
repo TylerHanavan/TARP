@@ -1,5 +1,7 @@
 <?php
 
+  /* The database class is a wrapper for PDO. In it, functions for retrieving, storing, deleting, and modifying data in MySQL exist. */
+
   class Database {
 
     function __construct($address, $database, $username, $password) {

@@ -22,4 +22,11 @@
     }
   }
 
+  function assertStringEquals($a, $b, $message = 'Two strings were not equal!') {
+    if(strcmp($a, $b) != 0) {
+      echo '<b>Test Case Failed for assertStringEquals: ',$message,'</b>';
+      exit();
+    }
+  }
+
  ?>

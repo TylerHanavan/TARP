@@ -1,5 +1,11 @@
 <?php
 
+  /* Begin Unit Testing Here */
+
+
+  /* End Unit Testing Here */
+  /* DO NOT ADD UNIT TESTS BEYOND THIS COMMENT */
+
   echo 'All test cases passed. Congratulations.';
 
   function assertTrue($case, $message = 'A case was false!') {

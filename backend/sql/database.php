@@ -29,6 +29,18 @@
       return $st->execute();
     }
 
+    function createTAsTable() {
+      return $this->query('CREATE TABLE tas (id INT PRIMARY KEY AUTO_INCREMENT, name VARCHAR(256), course INT)');
+    }
+
+    function createCoursesTable() {
+      return $this->query('CREATE TABLE courses (id INT PRIMARY KEY AUTO_INCREMENT, name VARCHAR(256), instructor INT)');
+    }
+
+    function createFeedbackTable() {
+      return $this->query('CREATE TABLE feedback (id INT PRIMARY KEY AUTO_INCREMENT, course INT, ta INT, description VARCHAR(2048), ts TIMESTAMP DEFAULT CURRENT_TIMESTAMP)');
+    }
+
   }
 
  ?>

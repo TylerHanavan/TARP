@@ -26,7 +26,7 @@
     $database->connect(); // Test the database to see if we can successfully connect. No assertX needed; exception will cause the test to fail if connection is unsuccessful
 
     // Query the database to create a new table - courses
-    $rs = $database->query('CREATE TABLE courses (id INT PRIMARY KEY AUTO_INCREMENT, name VARCHAR(256), instructor INT)');
+    $rs = $database->createCoursesTable();
 
     // Explain the result of creating the table.
     if($rs) {
@@ -36,7 +36,7 @@
     }
 
     // Query the database to create a new table - feedback
-    $rs = $database->query('CREATE TABLE feedback (id INT PRIMARY KEY AUTO_INCREMENT, course INT, ta INT, description VARCHAR(2048), ts TIMESTAMP DEFAULT CURRENT_TIMESTAMP)');
+    $rs = $database->createFeedbackTable();
 
     // Explain the result of creating the table.
     if($rs) {
@@ -46,7 +46,7 @@
     }
 
     // Query the database to create a new table - tas
-    $rs = $database->query('CREATE TABLE tas (id INT PRIMARY KEY AUTO_INCREMENT, name VARCHAR(256), course INT)');
+    $rs = $database->createTAsTable();
 
     // Explain the result of creating the table.
     if($rs) {

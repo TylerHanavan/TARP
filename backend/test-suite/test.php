@@ -25,13 +25,34 @@
 
     $database->connect(); // Test the database to see if we can successfully connect. No assertX needed; exception will cause the test to fail if connection is unsuccessful
 
-    // Query the database to create a new table
+    // Query the database to create a new table - courses
+    $rs = $database->query('CREATE TABLE courses (id INT PRIMARY KEY AUTO_INCREMENT, name VARCHAR(256), instructor INT)');
+
+    // Explain the result of creating the table.
+    if($rs) {
+      echo '<p>Created table <em>courses</em>.</p><br />';
+    } else {
+      echo '<p>Warning: Table <em>courses</em> already exists. This may result in some test cases not being able to be fully tested.</p><br />';
+    }
+
+    // Query the database to create a new table - feedback
     $rs = $database->query('CREATE TABLE feedback (id INT PRIMARY KEY AUTO_INCREMENT, course INT, ta INT, description VARCHAR(2048), ts TIMESTAMP DEFAULT CURRENT_TIMESTAMP)');
 
+    // Explain the result of creating the table.
     if($rs) {
       echo '<p>Created table <em>feedback</em>.</p><br />';
     } else {
       echo '<p>Warning: Table <em>feedback</em> already exists. This may result in some test cases not being able to be fully tested.</p><br />';
+    }
+
+    // Query the database to create a new table - tas
+    $rs = $database->query('CREATE TABLE tas (id INT PRIMARY KEY AUTO_INCREMENT, name VARCHAR(256), course INT)');
+
+    // Explain the result of creating the table.
+    if($rs) {
+      echo '<p>Created table <em>tas</em>.</p><br />';
+    } else {
+      echo '<p>Warning: Table <em>tas</em> already exists. This may result in some test cases not being able to be fully tested.</p><br />';
     }
 
     /* End Unit Testing Here */

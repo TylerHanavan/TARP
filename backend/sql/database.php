@@ -26,7 +26,34 @@
     /* General-case query; Queries the database and returns the result. */
     function query($query) {
       $st = $this->pdo->prepare($query);
+      return $st->execute();
+    }
+
+    function createTAsTable() {
+      return $this->query('CREATE TABLE tas (id INT PRIMARY KEY AUTO_INCREMENT, name VARCHAR(256), course INT)');
+    }
+
+    function createCoursesTable() {
+      return $this->query('CREATE TABLE courses (id INT PRIMARY KEY AUTO_INCREMENT, name VARCHAR(256), instructor INT)');
+    }
+
+    function createFeedbackTable() {
+      return $this->query('CREATE TABLE feedback (id INT PRIMARY KEY AUTO_INCREMENT, course INT, ta INT, description VARCHAR(2048), ts TIMESTAMP DEFAULT CURRENT_TIMESTAMP)');
+    }
+
+    function getFeedback($course) {
+      $st = $this->pdo->prepare('SELECT * FROM feedback WHERE course=:course');
+      $st->bindParam(':course', $course);
       $st->execute();
+      return $st->fetchAll();
+    }
+
+    function addFeedback($course, $ta, $description) {
+      $st = $this->pdo->prepare('INSERT INTO feedback (course, ta, description) VALUES (:course, :ta, :description)');
+      $st->bindParam(':course', $course);
+      $st->bindParam(':ta', $ta);
+      $st->bindParam(':description', $description);
+      return $st->execute();
     }
 
   }

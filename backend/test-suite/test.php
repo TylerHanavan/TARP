@@ -25,18 +25,51 @@
 
     $database->connect(); // Test the database to see if we can successfully connect. No assertX needed; exception will cause the test to fail if connection is unsuccessful
 
-    $database->query('CREATE TABLE feedback (id INT PRIMARY KEY AUTO_INCREMENT, course INT, ta INT, description VARCHAR(2048), ts TIMESTAMP DEFAULT CURRENT_TIMESTAMP)');
+    // Query the database to create a new table - courses
+    $rs = $database->createCoursesTable();
+
+    // Explain the result of creating the table.
+    if($rs) {
+      echo '<p>Created table <em>courses</em>.</p><br />';
+    } else {
+      echo '<p>Warning: Table <em>courses</em> already exists. This may result in some test cases not being able to be fully tested.</p><br />';
+    }
+
+    // Query the database to create a new table - feedback
+    $rs = $database->createFeedbackTable();
+
+    // Explain the result of creating the table.
+    if($rs) {
+      echo '<p>Created table <em>feedback</em>.</p><br />';
+      assertEquals(sizeof($database->getFeedback(1)), 0); // Since table should be empty, ensure it is
+    } else {
+      echo '<p>Warning: Table <em>feedback</em> already exists. This may result in some test cases not being able to be fully tested.</p><br />';
+    }
+
+    // Query the database to create a new table - tas
+    $rs = $database->createTAsTable();
+
+    // Explain the result of creating the table.
+    if($rs) {
+      echo '<p>Created table <em>tas</em>.</p><br />';
+    } else {
+      echo '<p>Warning: Table <em>tas</em> already exists. This may result in some test cases not being able to be fully tested.</p><br />';
+    }
+
+    $database->addFeedback(1, 1, 'Test');
+
+    assertFalse(sizeof($database->getFeedback(1)) == 0); // Ensure the feedback table isn't empty
 
     /* End Unit Testing Here */
     /* DO NOT ADD UNIT TESTS BEYOND THIS COMMENT */
 
   } catch(Exception $e) {
-    echo '<b>An exception occurred during testing!</b>';
+    echo '<b>An exception occurred during testing! Message: </b>', $e->message;
     var_dump($e);
     exit();
   }
 
-  echo 'All test cases passed. Congratulations.'; // If the test suite reaches this point, then we have successfully passed each test case
+  echo '<br /><br /><em>All test cases passed. Congratulations.</em>'; // If the test suite reaches this point, then we have successfully passed each test case
 
   function assertTrue($case, $message = 'A case was false!') {
     if(!$case) {

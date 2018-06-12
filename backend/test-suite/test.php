@@ -41,6 +41,7 @@
     // Explain the result of creating the table.
     if($rs) {
       echo '<p>Created table <em>feedback</em>.</p><br />';
+      assertEquals(sizeof($database->getFeedback(1)), 0); // Since table should be empty, ensure it is
     } else {
       echo '<p>Warning: Table <em>feedback</em> already exists. This may result in some test cases not being able to be fully tested.</p><br />';
     }
@@ -54,6 +55,10 @@
     } else {
       echo '<p>Warning: Table <em>tas</em> already exists. This may result in some test cases not being able to be fully tested.</p><br />';
     }
+
+    $database->addFeedback(1, 1, 'Test');
+
+    assertFalse(sizeof($database->getFeedback(1)) == 0); // Ensure the feedback table isn't empty
 
     /* End Unit Testing Here */
     /* DO NOT ADD UNIT TESTS BEYOND THIS COMMENT */

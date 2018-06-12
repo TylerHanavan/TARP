@@ -38,7 +38,7 @@
     }
 
     function createFeedbackTable() {
-      return $this->query('CREATE TABLE feedback (id INT PRIMARY KEY AUTO_INCREMENT, course INT, ta INT, description VARCHAR(2048), ts TIMESTAMP DEFAULT CURRENT_TIMESTAMP)');
+      return $this->query('CREATE TABLE feedback (id INT PRIMARY KEY AUTO_INCREMENT, course INT, ta INT, description VARCHAR(2048), name VARCHAR(128), comments VARCHAR(2048), experience INT, importance INT, ts TIMESTAMP DEFAULT CURRENT_TIMESTAMP)');
     }
 
     function getFeedback($course) {

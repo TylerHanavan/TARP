@@ -18,15 +18,15 @@
 			margin: auto;
 			cursor: pointer;
 			width: 100%;
-			
+
 			overflow-x:auto;
 		}
-		
+
 		/*style for slider*/
 		input[type=range] {
 			width: 80%;
 		}
-		
+
 		/*style for text input*/
 		input[type=text] {
 			width: 100%;
@@ -35,10 +35,10 @@
 			border-radius: 4px;
 			font-size: 16px;
 			background-color: white;
-			background-position: 10px 10px; 
+			background-position: 10px 10px;
 			background-repeat: no-repeat;
 			padding: 12px 20px 12px 20px;
-			
+
 		}
 		/*style for email input*/
 		input[type=email] {
@@ -48,12 +48,12 @@
 			border-radius: 4px;
 			font-size: 16px;
 			background-color: white;
-			background-position: 10px 10px; 
+			background-position: 10px 10px;
 			background-repeat: no-repeat;
 			padding: 12px 20px 12px 20px;
-			
+
 		}
-	
+
 		/*Style for overall form look*/
 		.boxed{
 			border: 5px black;
@@ -77,7 +77,7 @@
 		select{
 			width: 100%;
 			box-sizing: border-box;
-			border: 2px solid #ccc; 
+			border: 2px solid #ccc;
 			border-radius: 4px;
 			font-size: 16px;
 			background-color: white;
@@ -91,7 +91,7 @@
 			border-radius: 4px;
 			font-size: 16px;
 			background-color: white;
-			background-position: 10px 10px; 
+			background-position: 10px 10px;
 			background-repeat: no-repeat;
 			padding: 12px 20px 12px 20px;
 		}
@@ -107,7 +107,7 @@
 		<!-- All data is written within the form tags so it can be processed by submit.php file-->
 		<form name="frmDataEntry" action="/CSE442-542/2018-Summer/team03/backend/submit/submit.php" method="POST">
 			<h2>TA Feedback Form</h2><hr/>
-			
+
 			<p>Course Name:<p>
 			<div class="custom-select">
 					<select name="course" required>
@@ -117,7 +117,7 @@
 						<option value="3">CSE442</option>
 					</select>
 			</div>
-			
+
 			<p>TA Name:<p>
 				<div class="custom-select">
 					<select name="ta"  onchange="if (this.value=='-1'){this.form['taDescription'].style.visibility='visible'}else {this.form['taDescription'].style.visibility='hidden'};">
@@ -127,7 +127,7 @@
 						<option value="-1">Not Sure</option>
 					</select>
 				</div><br/>
-				
+
 				<input type="text" style="visibility:hidden;" name="taDescription" placeholder="Please describe your TA here..." maxlength="150" required>
 			<!--<p>Description of TA (Optional):<p>
 				<input type="text" name="taDescription" autocomplete="off" placeholder="Blonde haired guy who teaches Monday recitations at 8AM..."> -->
@@ -150,19 +150,19 @@
 				<input type="radio" name="feedbackPriority" value="2"> Somewhat important
 				<input type="radio" name="feedbackPriority" value="3"> Important
 				<input type="radio" name="feedbackPriority" value="4"> Very important
-				
+
 			<p>Please leave any comments you have regarding your TA below:<p>
 				<textarea rows="4" cols="50" name="comments" maxlength="260"></textarea>
-			
+
 			<p>Your Name (Optional):<p>
 				<input type="text" name="name" maxlength="60">
-			
+
 			<p>Check the box below to be contacted by the Insturctor via Email:<p>
 				<input type="checkbox" name="chkbox" id="chk" onclick="showHideEmail()" />I wish to be contacted by the Instructor<br/><br/>
-			
-			<label class="hidden">Your Email Adress:</label>
+
+			<label class="hidden">Your Email address:</label>
 				<input type="email" name="email" class="hidden" maxlength="60" required>
-			
+
 			<br/><br/>
 				<input type="submit" name="submitButton" value="Submit">
 			<br/><br/>

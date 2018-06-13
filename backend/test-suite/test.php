@@ -56,7 +56,7 @@
       echo '<p>Warning: Table <em>tas</em> already exists. This may result in some test cases not being able to be fully tested.</p><br />';
     }
 
-    $database->addFeedback(1, 1, 'Test', 'good job', 'JohnWick');
+    $database->addFeedback(1, 1, 'Test', 'good job', 'JohnWick', 3, 2, 'yahoo@gmail.com');
 
     assertFalse(sizeof($database->getFeedback(1)) == 0); // Ensure the feedback table isn't empty
 

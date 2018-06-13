@@ -21,12 +21,12 @@
 			margin-left: 30%;
 			margin-right: 30%
 		}
-		
+
 		/*style for slider*/
 		input[type=range] {
 			width: 80%;
 		}
-		
+
 		/*style for text input*/
 		input[type=text] {
 			width: 100%;
@@ -35,12 +35,12 @@
 			border-radius: 4px;
 			font-size: 16px;
 			background-color: white;
-			background-position: 10px 10px; 
+			background-position: 10px 10px;
 			background-repeat: no-repeat;
 			padding: 12px 20px 12px 20px;
-			
-		}		
-	
+
+		}
+
 		/*Style for overall form look*/
 		.boxed{
 			border: 5px black;
@@ -58,13 +58,14 @@
 		body{
 			background-color: #3399ff
 		}
-		
+
 	</style>
 
 </head>
 <body>
 	<!--boxed div contains all data/buttons in the form, includes text input, slider, radio button, submit button -->
 	<div class="boxed">
+<<<<<<< HEAD
 		<form name="frmDataEntry" action="/CSE442-542/2018-Summer/team03/backend/submit/submit.php" method="POST">
 			<h2>TA Feedback Form</h2><hr/>
 			<p>Course Name <p>
@@ -89,6 +90,32 @@
 				<input type="submit" name="submitButton" value="Submit">
 		<p><p><br/>
 		</form>
+=======
+	<form action="/CSE442-542/2018-Summer/team03/backend/submit/submit.php" method="post">
+		<h2>TA Feedback Form</h2><hr/>
+		<p>TA Name:<p>
+		<select name="ta">
+		  <option value="1">Evan W</option>
+		  <option value="2">Rick Morty</option>
+		  <option value="3">Mercedes</option>
+		  <option value="4">Audi</option>
+		  <option value="-1">Unsure</option>
+		</select>
+		<p>Description of TA:<p>
+		<input type="text" name="taDescription" autocomplete="off" placeholder="Blonde haired guy who teaches Mondays at 8AM...">
+		<p>Please rate your overall experience with the TA from 1 to 5:<p>
+		<input type="range" id="overallExperience" min="1" max="5" value="3" onchange="sliderChange(this.value)" />
+		<span id="range_overall">3</span>
+		<p>How well do you feel your TA communicated the material on a scale from 1 to 5 <p>
+		<input type="range" id="Rcomm" min="1" max="5" value="3" onchange="sliderChange2(this.value)" />
+		<span id="range_comm">3</span>
+		<input type="text" name="comments" autocomplete="off" placeholder="Additional comments"><p>
+		<p>Your Name (Optional):<p>
+		<input type="text" name="name" autocomplete="off"><input type="submit" value="Submit">
+	</form>
+	<p><p><br/>
+
+>>>>>>> ecce61dfaa36e69cc2237e7cb43a677b935aa12a
 	</div>
 </body>
 </html>

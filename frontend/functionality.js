@@ -104,13 +104,3 @@ function deleteCard(){
 	var cardDiv = document.getElementById("myDIV");
 	cardDiv.style.display = "none";
 }
-
-window.document.onload = function(e){
-    var query = window.location.search.substring(1);
-		if(query === "" || query === undefined) {
-			return;
-		}
-		if(query.contains("success")) {
-			document.getElementById("success").removeClass('hidden');
-		}
-}

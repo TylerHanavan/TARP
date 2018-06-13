@@ -8,7 +8,7 @@ include $_SERVER['DOCUMENT_ROOT'] . '/CSE442-542/2018-Summer/team03/backend/sql/
   $taDescription = $_POST["taDescription"];
   $comments = $_POST["comments"];
   $overallExperience = $_POST["overallExperience"];
-  $importance = $_POST["importance"];
+  $importance = $_POST["feedbackPriority"];
   $name = $_POST["name"];
   $email = $_POST["email"];
 

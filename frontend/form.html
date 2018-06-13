@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Evaluation Form</title>
+	<script src="functionality.js"></script>
+	<style type="text/css">
+		/* style for submit button*/
+		input[type=submit] {
+			background-size: 100%;
+			background-color: #4CAF50; /* Green */
+			border: none;
+			color: white;
+			padding: 15px 32px;
+			text-align: center;
+			text-decoration: none;
+			display: inline-block;
+			font-size: 16px;
+			margin: auto;
+			cursor: pointer;
+			width: 100%;
+
+			overflow-x:auto;
+		}
+
+		/*style for slider*/
+		input[type=range] {
+			width: 80%;
+		}
+
+		/*style for text input*/
+		input[type=text] {
+			width: 100%;
+			box-sizing: border-box;
+			border: 2px solid #ccc;
+			border-radius: 4px;
+			font-size: 16px;
+			background-color: white;
+			background-position: 10px 10px;
+			background-repeat: no-repeat;
+			padding: 12px 20px 12px 20px;
+
+		}
+		/*style for email input*/
+		input[type=email] {
+			width: 100%;
+			box-sizing: border-box;
+			border: 2px solid #ccc;
+			border-radius: 4px;
+			font-size: 16px;
+			background-color: white;
+			background-position: 10px 10px;
+			background-repeat: no-repeat;
+			padding: 12px 20px 12px 20px;
+
+		}
+
+		/*Style for overall form look*/
+		.boxed{
+			border: 5px black;
+			box-shadow: 8px 8px 8px 8px rgba(0,0,0,0.2);
+			padding: 2px 16px;
+			margin: auto;
+			width: 50%;
+			background-color: #ffffff;
+			font-family: "Trebuchet MS", Helvetica, sans-serif;
+			overflow-x:auto;
+		}
+		/*style for header*/
+		h2{
+			text-align: center;
+		}
+		/*style for body*/
+		body{
+			background-color: #3399ff
+		}
+		/*style for dropdowns*/
+		select{
+			width: 100%;
+			box-sizing: border-box;
+			border: 2px solid #ccc;
+			border-radius: 4px;
+			font-size: 16px;
+			background-color: white;
+			padding: 12px 20px 12px 20px;
+		}
+		/*style for text area*/
+		textarea{
+			width: 100%;
+			box-sizing: border-box;
+			border: 2px solid #ccc;
+			border-radius: 4px;
+			font-size: 16px;
+			background-color: white;
+			background-position: 10px 10px;
+			background-repeat: no-repeat;
+			padding: 12px 20px 12px 20px;
+		}
+		.hidden{
+			display: none;
+		}
+	</style>
+
+</head>
+<body>
+	<!--div contains all data/buttons in the form, includes text input, slider, radio button, submit button -->
+	<div class="boxed">
+		<!-- All data is written within the form tags so it can be processed by submit.php file-->
+		<form name="frmDataEntry" action="/CSE442-542/2018-Summer/team03/backend/submit/submit.php" method="POST">
+			<h2>TA Feedback Form</h2><hr/>
+
+			<p>Course Name:<p>
+			<div class="custom-select">
+					<select name="course" required>
+						<option value="">Please Select a Course</option>
+						<option value="1">CSE250</option>
+						<option value="2">CSE321</option>
+						<option value="3">CSE442</option>
+					</select>
+			</div>
+
+			<p>TA Name:<p>
+				<div class="custom-select">
+					<select name="ta"  onchange="if (this.value=='-1'){this.form['taDescription'].style.visibility='visible'}else {this.form['taDescription'].style.visibility='hidden'};">
+						<option value="0">Marcus Wang</option>
+						<option value="1">John Smith</option>
+						<option value="2">Thomas Karr</option>
+						<option value="-1">Not Sure</option>
+					</select>
+				</div><br/>
+
+				<input type="text" style="visibility:hidden;" name="taDescription" placeholder="Please describe your TA here..." maxlength="150">
+			<!--<p>Description of TA (Optional):<p>
+				<input type="text" name="taDescription" autocomplete="off" placeholder="Blonde haired guy who teaches Monday recitations at 8AM..."> -->
+			<p>Please rate your overall experience with the TA:<p>
+				<input type="radio" name="overallExperience" value="1" checked> Very Bad
+				<input type="radio" name="overallExperience" value="2"> Bad
+				<input type="radio" name="overallExperience" value="3"> Good
+				<input type="radio" name="overallExperience" value="4"> Very Good
+		<!--	<input type="range" name="overallExperience" id="Roverall" min="1" max="5" value="3" onchange="sliderChange(this.value)" />
+				<span id="range_overall">3</span>	-->
+			<p>How well do you feel your TA communicated the material?<p>
+				<input type="radio" name="overallComm" value="1" checked> Very Bad
+				<input type="radio" name="overallComm" value="2"> Bad
+				<input type="radio" name="overallComm" value="3"> Good
+				<input type="radio" name="overallComm" value="4"> Very Good
+		<!--	<input type="range" name="Range2" id="Rcomm" min="1" max="5" value="3" onchange="sliderChange2(this.value)" />
+				<span id="range_comm">3</span>		-->
+			<p>How important do you feel your feedback is to the course?<p>
+				<input type="radio" name="feedbackPriority" value="1" checked> Not that important
+				<input type="radio" name="feedbackPriority" value="2"> Somewhat important
+				<input type="radio" name="feedbackPriority" value="3"> Important
+				<input type="radio" name="feedbackPriority" value="4"> Very important
+
+			<p>Please leave any comments you have regarding your TA below:<p>
+				<textarea rows="4" cols="50" name="comments" maxlength="260"></textarea>
+
+			<p>Your Name (Optional):<p>
+				<input type="text" name="name" maxlength="60">
+
+			<p>Check the box below to be contacted by the Insturctor via Email:<p>
+				<input type="checkbox" name="chkbox" id="chk" onclick="showHideEmail()" />I wish to be contacted by the Instructor<br/><br/>
+
+			<label class="hidden">Your Email address:</label>
+				<input type="email" name="email" class="hidden" maxlength="60">
+
+			<br/><br/>
+				<input type="submit" name="submitButton" value="Submit">
+			<br/><br/>
+		</form>
+	</div>
+</body>
+</html>

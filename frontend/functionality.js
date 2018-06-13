@@ -86,7 +86,7 @@ function setTAList(){
 	if(document.getElementById("taList").getElementsByTagName("li").length == 0){
 		var names = document.getElementById("courseTAInput").value.split(",");
 		var ul = document.getElementById("taList");
-	
+
 		var i;
 		for(i=0; i<names.length; i++){
 			var li = document.createElement("li");
@@ -103,4 +103,14 @@ function setTAList(){
 function deleteCard(){
 	var cardDiv = document.getElementById("myDIV");
 	cardDiv.style.display = "none";
+}
+
+window.document.onload = function(e){
+    var query = window.location.search.substring(1);
+		if(query === "" || query === undefined) {
+			return;
+		}
+		if(query.contains("success")) {
+			document.getElementById("success").removeClass('hidden');
+		}
 }

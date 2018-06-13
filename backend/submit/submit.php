@@ -4,7 +4,7 @@ include $_SERVER['DOCUMENT_ROOT'] . '/CSE442-542/2018-Summer/team03/backend/sql/
 include $_SERVER['DOCUMENT_ROOT'] . '/CSE442-542/2018-Summer/team03/backend/sql/credentials.php';
 
   $course = $_POST["course"];
-  $taName = $_POST['taName'];
+  $ta = $_POST['ta'];
   $taDescription = $_POST["taDescription"];
   $comments = $_POST["comments"];
   $overallExperience = $_POST["overallExperience"];
@@ -14,7 +14,7 @@ include $_SERVER['DOCUMENT_ROOT'] . '/CSE442-542/2018-Summer/team03/backend/sql/
 
   $database = new Database($CREDENTIALS["address"],$CREDENTIALS["database"], $CREDENTIALS["username"], $CREDENTIALS["password"]);
   $database->connect();
-  $database->addFeedback($course,$taName,$taDescription,$comments,$name);
+  $database->addFeedback($course,$ta,$taDescription,$comments,$name);
   exit();
 
 ?>

@@ -16,7 +16,7 @@ include $_SERVER['DOCUMENT_ROOT'] . '/CSE442-542/2018-Summer/team03/backend/sql/
   $database = new Database($CREDENTIALS["address"],$CREDENTIALS["database"], $CREDENTIALS["username"], $CREDENTIALS["password"]);
   $database->connect();
   $database->addFeedback($course,$ta,$taDescription,$comments,$name, $overallExperience, $importance, $overallComm, $email);
-  header('Location: ../../frontend/form.html?success=1');
+  header('Location: ../../frontend/success.html?success=1');
   exit();
 
 ?>

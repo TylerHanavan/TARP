@@ -10,11 +10,11 @@ include $_SERVER['DOCUMENT_ROOT'] . '/CSE442-542/2018-Summer/team03/backend/sql/
   $overallExperience = $_POST["overallExperience"];
   $importance = $_POST["importance"];
   $name = $_POST["name"];
-  $contactInfo = $_POST["contactInfo"];
+  $email = $_POST["email"]
 
   $database = new Database($CREDENTIALS["address"],$CREDENTIALS["database"], $CREDENTIALS["username"], $CREDENTIALS["password"]);
   $database->connect();
-  $database->addFeedback($course,$ta,$taDescription,$comments,$name);
+  $database->addFeedback($course,$ta,$taDescription,$comments,$name, $overallExperience, $importance, $email);
   exit();
 
 ?>

@@ -38,7 +38,7 @@
     }
 
     function createFeedbackTable() {
-      return $this->query('CREATE TABLE feedback (id INT PRIMARY KEY AUTO_INCREMENT, course INT, ta INT, description VARCHAR(2048), name VARCHAR(128), comments VARCHAR(2048), experience INT, importance INT, ts TIMESTAMP DEFAULT CURRENT_TIMESTAMP)');
+      return $this->query('CREATE TABLE feedback (id INT PRIMARY KEY AUTO_INCREMENT, course INT, ta INT, description VARCHAR(2048), name VARCHAR(128), comments VARCHAR(2048), experience INT, importance INT, email VARCHAR(128), ts TIMESTAMP DEFAULT CURRENT_TIMESTAMP)');
     }
 
     function getFeedback($course) {
@@ -48,13 +48,16 @@
       return $st->fetchAll();
     }
 
-    function addFeedback($course, $ta, $description, $comments, $name, $overallExperience, $importance) {
-      $st = $this->pdo->prepare('INSERT INTO feedback (course, ta, description, comments, name) VALUES (:course, :ta, :description, :comments, :name)');
+    function addFeedback($course, $ta, $description, $comments, $name, $overallExperience, $importance, $email) {
+      $st = $this->pdo->prepare('INSERT INTO feedback (course, ta, description, comments, name, experience, importance, email) VALUES (:course, :ta, :description, :comments, :name, :experience, :importance, :email)');
       $st->bindParam(':course', $course);
       $st->bindParam(':ta', $ta);
       $st->bindParam(':description', $description);
       $st->bindParam(':comments', $comments);
       $st->bindParam(':name', $name);
+      $st->bindParam(':experience', $overallExperience);
+      $st->bindParam(':importance', $importance);
+      $st->bindParam(':email', $email);
       return $st->execute();
     }
 

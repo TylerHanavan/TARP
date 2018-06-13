@@ -48,7 +48,7 @@
       return $st->fetchAll();
     }
 
-    function addFeedback($course, $ta, $description, $comments) {
+    function addFeedback($course, $ta, $description, $comments, $name) {
       $st = $this->pdo->prepare('INSERT INTO feedback (course, ta, description, comments, name) VALUES (:course, :ta, :description, :comments, :name)');
       $st->bindParam(':course', $course);
       $st->bindParam(':ta', $ta);

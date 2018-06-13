@@ -10,7 +10,7 @@ include $_SERVER['DOCUMENT_ROOT'] . '/CSE442-542/2018-Summer/team03/backend/sql/
   $overallExperience = $_POST["overallExperience"];
   $importance = $_POST["importance"];
   $name = $_POST["name"];
-  $email = $_POST["email"]
+  $email = $_POST["email"];
 
   $database = new Database($CREDENTIALS["address"],$CREDENTIALS["database"], $CREDENTIALS["username"], $CREDENTIALS["password"]);
   $database->connect();

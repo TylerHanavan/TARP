@@ -1,26 +1,3 @@
-//get value from sliders
-/**function sliderChange(val){
-		document.getElementById('range_overall').innerHTML = val;
-}
-
-function sliderChange2(val){
-		document.getElementById('range_comm').innerHTML = val;
-}**/
-
-/**This Function is for the form page only**/
-//hide and show the email text field
-function showHideEmail(){
-	var chekbox = document.getElementById("chk");
-	var hiddenInputs = document.getElementsByClassName("hidden");
-	for(var i=0; i<hiddenInputs.length; i++){
-		if(chekbox.checked){
-			hiddenInputs[i].style.display="block";
-		}else{
-			hiddenInputs[i].style.display="none";
-		}
-	}
-}
-
 /**These functions/variables are for the Instructors page**/
 //get modal element
 var editModal = document.getElementById('simpleModal');

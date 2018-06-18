@@ -16,7 +16,16 @@
 				}
 			}
 		}
-
+		function loadDoc() {
+		  var xhttp = new XMLHttpRequest();
+		  xhttp.onreadystatechange = function() {
+			if (this.readyState == 4 && this.status == 200) {
+			  var courses = JSON.parse(this.responseText);
+			}
+		  };
+		  xhttp.open("GET", "/CSE442-542/2018-Summer/team03/backend/get/courses.php", true);
+		  xhttp.send();
+		}
 	</script>
 	<style type="text/css">
 		/* style for submit button*/

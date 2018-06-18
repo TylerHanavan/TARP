@@ -2,7 +2,22 @@
 <html>
 <head>
 	<title>Evaluation Form</title>
-	<script src="functionality.js"></script>
+	<script type="text/javascript">
+		function showHideEmail(){
+			var chekbox = document.getElementById("chk");
+			var hiddenInputs = document.getElementsByClassName("hidden");
+			for(var i=0; i<hiddenInputs.length; i++){
+				if(chekbox.checked){
+					hiddenInputs[i].style.display="block";
+					document.getElementById("contactField").required = true;
+				}else{
+					hiddenInputs[i].style.display="none";
+					document.getElementById("contactField").required = false;
+				}
+			}
+		}
+
+	</script>
 	<style type="text/css">
 		/* style for submit button*/
 		input[type=submit] {
@@ -131,7 +146,7 @@
 				<input type="text" style="visibility:hidden;" name="taDescription" placeholder="Please describe your TA here..." maxlength="150">
 			
 			<p>Please rate your overall experience with the TA:<p>
-				<input type="radio" name="overallExperience" value="1" checked> Very Bad
+				<input type="radio" name="overallExperience" value="1"> Very Bad
 				<input type="radio" name="overallExperience" value="2"> Bad
 				<input type="radio" name="overallExperience" value="3"> Good
 				<input type="radio" name="overallExperience" value="4"> Very Good

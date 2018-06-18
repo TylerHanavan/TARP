@@ -69,6 +69,11 @@
       return $st->execute();
     }
 
+    function getCourses () {
+      $st = $this->pdo->prepare('SELECT * FROM courses');
+      $st->execute();
+      return $st->fetchAll();
+    }
   }
 
  ?>

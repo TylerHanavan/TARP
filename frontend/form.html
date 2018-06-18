@@ -21,11 +21,19 @@
 		  xhttp.onreadystatechange = function() {
 			if (this.readyState == 4 && this.status == 200) {
 			  var courses = JSON.parse(this.responseText);
+			  var courseElement = document.getElementById("course");
+			  for(var i=0; i < courses.length; i++){
+				var child = document.createElement('option');
+				child.value = courses[i].id;
+				child.innerHTML = courses[i].name;
+				courseElement.appendChild(child);
+			  }
 			}
 		  };
 		  xhttp.open("GET", "/CSE442-542/2018-Summer/team03/backend/get/courses.php", true);
 		  xhttp.send();
 		}
+		body.onload = function(e){loadDoc()};
 	</script>
 	<style type="text/css">
 		/* style for submit button*/
@@ -134,11 +142,8 @@
 
 			<p>Course Name:<p>
 			<div class="custom-select">
-					<select name="course" required>
+					<select name="course" id="course" required>
 						<option value="">Please Select a Course</option>
-						<option value="1">CSE250</option>
-						<option value="2">CSE321</option>
-						<option value="3">CSE442</option>
 					</select>
 			</div>
 

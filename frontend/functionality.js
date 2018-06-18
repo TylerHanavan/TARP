@@ -1,12 +1,3 @@
-//get value from sliders
-/**function sliderChange(val){
-		document.getElementById('range_overall').innerHTML = val;
-}
-
-function sliderChange2(val){
-		document.getElementById('range_comm').innerHTML = val;
-}**/
-
 /**This Function is for the form page only**/
 //hide and show the email text field
 function showHideEmail(){
@@ -15,8 +6,10 @@ function showHideEmail(){
 	for(var i=0; i<hiddenInputs.length; i++){
 		if(chekbox.checked){
 			hiddenInputs[i].style.display="block";
+			document.getElementById("contactField").required = true;
 		}else{
 			hiddenInputs[i].style.display="none";
+			document.getElementById("contactField").required = false;
 		}
 	}
 }

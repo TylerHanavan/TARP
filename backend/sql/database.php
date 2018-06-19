@@ -29,18 +29,30 @@
       return $st->execute();
     }
 
+    /*
+      Create the TAs table
+    */
     function createTAsTable() {
       return $this->query('CREATE TABLE tas (id INT PRIMARY KEY AUTO_INCREMENT, name VARCHAR(256), course INT)');
     }
 
+    /*
+      Create the courses table
+    */
     function createCoursesTable() {
       return $this->query('CREATE TABLE courses (id INT PRIMARY KEY AUTO_INCREMENT, name VARCHAR(256), instructor INT)');
     }
 
+    /*
+      Create the feedback table
+    */
     function createFeedbackTable() {
       return $this->query('CREATE TABLE feedback (id INT PRIMARY KEY AUTO_INCREMENT, course INT, ta INT, description VARCHAR(2048), name VARCHAR(128), comments VARCHAR(2048), experience INT, importance INT, communication INT, email VARCHAR(128), ts TIMESTAMP DEFAULT CURRENT_TIMESTAMP)');
     }
 
+    /*
+      Retrieve feedback items from a specified course
+    */
     function getFeedback($course) {
       $st = $this->pdo->prepare('SELECT * FROM feedback WHERE course=:course');
       $st->bindParam(':course', $course);
@@ -48,6 +60,9 @@
       return $st->fetchAll();
     }
 
+    /*
+      Add a feedback item to the feedback table
+    */
     function addFeedback($course, $ta, $description, $comments, $name, $overallExperience, $comm, $importance, $email) {
       $st = $this->pdo->prepare('INSERT INTO feedback (course, ta, description, comments, name, experience, importance, communication, email) VALUES (:course, :ta, :description, :comments, :name, :experience, :importance, :comm, :email)');
       $st->bindParam(':course', $course);
@@ -62,18 +77,34 @@
       return $st->execute();
     }
 
-    function addCourse ($name, $instructor){
+    /*
+      Add a course (its name and an instructor) to the courses table
+    */
+    function addCourse($name, $instructor) {
       $st = $this->pdo->prepare('INSERT INTO courses (name, instructor) VALUES (:name, :instructor)');
       $st->bindParam(':name', $name);
       $st->bindParam(':instructor', $instructor);
       return $st->execute();
     }
 
-    function getCourses () {
+    /*
+      Retreive a list of courses from the courses table
+    */
+    function getCourses() {
       $st = $this->pdo->prepare('SELECT * FROM courses');
       $st->execute();
       return $st->fetchAll();
     }
+
+    /*
+      Retrieve a list of TAs from the tas table
+    */
+    function getTAs() {
+      $st = $this->pdo->prepare('SELECT * FROM tas');
+      $st->execute();
+      return $st->fetchAll();
+    }
+
   }
 
  ?>

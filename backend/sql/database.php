@@ -62,20 +62,20 @@
       return $st->execute();
     }
 
-    function addCourse ($name, $instructor){
+    function addCourse($name, $instructor) {
       $st = $this->pdo->prepare('INSERT INTO courses (name, instructor) VALUES (:name, :instructor)');
       $st->bindParam(':name', $name);
       $st->bindParam(':instructor', $instructor);
       return $st->execute();
     }
 
-    function getCourses () {
+    function getCourses() {
       $st = $this->pdo->prepare('SELECT * FROM courses');
       $st->execute();
       return $st->fetchAll();
     }
 
-    function getTAs () {
+    function getTAs() {
       $st = $this->pdo->prepare('SELECT * FROM tas');
       $st->execute();
       return $st->fetchAll();

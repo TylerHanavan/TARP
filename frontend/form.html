@@ -16,7 +16,7 @@
 				}
 			}
 		}
-		function loadDoc() {
+		function loadCourses() {
 		  var xhttp = new XMLHttpRequest();
 		  xhttp.onreadystatechange = function() {
 				if (this.readyState == 4 && this.status == 200) {
@@ -32,6 +32,10 @@
 		  };
 		  xhttp.open("GET", "/CSE442-542/2018-Summer/team03/backend/get/courses.php", true);
 		  xhttp.send();
+		}
+		function onLoad() {
+			loadCourses();
+			loadTAs();
 		}
 	</script>
 	<style type="text/css">
@@ -132,7 +136,7 @@
 	</style>
 
 </head>
-<body onload="loadDoc()">
+<body onload="onLoad()">
 	<!--div contains all data/buttons in the form, includes text input, slider, radio button, submit button -->
 	<div class="boxed">
 		<!-- All data is written within the form tags so it can be processed by submit.php file-->

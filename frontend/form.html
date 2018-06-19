@@ -33,6 +33,27 @@
 		  xhttp.open("GET", "/CSE442-542/2018-Summer/team03/backend/get/courses.php", true);
 		  xhttp.send();
 		}
+		function loadTAs() {
+		  var xhttp = new XMLHttpRequest();
+		  xhttp.onreadystatechange = function() {
+				if (this.readyState == 4 && this.status == 200) {
+				  var tas = JSON.parse(this.responseText);
+				  var taElement = document.getElementById("ta");
+				  for(var i = 0; i < tas.length; i++) {
+						var child = document.createElement('option');
+						child.value = tas[i].id;
+						child.innerHTML = tas[i].name;
+						taElement.appendChild(child);
+				  }
+					var child = document.createElement('option');
+					child.value = '-1';
+					child.innerHTML = 'Not Sure';
+					taElement.appendChild(child);
+				}
+		  };
+		  xhttp.open("GET", "/CSE442-542/2018-Summer/team03/backend/get/tas.php", true);
+		  xhttp.send();
+		}
 		function onLoad() {
 			loadCourses();
 			loadTAs();
@@ -152,11 +173,7 @@
 
 			<p>TA Name:<p>
 				<div class="custom-select">
-					<select name="ta"  onchange="if (this.value=='-1'){this.form['taDescription'].style.visibility='visible'; this.form['taDescription'].required='true'}else {this.form['taDescription'].style.visibility='hidden'; this.form['taDescription'].required=false};">
-						<option value="0">Marcus Wang</option>
-						<option value="1">John Smith</option>
-						<option value="2">Thomas Karr</option>
-						<option value="-1">Not Sure</option>
+					<select name="ta" id="ta" onchange="if (this.value=='-1'){this.form['taDescription'].style.visibility='visible'; this.form['taDescription'].required='true'}else {this.form['taDescription'].style.visibility='hidden'; this.form['taDescription'].required=false};">
 					</select>
 				</div><br/>
 

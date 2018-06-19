@@ -33,7 +33,6 @@
 		  xhttp.open("GET", "/CSE442-542/2018-Summer/team03/backend/get/courses.php", true);
 		  xhttp.send();
 		}
-		body.onload = function(e){loadDoc()};
 	</script>
 	<style type="text/css">
 		/* style for submit button*/
@@ -133,7 +132,7 @@
 	</style>
 
 </head>
-<body>
+<body onload="loadDoc()">
 	<!--div contains all data/buttons in the form, includes text input, slider, radio button, submit button -->
 	<div class="boxed">
 		<!-- All data is written within the form tags so it can be processed by submit.php file-->
@@ -158,18 +157,18 @@
 				</div><br/>
 
 				<input type="text" style="visibility:hidden;" name="taDescription" placeholder="Please describe your TA here..." maxlength="150">
-			
+
 			<p>Please rate your overall experience with the TA:<p>
 				<input type="radio" name="overallExperience" value="1"> Very Bad
 				<input type="radio" name="overallExperience" value="2"> Bad
 				<input type="radio" name="overallExperience" value="3"> Good
 				<input type="radio" name="overallExperience" value="4"> Very Good
-		
+
 			<!--<p>How well do you feel your TA communicated the material?<p>
 				<input type="radio" name="overallComm" value="1" checked> Very Bad
 				<input type="radio" name="overallComm" value="2"> Bad
 				<input type="radio" name="overallComm" value="3"> Good
-				<input type="radio" name="overallComm" value="4"> Very Good	--> 
+				<input type="radio" name="overallComm" value="4"> Very Good	-->
 		<!--	<p>How important do you feel your feedback is to the course?<p>
 				<input type="radio" name="feedbackPriority" value="1" checked> Not that important
 				<input type="radio" name="feedbackPriority" value="2"> Somewhat important

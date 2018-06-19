@@ -106,9 +106,9 @@
     }
 
     /*
-      Retrieve a list of TAs from the tas table for a given course 
+      Retrieve a list of TAs from the tas table for a given course
     */
-    function getTAs($course) {
+    function getTAsForCourse($course) {
       $st = $this->pdo->prepare('SELECT * FROM tas WHERE course = :course');
       $st->bindParam(':course', $course);
       $st->execute();

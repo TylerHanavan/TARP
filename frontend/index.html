@@ -36,15 +36,18 @@
 				<!-- simpleModal holds class creation criteria-->
 			<div id="simpleModal" class="modal">
 				<div class="modal-content">
+					<form name="courseDataEntry" action="/CSE442-542/2018-Summer/team03/backend/submit/submitCourse.php" method="POST">
 					<span class="closeBtn">&times;</span>
 					<h2>Create A Class</h2><hr align="left" width="50%">
 					<p>Course Name</p>
-					<input type="text" id="courseNameInput" placeholder="Enter Course Name">
+					<input type="text" name="name" id="name" placeholder="Enter Course Name">
 					<p>Course ID</p>
 					<input type="text" id="courseIDInput" placeholder="Enter Course ID">
 					<p>TA Names</p>
 					<input type="text" id="courseTAInput" placeholder="Enter TA Names"><br/><br/>
-					<button onclick="setCourseName()" class="buttonView">Create</button>
+					<input type="submit" class="buttonView" name="submitButton" value="Create">
+					<!--<button onclick="setCourseName()" class="buttonView">Create</button> -->
+					</form>
 
 				</div>
 			</div>

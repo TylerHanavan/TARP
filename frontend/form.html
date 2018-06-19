@@ -3,10 +3,10 @@
 <head>
 	<title>Evaluation Form</title>
 	<script type="text/javascript">
-		function showHideEmail(){
+		function showHideEmail() {
 			var chekbox = document.getElementById("chk");
 			var hiddenInputs = document.getElementsByClassName("hidden");
-			for(var i=0; i<hiddenInputs.length; i++){
+			for(var i = 0; i < hiddenInputs.length; i++) {
 				if(chekbox.checked){
 					hiddenInputs[i].style.display="block";
 					document.getElementById("contactField").required = true;
@@ -16,7 +16,23 @@
 				}
 			}
 		}
-
+		function loadDoc() {
+		  var xhttp = new XMLHttpRequest();
+		  xhttp.onreadystatechange = function() {
+				if (this.readyState == 4 && this.status == 200) {
+				  var courses = JSON.parse(this.responseText);
+				  var courseElement = document.getElementById("course");
+				  for(var i = 0; i < courses.length; i++) {
+						var child = document.createElement('option');
+						child.value = courses[i].id;
+						child.innerHTML = courses[i].name;
+						courseElement.appendChild(child);
+				  }
+				}
+		  };
+		  xhttp.open("GET", "/CSE442-542/2018-Summer/team03/backend/get/courses.php", true);
+		  xhttp.send();
+		}
 	</script>
 	<style type="text/css">
 		/* style for submit button*/
@@ -116,7 +132,7 @@
 	</style>
 
 </head>
-<body>
+<body onload="loadDoc()">
 	<!--div contains all data/buttons in the form, includes text input, slider, radio button, submit button -->
 	<div class="boxed">
 		<!-- All data is written within the form tags so it can be processed by submit.php file-->
@@ -125,11 +141,8 @@
 
 			<p>Course Name:<p>
 			<div class="custom-select">
-					<select name="course" required>
+					<select name="course" id="course" required>
 						<option value="">Please Select a Course</option>
-						<option value="1">CSE250</option>
-						<option value="2">CSE321</option>
-						<option value="3">CSE442</option>
 					</select>
 			</div>
 
@@ -144,18 +157,18 @@
 				</div><br/>
 
 				<input type="text" style="visibility:hidden;" name="taDescription" placeholder="Please describe your TA here..." maxlength="150">
-			
+
 			<p>Please rate your overall experience with the TA:<p>
 				<input type="radio" name="overallExperience" value="1"> Very Bad
 				<input type="radio" name="overallExperience" value="2"> Bad
 				<input type="radio" name="overallExperience" value="3"> Good
 				<input type="radio" name="overallExperience" value="4"> Very Good
-		
+
 			<!--<p>How well do you feel your TA communicated the material?<p>
 				<input type="radio" name="overallComm" value="1" checked> Very Bad
 				<input type="radio" name="overallComm" value="2"> Bad
 				<input type="radio" name="overallComm" value="3"> Good
-				<input type="radio" name="overallComm" value="4"> Very Good	--> 
+				<input type="radio" name="overallComm" value="4"> Very Good	-->
 		<!--	<p>How important do you feel your feedback is to the course?<p>
 				<input type="radio" name="feedbackPriority" value="1" checked> Not that important
 				<input type="radio" name="feedbackPriority" value="2"> Somewhat important

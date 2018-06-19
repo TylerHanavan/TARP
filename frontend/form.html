@@ -33,7 +33,7 @@
 		  xhttp.open("GET", "/CSE442-542/2018-Summer/team03/backend/get/courses.php", true);
 		  xhttp.send();
 		}
-		function loadTAs() {
+		function loadTAs(course) {
 		  var xhttp = new XMLHttpRequest();
 		  xhttp.onreadystatechange = function() {
 				if (this.readyState == 4 && this.status == 200) {
@@ -51,12 +51,14 @@
 					taElement.appendChild(child);
 				}
 		  };
-		  xhttp.open("GET", "/CSE442-542/2018-Summer/team03/backend/get/tas.php", true);
+		  xhttp.open("GET", "/CSE442-542/2018-Summer/team03/backend/get/tas.php?course="+course, true);
 		  xhttp.send();
 		}
 		function onLoad() {
 			loadCourses();
-			loadTAs();
+		}
+		function onCourseChange(){
+
 		}
 	</script>
 	<style type="text/css">

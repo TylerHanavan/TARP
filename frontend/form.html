@@ -58,7 +58,9 @@
 			loadCourses();
 		}
 		function onCourseChange(){
-
+			document.getElementById("ta").innerHTML="";
+			var element = document.getElementById("course");
+			loadTAs(element.options[element.selectedIndex].value);
 		}
 	</script>
 	<style type="text/css">
@@ -168,7 +170,7 @@
 
 			<p>Course Name:<p>
 			<div class="custom-select">
-					<select name="course" id="course" required>
+					<select name="course" id="course" onchange="onCourseChange()" required>
 						<option value="">Please Select a Course</option>
 					</select>
 			</div>

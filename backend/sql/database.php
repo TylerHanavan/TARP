@@ -74,6 +74,13 @@
       $st->execute();
       return $st->fetchAll();
     }
+
+    function getTAs () {
+      $st = $this->pdo->prepare('SELECT * FROM tas');
+      $st->execute();
+      return $st->fetchAll();
+    }
+
   }
 
  ?>

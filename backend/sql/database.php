@@ -40,7 +40,7 @@
       Create the courses table
     */
     function createCoursesTable() {
-      return $this->query('CREATE TABLE courses (id INT PRIMARY KEY AUTO_INCREMENT, name VARCHAR(256), instructor INT, deleted TINYINT)');
+      return $this->query('CREATE TABLE courses (id INT PRIMARY KEY AUTO_INCREMENT, name VARCHAR(256), instructor INT, deleted TINYINT DEFAULT 0)');
     }
 
     /*
@@ -137,6 +137,8 @@
     }
 
     function removeCourse($course) {
-
+      $st = $this->pdo->prepare('UPDATE courses SET deleted = 1 WHERE course = :course');
+      $st->bindParam(':course', $course);
+      return $st->execute();
     }
 }

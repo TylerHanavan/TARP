@@ -136,7 +136,7 @@
       return $st->fetchAll();
     }
 
-
-  }
-
- ?>
+    function removeCourse($course) {
+        
+    }
+}

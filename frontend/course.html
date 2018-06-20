@@ -42,9 +42,14 @@
 					var child = document.createElement('p');
 					div.append(child);
 					child.value = feedback[i].id;
-					child.innerHTML = 'TA: ' + feedback[i].ta + '<br />Comments: ' + feedback[i].comments;
 					console.log(feedback[i].name);
 					feedbackElement.appendChild(child);
+					var exp = feedback[i].experience;
+					if(exp == 1) exp = 'Very Bad';
+					if(exp == 2) exp = 'Bad';
+					if(exp == 3) exp = 'Good';
+					if(exp == 4) exp = 'Very Good';
+					child.innerHTML = 'TA: ' + feedback[i].taName[0] + '<br />Comments: ' + feedback[i].comments + "<br />Experience: " + exp + "<br />Contact Info: " + feedback[i].email + "<br /><hr />";
 			  }
 			}
 	  };

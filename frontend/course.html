@@ -8,17 +8,45 @@
 	var editModal = document.getElementById('addTaModal');
 	var modalBtn = document.getElementById('modalLink');
 	
-	function viewTAs() {
-		document.getElementById('viewTaModal').style.display = 'block';
+	function loadTAs(course) {
+	  var xhttp = new XMLHttpRequest();
+	  xhttp.onreadystatechange = function() {
+			if (this.readyState == 4 && this.status == 200) {
+			  var tas = JSON.parse(this.responseText);
+			  var taElement = document.getElementById("ta");
+			  for(var i = 0; i < tas.length; i++) {
+					var child = document.createElement('option');
+					child.value = tas[i].id;
+					child.innerHTML = tas[i].name;
+					taElement.appendChild(child);
+			  }
+				var child = document.createElement('option');
+				child.value = '-1';
+				child.innerHTML = 'Not Sure';
+				taElement.appendChild(child);
+			}
+	  };
+	  xhttp.open("GET", "/CSE442-542/2018-Summer/team03/backend/get/tas.php?course="+course, true);
+	  xhttp.send();
 	}
 		
 	function init() {
 	
 		$(jQuery).ready(function() {
+		
+			$('.modal').hide();
 			
 			$('.closeBtn').click(function() {
 			
-				$(this).hide();
+				$(this).parent().parent().hide();
+			
+			});
+			
+			$('.open-modal').click(function() {
+			
+				//$('#' + $(this).attr('modal')).show();
+			
+				$('#viewTaModal').show();
 			
 			});
 			
@@ -33,18 +61,13 @@
 <body onload="init()">
 	<div class="container">
 		<h1>Course Name Here</h1><hr/>
-		<button style='float: left;'type="submit" class="buttonStyle" class="button" onclick="viewTAs()">View TAs</button>
+		<button style='float: left;'type="submit" class="buttonStyle button open-modal" modal="viewTaModal">View TAs</button>
 		<button class="buttonStyle" type="submit" class="button">Remove Course</button>
 		<button style='float: right;'type="submit" class="buttonStyle" class="button">Add TAs</button>
 		
-		<div id="viewTaModal" class="modal" onclick="viewTAs()">
+		<div id="viewTaModal" class="modal">
 				<div class="modal-content">
-					<form name="addTaToCourse" action="" method="POST">
-					<span class="closeBtn" onclick="hideTAs()">&times;</span>
-					<p>TA Names</p>
-					<input type="text" name="taName" id="courseTAInput" placeholder="Enter TA Names"><br/><br/>
-					<input type="submit" class="buttonView" onclick="setCourseName()" name="submitButton" value="Create">
-					</form>
+					<span class="closeBtn">&times;</span>
 				</div>
 		</div>
 		

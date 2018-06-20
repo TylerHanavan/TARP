@@ -6,10 +6,17 @@ include $_SERVER['DOCUMENT_ROOT'] . '/CSE442-542/2018-Summer/team03/backend/sql/
 
 $database = new Database($CREDENTIALS["address"],$CREDENTIALS["database"], $CREDENTIALS["username"], $CREDENTIALS["password"]);
 $database->connect();
+$feedback = array();
 if(!empty($course) && isset($course)) {
-  echo json_encode ($database->getFeedback($course));
+  $feedback = $database->getFeedback($course);
 }
 else {
-  echo json_encode ($database->getFeedbackByTA($ta));
+  $feedback = $database->getFeedbackByTA($ta);
 }
+for($x = 0; $x < sizeof($feedback); $x++) {
+	
+	$feedback[$x]['taName'] = $database->translateTA($feedback[$x]['ta']);
+	
+}
+echo json_encode($feedback);
 exit();

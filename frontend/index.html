@@ -24,6 +24,9 @@
 			xhttp.open("GET", "/CSE442-542/2018-Summer/team03/backend/get/courses.php", true);
 			xhttp.send();
 		}
+		function hideModal() {
+			$('#simpleModal').hide();
+		}
 		function onLoad() {
 			loadCourses();
 		}
@@ -38,7 +41,7 @@
 		<header>
 			<ul>
 				<li style="float:left">
-					<a href="login2.html"><h2>Logout</h2></a>
+					<!--<a href="login2.html"><h2>Logout</h2></a>-->
 				</li>
 				<li style="">
 					<h1>Classroom Dashboard</h1>
@@ -62,12 +65,10 @@
 			<div id="simpleModal" class="modal">
 				<div class="modal-content">
 					<form name="courseDataEntry" action="/CSE442-542/2018-Summer/team03/backend/submit/submitCourse.php" method="POST">
-					<span class="closeBtn">&times;</span>
+					<span class="closeBtn" onclick="hideModal()">&times;</span>
 					<h2>Create A Class</h2><hr align="left" width="50%">
 					<p>Course Name</p>
 					<input type="text" name="name" id="name" placeholder="Enter Course Name">
-					<p>Course ID</p>
-					<input type="text" id="courseIDInput" placeholder="Enter Course ID">
 					<p>TA Names</p>
 					<input type="text" name="taName" id="courseTAInput" placeholder="Enter TA Names"><br/><br/>
 					<input type="submit" class="buttonView" onclick="setCourseName()" name="submitButton" value="Create">

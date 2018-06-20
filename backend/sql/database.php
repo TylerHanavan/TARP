@@ -60,6 +60,13 @@
       return $st->fetchAll();
     }
 
+    function getFeedbackByTA($ta) {
+      $st = $this->pdo->prepare('SELECT * FROM feedback WHERE ta=:ta');
+      $st->bindParam(':ta', $ta);
+      $st->execute();
+      return $st->fetchAll();
+    }
+
     /*
       Add a feedback item to the feedback table
     */
@@ -85,12 +92,12 @@
       $st->bindParam(':name', $name);
       $st->bindParam(':instructor', $instructor);
       $st->execute();
-	  
+
 	  $st = $this->pdo->prepare('SELECT * FROM courses ORDER BY id DESC LIMIT 1');
 	  $st->execute();
 	  return $st->fetch();
     }
-	
+
 	/*
       Add a ta (their name and linked course) to the tas table
     */

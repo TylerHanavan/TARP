@@ -40,7 +40,7 @@
       Create the courses table
     */
     function createCoursesTable() {
-      return $this->query('CREATE TABLE courses (id INT PRIMARY KEY AUTO_INCREMENT, name VARCHAR(256), instructor INT)');
+      return $this->query('CREATE TABLE courses (id INT PRIMARY KEY AUTO_INCREMENT, name VARCHAR(256), instructor INT, deleted TINYINT)');
     }
 
     /*
@@ -137,6 +137,6 @@
     }
 
     function removeCourse($course) {
-        
+
     }
 }

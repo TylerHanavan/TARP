@@ -118,7 +118,7 @@
     }
 	
 	function translateTA($ta) {
-		$st = $st->pdo->prepare('SELECT name FROM tas WHERE id=:id');
+		$st = $this->pdo->prepare('SELECT name FROM tas WHERE id=:id');
 		$st->bindParam(':id', $ta);
 		$st->execute();
 		return $st->fetch();

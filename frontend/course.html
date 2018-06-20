@@ -27,6 +27,30 @@
 	  xhttp.open("GET", "/CSE442-542/2018-Summer/team03/backend/get/tas.php?course="+course, true);
 	  xhttp.send();
 	}
+	
+	function loadFeedback() {
+	  var course = window.location.href.split("=")[1];
+	  var xhttp = new XMLHttpRequest();
+	  xhttp.onreadystatechange = function() {
+			if (this.readyState == 4 && this.status == 200) {
+			  var feedback = JSON.parse(this.responseText);
+			  var feedbackElement = document.getElementById("feedbackContainer");
+			  for(var i = 0; i < feedback.length; i++) {
+			  
+					var div = document.createElement('div');
+					feedbackElement.appendChild(div);
+					var child = document.createElement('p');
+					div.append(child);
+					child.value = feedback[i].id;
+					child.innerHTML = 'TA: ' + feedback[i].ta + '<br />Comments: ' + feedback[i].comments;
+					console.log(feedback[i].name);
+					feedbackElement.appendChild(child);
+			  }
+			}
+	  };
+	  xhttp.open("GET", "/CSE442-542/2018-Summer/team03/backend/get/feedback.php?course="+course, true);
+	  xhttp.send();
+	}
 		
 	function init() {
 	
@@ -35,6 +59,8 @@
 			$('.modal').hide();
 			
 			loadTAs();
+	
+			loadFeedback();
 			
 			$('.closeBtn').click(function() {
 			
@@ -79,7 +105,7 @@
 					</form>
 				</div>
 		</div>
-		<div class="feedbackContainer">
+		<div id="feedbackContainer" class="feedbackContainer">
 			
 		</div>
 	</div>

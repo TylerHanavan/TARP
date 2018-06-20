@@ -13,7 +13,10 @@
 					for(var i = 0; i < courses.length; i++) {
 						console.log(i);
 						$("#cards").append("<div></div>");
-						$("#cards").children().last().text(courses[i].name).addClass("card");
+						$("#cards").children().last().addClass('card').attr('id', 'card' + i);
+						$("#card" + i).append("<a></a>");
+						$("#card" + i + " a").attr('href', 'course.html?course=' + courses[i].id).append("<button></button>");
+						$("#card" + i + " a button").text(courses[i].name).css('width', '94%').css('height', '66px');
 					}
 
 				}

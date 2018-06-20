@@ -144,7 +144,7 @@
     }
 
     function removeCourse($course) {
-      $st = $this->pdo->prepare('UPDATE courses SET deleted = 1 WHERE course = :course');
+      $st = $this->pdo->prepare('UPDATE courses SET deleted = 1 WHERE id = :course');
       $st->bindParam(':course', $course);
       return $st->execute();
     }

@@ -84,8 +84,22 @@
       $st = $this->pdo->prepare('INSERT INTO courses (name, instructor) VALUES (:name, :instructor)');
       $st->bindParam(':name', $name);
       $st->bindParam(':instructor', $instructor);
-      return $st->execute();
+      $st->execute();
+	  
+	  $st = $this->pdo->prepare('SELECT * FROM courses ORDER BY id DESC LIMIT 1');
+	  $st->execute();
+	  return $st->fetch();
     }
+	
+	/*
+      Add a ta (their name and linked course) to the tas table
+    */
+	function addTA($name, $course) {
+	  $st = $this->pdo->prepare('INSERT INTO tas (name, course) VALUES (:name, :course)');
+	  $st->bindParam(':name', $name);
+	  $st->bindParam(':course', $course);
+	  return $st->execute();
+	}
 
     /*
       Retreive a list of courses from the courses table

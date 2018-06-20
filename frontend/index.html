@@ -1,12 +1,34 @@
 <!DOCTYPE html>
 <html>
 <head>
-<link rel="stylesheet" type="text/css" href="indexStyle.css"> 
+<link rel="stylesheet" type="text/css" href="indexStyle.css">
 <meta name="viewport" content="width=device-width, initial-scale=1">
+	<script>
+		function loadCourses() {
+			var xhttp = new XMLHttpRequest();
+			xhttp.onreadystatechange = function() {
+				if (this.readyState == 4 && this.status == 200) {
+					var courses = JSON.parse(this.responseText);
+
+					for(var i = 0; i < courses.length; i++) {
+						console.log(i);
+						$("#cards").append("<div></div>");
+						$("#cards").children().last().text(courses[i].name).addClass("card");
+					}
+
+				}
+			};
+			xhttp.open("GET", "/CSE442-542/2018-Summer/team03/backend/get/courses.php", true);
+			xhttp.send();
+		}
+		function onLoad() {
+			loadCourses();
+		}
+	</script>
 </head>
 
-<body>
-	
+<body onload="loadCourses()">
+
 	<!-- dashBoard holds all objects: header buttons, card, modals, etc...-->
 	<div class="dashBoard">
 		<!--Header contains title as well as logout and create class buttons -->
@@ -19,11 +41,11 @@
 					<h1>Classroom Dashboard</h1>
 				</li>
 				<li style="float:right">
-					<a href="#myModal" id="modalLink"class="texttrigger" data-toggle="modal"><h2>Add Course</h2></a>	
+					<a href="#myModal" id="modalLink"class="texttrigger" data-toggle="modal"><h2>Add Course</h2></a>
 				</li>
 			</ul>
 		</header>
-			
+
 				<!--ViewFeedBackModal holds the list of TA Names that will eventually link to the form data for each TA -->
 			<div id="viewFeedbackModal" class="modal">
 				<div class="modal-content">
@@ -36,32 +58,41 @@
 				<!-- simpleModal holds class creation criteria-->
 			<div id="simpleModal" class="modal">
 				<div class="modal-content">
+					<form name="courseDataEntry" action="/CSE442-542/2018-Summer/team03/backend/submit/submitCourse.php" method="POST">
 					<span class="closeBtn">&times;</span>
 					<h2>Create A Class</h2><hr align="left" width="50%">
 					<p>Course Name</p>
-					<input type="text" id="courseNameInput" placeholder="Enter Course Name">
+					<input type="text" name="name" id="name" placeholder="Enter Course Name">
 					<p>Course ID</p>
 					<input type="text" id="courseIDInput" placeholder="Enter Course ID">
 					<p>TA Names</p>
-					<input type="text" id="courseTAInput" placeholder="Enter TA Names"><br/><br/>
-					<button onclick="setCourseName()" class="buttonView">Create</button>
+					<input type="text" name="taName" id="courseTAInput" placeholder="Enter TA Names"><br/><br/>
+					<input type="submit" class="buttonView" onclick="setCourseName()" name="submitButton" value="Create">
+					<!--<button onclick="setCourseName()" class="buttonView">Create</button> -->
+					</form>
 
 				</div>
 			</div>
-			
+
 					<!-- myDiv holds the basic structure for the class cards, and associated buttons-->
-			<div id="myDIV">
-				<label id="myLabel"></label><br/></br><hr/><br/><br/>
-				<button onclick="setTAList()" id="viewButton" class="buttonView">View</button><br/><br/>
-				<button onclick="openModal()" class="buttonEdit">Edit</button><br/><br/>
-				<button onclick="deleteCard()" class="buttonDelete">Delete</button>
+			<div id="cards">
+				<!--<div class="card">
+					
+					<!--<button onclick="setTAList()" class="buttonView">View</button><br/><br/>
+					<button onclick="openModal()" class="buttonEdit">Edit</button><br/><br/>
+					<button onclick="deleteCard()" class="buttonDelete">Delete</button>
+				</div>-->
 			</div>
 
-			
+
 	</div>
-		
-		
+
+
 	<script src="functionality.js"></script>
+	<script
+  src="https://code.jquery.com/jquery-3.3.1.js"
+  integrity="sha256-2Kok7MbOyxpgUVvAk/HJ2jigOSYS2auK4Pfzbm7uH60="
+  crossorigin="anonymous"></script>
 </body>
 
 </html>

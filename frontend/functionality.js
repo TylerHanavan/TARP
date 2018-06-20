@@ -48,34 +48,6 @@ function outsideClick(e){
 	}
 }
 
-//get course name from user input in editModal and set it as card header
-function setCourseName() {
-	//document.getElementById("courseIDInput").value = document.getElementById("courseNameInput").value;
-	var courseName = document.getElementById('courseNameInput').value;
-	var cardDiv = document.getElementById("myDIV");
-    cardDiv.style.display = "block";
-	document.getElementById('myLabel').innerHTML = courseName;
-	editModal.style.display = 'none';
-}
-
-//get TA names from user input in editModal and set them in feedbackModal
-function setTAList(){
-	if(document.getElementById("taList").getElementsByTagName("li").length == 0){
-		var names = document.getElementById("courseTAInput").value.split(",");
-		var ul = document.getElementById("taList");
-
-		var i;
-		for(i=0; i<names.length; i++){
-			var li = document.createElement("li");
-			var a = document.createElement("a");
-			a.textContent=names[i];
-			a.setAttribute('href', "http://www.google.com");
-			li.appendChild(a);
-			ul.appendChild(li);
-		}
-	}
-}
-
 //delete card function
 function deleteCard(){
 	var cardDiv = document.getElementById("myDIV");

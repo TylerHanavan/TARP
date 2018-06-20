@@ -86,9 +86,9 @@
       $st->bindParam(':instructor', $instructor);
       $st->execute();
 	  
-	  $st = $this->pdo->prepare('SELECT * FROM courses ORDER BY ID DESC LIMIT 1');
+	  $st = $this->pdo->prepare('SELECT * FROM courses ORDER BY id DESC LIMIT 1');
 	  $st->execute();
-	  return $st->fetchAll();
+	  return $st->fetch();
     }
 	
 	/*

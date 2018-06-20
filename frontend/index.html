@@ -12,8 +12,8 @@
 
 					for(var i = 0; i < courses.length; i++) {
 						console.log(i);
-						$("#cards .card").append("<div></div>");
-						$("#cards .card").children().last().text(courses[i].name);
+						$("#cards").append("<div></div>");
+						$("#cards").children().last().text(courses[i].name).addClass("card");
 					}
 
 				}
@@ -76,12 +76,12 @@
 
 					<!-- myDiv holds the basic structure for the class cards, and associated buttons-->
 			<div id="cards">
-				<div class="card">
-					<label></label><br/></br><hr/><br/><br/>
-					<button onclick="setTAList()" class="buttonView">View</button><br/><br/>
+				<!--<div class="card">
+					
+					<!--<button onclick="setTAList()" class="buttonView">View</button><br/><br/>
 					<button onclick="openModal()" class="buttonEdit">Edit</button><br/><br/>
 					<button onclick="deleteCard()" class="buttonDelete">Delete</button>
-				</div>
+				</div>-->
 			</div>
 
 

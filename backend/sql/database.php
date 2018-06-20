@@ -84,7 +84,11 @@
       $st = $this->pdo->prepare('INSERT INTO courses (name, instructor) VALUES (:name, :instructor)');
       $st->bindParam(':name', $name);
       $st->bindParam(':instructor', $instructor);
-      return $st->execute();
+      $st->execute();
+	  
+	  $st = $this->pdo->prepare('SELECT * FROM courses ORDER BY ID DESC LIMIT 1');
+	  $st->execute();
+	  return $st->fetchAll();
     }
 	
 	/*

@@ -116,6 +116,13 @@
       $st->execute();
       return $st->fetchAll();
     }
+	
+	function translateTA($ta) {
+		$st = $st->pdo->prepare('SELECT name FROM tas WHERE id=:id');
+		$st->bindParam(':id', $ta);
+		$st->execute();
+		return $st->fetch();
+	}
 
     /*
       Retrieve a list of TAs from the tas table

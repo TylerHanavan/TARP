@@ -9,4 +9,7 @@ $database->connect();
 if(!empty($course) && isset($course)) {
   echo json_encode ($database->getFeedback($course));
 }
+else {
+  echo json_encode ($database->getFeedbackByTA($ta));
+}
 exit();

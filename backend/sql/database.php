@@ -43,6 +43,12 @@
       return $this->query('CREATE TABLE courses (id INT PRIMARY KEY AUTO_INCREMENT, name VARCHAR(256), instructor INT, deleted TINYINT DEFAULT 0)');
     }
 
+    function getSizeCoursesTable() {
+      $st = $this->pdo->prepare("SELECT COUNT(*) FROM courses");
+      $st->execute();
+      return $st->fetch()[0];
+    }
+
     /*
       Create the feedback table
     */
@@ -53,7 +59,7 @@
     function getSizeFeedbackTable() {
       $st = $this->pdo->prepare("SELECT COUNT(*) FROM feedback");
       $st->execute();
-      return $st->fetch();
+      return $st->fetch()[0];
     }
 
     /*

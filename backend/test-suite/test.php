@@ -32,7 +32,7 @@
     if($rs) {
       echo '<p>Created table <em>courses</em>.</p><br />';
     } else {
-      $size = $database->getSizeFeedbackTable();
+      $size = $database->getSizeCoursesTable();
       echo '<p>Warning: Table <em>courses</em> already exists. This may result in some test cases not being able to be fully tested. ', $size[0], ' elements already exist in-table.</p><br />';
     }
 
@@ -44,7 +44,8 @@
       echo '<p>Created table <em>feedback</em>.</p><br />';
       assertEquals(sizeof($database->getFeedback(1)), 0); // Since table should be empty, ensure it is
     } else {
-      echo '<p>Warning: Table <em>feedback</em> already exists. This may result in some test cases not being able to be fully tested.</p><br />';
+      $size = $database->getSizeFeedbackTable();
+      echo '<p>Warning: Table <em>feedback</em> already exists. This may result in some test cases not being able to be fully tested. ', $size[0], ' elements already exist in-table.</p><br />';
     }
 
     // Query the database to create a new table - tas

@@ -36,6 +36,12 @@
       return $this->query('CREATE TABLE tas (id INT PRIMARY KEY AUTO_INCREMENT, name VARCHAR(256), course INT)');
     }
 
+    function getSizeTAsTable() {
+      $st = $this->pdo->prepare("SELECT COUNT(*) FROM tas");
+      $st->execute();
+      return $st->fetch()[0];
+    }
+
     /*
       Create the courses table
     */

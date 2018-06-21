@@ -63,6 +63,8 @@
 
     assertFalse(sizeof($database->getFeedback(1)) == 0); // Ensure the feedback table isn't empty
 
+    assertTrue(sizeof($database->getFeedbackByTA(1)) > 0);
+
     /* End Unit Testing Here */
     /* DO NOT ADD UNIT TESTS BEYOND THIS COMMENT */
 

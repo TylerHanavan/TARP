@@ -71,6 +71,15 @@
 
     assertTrue(sizeof($database->getTAsForCourse(-1)) > 0); // Ensure that after adding a dummy TA to course #-1, the number of tas for that course isn't 0
 
+    $course_id = $database->addCourse('Carl A Class', 'Carl A');
+    $course_id = $course_id['id'];
+
+    $courses_size = sizeof($database->getCourses());
+
+    assertTrue($courses_size > 0); // Ensure that size of courses is greater than 0 after creating a course
+
+    
+
     /* End Unit Testing Here */
     /* DO NOT ADD UNIT TESTS BEYOND THIS COMMENT */
 

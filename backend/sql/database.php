@@ -133,7 +133,7 @@
       Retreive a list of courses from the courses table
     */
     function getCourses() {
-      $st = $this->pdo->prepare('SELECT * FROM courses');
+      $st = $this->pdo->prepare('SELECT * FROM courses WHERE deleted=0');
       $st->execute();
       return $st->fetchAll();
     }

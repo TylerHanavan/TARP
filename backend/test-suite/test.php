@@ -78,7 +78,9 @@
 
     assertTrue($courses_size > 0); // Ensure that size of courses is greater than 0 after creating a course
 
-    
+    $database->removeCourse($course_id);
+
+    assertTrue(sizeof($database->getCourses()) < $courses_size); // Ensure course size decreases after removing earlier-added course
 
     /* End Unit Testing Here */
     /* DO NOT ADD UNIT TESTS BEYOND THIS COMMENT */

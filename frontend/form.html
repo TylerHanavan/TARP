@@ -56,6 +56,9 @@
 		}
 		function onLoad() {
 			loadCourses();
+			if(window.location.href.split("=")[1] === "success") {
+				$("#success").show();
+			}
 		}
 		function onCourseChange(){
 			document.getElementById("ta").innerHTML="";
@@ -164,6 +167,7 @@
 <body onload="onLoad()">
 	<!--div contains all data/buttons in the form, includes text input, slider, radio button, submit button -->
 	<div class="boxed">
+		<h3 id="success" style="color: green; display: none;">Submission Successful</h3><hr/>
 		<!-- All data is written within the form tags so it can be processed by submit.php file-->
 		<form name="frmDataEntry" action="/CSE442-542/2018-Summer/team03/backend/submit/submit.php" method="POST">
 			<h2>TA Feedback Form</h2><hr/>

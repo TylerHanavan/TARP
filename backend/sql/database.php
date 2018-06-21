@@ -39,7 +39,8 @@
     function getSizeTAsTable() {
       $st = $this->pdo->prepare("SELECT COUNT(*) FROM tas");
       $st->execute();
-      return $st->fetch()[0];
+      $ret = $st->fetch();
+      return $ret[0];
     }
 
     /*
@@ -52,7 +53,8 @@
     function getSizeCoursesTable() {
       $st = $this->pdo->prepare("SELECT COUNT(*) FROM courses");
       $st->execute();
-      return $st->fetch()[0];
+      $ret = $st->fetch();
+      return $ret[0];
     }
 
     /*
@@ -65,7 +67,8 @@
     function getSizeFeedbackTable() {
       $st = $this->pdo->prepare("SELECT COUNT(*) FROM feedback");
       $st->execute();
-      return $st->fetch()[0];
+      $ret = $st->fetch();
+      return $ret[0];
     }
 
     /*

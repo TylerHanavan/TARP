@@ -1,26 +1,3 @@
-//get value from sliders
-/**function sliderChange(val){
-		document.getElementById('range_overall').innerHTML = val;
-}
-
-function sliderChange2(val){
-		document.getElementById('range_comm').innerHTML = val;
-}**/
-
-/**This Function is for the form page only**/
-//hide and show the email text field
-function showHideEmail(){
-	var chekbox = document.getElementById("chk");
-	var hiddenInputs = document.getElementsByClassName("hidden");
-	for(var i=0; i<hiddenInputs.length; i++){
-		if(chekbox.checked){
-			hiddenInputs[i].style.display="block";
-		}else{
-			hiddenInputs[i].style.display="none";
-		}
-	}
-}
-
 /**These functions/variables are for the Instructors page**/
 //get modal element
 var editModal = document.getElementById('simpleModal');
@@ -68,34 +45,6 @@ function outsideClick(e){
 	}
 	if(e.target == feedbackModal){
 		feedbackModal.style.display = 'none';
-	}
-}
-
-//get course name from user input in editModal and set it as card header
-function setCourseName() {
-	//document.getElementById("courseIDInput").value = document.getElementById("courseNameInput").value;
-	var courseName = document.getElementById('courseNameInput').value;
-	var cardDiv = document.getElementById("myDIV");
-    cardDiv.style.display = "block";
-	document.getElementById('myLabel').innerHTML = courseName;
-	editModal.style.display = 'none';
-}
-
-//get TA names from user input in editModal and set them in feedbackModal
-function setTAList(){
-	if(document.getElementById("taList").getElementsByTagName("li").length == 0){
-		var names = document.getElementById("courseTAInput").value.split(",");
-		var ul = document.getElementById("taList");
-
-		var i;
-		for(i=0; i<names.length; i++){
-			var li = document.createElement("li");
-			var a = document.createElement("a");
-			a.textContent=names[i];
-			a.setAttribute('href', "http://www.google.com");
-			li.appendChild(a);
-			ul.appendChild(li);
-		}
 	}
 }
 

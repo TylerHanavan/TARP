@@ -2,7 +2,70 @@
 <html>
 <head>
 	<title>Evaluation Form</title>
-	<script src="functionality.js"></script>
+	<script type="text/javascript">
+		function showHideEmail() {
+			var chekbox = document.getElementById("chk");
+			var hiddenInputs = document.getElementsByClassName("hidden");
+			for(var i = 0; i < hiddenInputs.length; i++) {
+				if(chekbox.checked){
+					hiddenInputs[i].style.display="block";
+					document.getElementById("contactField").required = true;
+				}else{
+					hiddenInputs[i].style.display="none";
+					document.getElementById("contactField").required = false;
+				}
+			}
+		}
+		function loadCourses() {
+		  var xhttp = new XMLHttpRequest();
+		  xhttp.onreadystatechange = function() {
+				if (this.readyState == 4 && this.status == 200) {
+				  var courses = JSON.parse(this.responseText);
+				  var courseElement = document.getElementById("course");
+				  for(var i = 0; i < courses.length; i++) {
+						var child = document.createElement('option');
+						child.value = courses[i].id;
+						child.innerHTML = courses[i].name;
+						courseElement.appendChild(child);
+				  }
+				}
+		  };
+		  xhttp.open("GET", "/CSE442-542/2018-Summer/team03/backend/get/courses.php", true);
+		  xhttp.send();
+		}
+		function loadTAs(course) {
+		  var xhttp = new XMLHttpRequest();
+		  xhttp.onreadystatechange = function() {
+				if (this.readyState == 4 && this.status == 200) {
+				  var tas = JSON.parse(this.responseText);
+				  var taElement = document.getElementById("ta");
+				  for(var i = 0; i < tas.length; i++) {
+						var child = document.createElement('option');
+						child.value = tas[i].id;
+						child.innerHTML = tas[i].name;
+						taElement.appendChild(child);
+				  }
+					var child = document.createElement('option');
+					child.value = '-1';
+					child.innerHTML = 'Not Sure';
+					taElement.appendChild(child);
+				}
+		  };
+		  xhttp.open("GET", "/CSE442-542/2018-Summer/team03/backend/get/tas.php?course="+course, true);
+		  xhttp.send();
+		}
+		function onLoad() {
+			loadCourses();
+			if(window.location.href.split("=")[1] === "success") {
+				$("#success").show();
+			}
+		}
+		function onCourseChange(){
+			document.getElementById("ta").innerHTML="";
+			var element = document.getElementById("course");
+			loadTAs(element.options[element.selectedIndex].value);
+		}
+	</script>
 	<style type="text/css">
 		/* style for submit button*/
 		input[type=submit] {
@@ -101,58 +164,48 @@
 	</style>
 
 </head>
-<body>
+<body onload="onLoad()">
 	<!--div contains all data/buttons in the form, includes text input, slider, radio button, submit button -->
 	<div class="boxed">
+		<h3 id="success" style="color: green; display: none;">Submission Successful</h3><hr/>
 		<!-- All data is written within the form tags so it can be processed by submit.php file-->
 		<form name="frmDataEntry" action="/CSE442-542/2018-Summer/team03/backend/submit/submit.php" method="POST">
 			<h2>TA Feedback Form</h2><hr/>
 
 			<p>Course Name:<p>
 			<div class="custom-select">
-					<select name="course" required>
+					<select name="course" id="course" onchange="onCourseChange()" required>
 						<option value="">Please Select a Course</option>
-						<option value="1">CSE250</option>
-						<option value="2">CSE321</option>
-						<option value="3">CSE442</option>
 					</select>
 			</div>
 
 			<p>TA Name:<p>
 				<div class="custom-select">
-					<select name="ta"  onchange="if (this.value=='-1'){this.form['taDescription'].style.visibility='visible'}else {this.form['taDescription'].style.visibility='hidden'};">
-						<option value="0">Marcus Wang</option>
-						<option value="1">John Smith</option>
-						<option value="2">Thomas Karr</option>
-						<option value="-1">Not Sure</option>
+					<select name="ta" id="ta" onchange="if (this.value=='-1'){this.form['taDescription'].style.visibility='visible'; this.form['taDescription'].required='true'}else {this.form['taDescription'].style.visibility='hidden'; this.form['taDescription'].required=false};">
 					</select>
 				</div><br/>
 
 				<input type="text" style="visibility:hidden;" name="taDescription" placeholder="Please describe your TA here..." maxlength="150">
-			<!--<p>Description of TA (Optional):<p>
-				<input type="text" name="taDescription" autocomplete="off" placeholder="Blonde haired guy who teaches Monday recitations at 8AM..."> -->
+
 			<p>Please rate your overall experience with the TA:<p>
-				<input type="radio" name="overallExperience" value="1" checked> Very Bad
+				<input type="radio" name="overallExperience" value="1"> Very Bad
 				<input type="radio" name="overallExperience" value="2"> Bad
 				<input type="radio" name="overallExperience" value="3"> Good
 				<input type="radio" name="overallExperience" value="4"> Very Good
-		<!--	<input type="range" name="overallExperience" id="Roverall" min="1" max="5" value="3" onchange="sliderChange(this.value)" />
-				<span id="range_overall">3</span>	-->
-			<p>How well do you feel your TA communicated the material?<p>
+
+			<!--<p>How well do you feel your TA communicated the material?<p>
 				<input type="radio" name="overallComm" value="1" checked> Very Bad
 				<input type="radio" name="overallComm" value="2"> Bad
 				<input type="radio" name="overallComm" value="3"> Good
-				<input type="radio" name="overallComm" value="4"> Very Good
-		<!--	<input type="range" name="Range2" id="Rcomm" min="1" max="5" value="3" onchange="sliderChange2(this.value)" />
-				<span id="range_comm">3</span>		-->
-			<p>How important do you feel your feedback is to the course?<p>
+				<input type="radio" name="overallComm" value="4"> Very Good	-->
+		<!--	<p>How important do you feel your feedback is to the course?<p>
 				<input type="radio" name="feedbackPriority" value="1" checked> Not that important
 				<input type="radio" name="feedbackPriority" value="2"> Somewhat important
 				<input type="radio" name="feedbackPriority" value="3"> Important
-				<input type="radio" name="feedbackPriority" value="4"> Very important
+				<input type="radio" name="feedbackPriority" value="4"> Very important -->
 
 			<p>Please leave any comments you have regarding your TA below:<p>
-				<textarea rows="4" cols="50" name="comments" maxlength="260"></textarea>
+				<textarea rows="4" cols="50" name="comments" maxlength="360"></textarea>
 
 			<p>Your Name (Optional):<p>
 				<input type="text" name="name" maxlength="60">
@@ -160,13 +213,16 @@
 			<p>Check the box below to be contacted by the Insturctor via Email:<p>
 				<input type="checkbox" name="chkbox" id="chk" onclick="showHideEmail()" />I wish to be contacted by the Instructor<br/><br/>
 
-			<label class="hidden">Your Email address:</label>
-				<input type="email" name="email" class="hidden" maxlength="60">
-
+			<label class="hidden">Your Contact Info(Email, Phone Number, etc.):</label>
+				<input type="text" id="contactField"name="email" class="hidden" maxlength="60"><br/>
 			<br/><br/>
 				<input type="submit" name="submitButton" value="Submit">
 			<br/><br/>
 		</form>
 	</div>
+	<script
+  src="https://code.jquery.com/jquery-3.3.1.js"
+  integrity="sha256-2Kok7MbOyxpgUVvAk/HJ2jigOSYS2auK4Pfzbm7uH60="
+  crossorigin="anonymous"></script>
 </body>
 </html>

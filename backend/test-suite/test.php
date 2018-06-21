@@ -69,6 +69,8 @@
 
     assertTrue(sizeof($database->getTAs()) > 0); // Ensure after adding a dummy TA, size of TAs is greater than zero
 
+    assertTrue(sizeof($database->getTAsForCourse(-1)) > 0); // Ensure that after adding a dummy TA to course #-1, the number of tas for that course isn't 0
+
     /* End Unit Testing Here */
     /* DO NOT ADD UNIT TESTS BEYOND THIS COMMENT */
 

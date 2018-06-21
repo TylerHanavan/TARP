@@ -63,7 +63,11 @@
 
     assertFalse(sizeof($database->getFeedback(1)) == 0); // Ensure the feedback table isn't empty
 
-    assertTrue(sizeof($database->getFeedbackByTA(1)) > 0);
+    assertTrue(sizeof($database->getFeedbackByTA(1)) > 0); // Ensure feedback for given TA is greater than 0
+
+    $database->addTA('Johnny Test', -1);
+
+    assertTrue(sizeof($database->getTAs()) > 0); // Ensure after adding a dummy TA, size of TAs is greater than zero
 
     /* End Unit Testing Here */
     /* DO NOT ADD UNIT TESTS BEYOND THIS COMMENT */

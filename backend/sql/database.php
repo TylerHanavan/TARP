@@ -36,6 +36,13 @@
       return $this->query('CREATE TABLE tas (id INT PRIMARY KEY AUTO_INCREMENT, name VARCHAR(256), course INT)');
     }
 
+    function getSizeTAsTable() {
+      $st = $this->pdo->prepare("SELECT COUNT(*) FROM tas");
+      $st->execute();
+      $ret = $st->fetch();
+      return $ret[0];
+    }
+
     /*
       Create the courses table
     */
@@ -43,11 +50,25 @@
       return $this->query('CREATE TABLE courses (id INT PRIMARY KEY AUTO_INCREMENT, name VARCHAR(256), instructor INT, deleted TINYINT DEFAULT 0)');
     }
 
+    function getSizeCoursesTable() {
+      $st = $this->pdo->prepare("SELECT COUNT(*) FROM courses");
+      $st->execute();
+      $ret = $st->fetch();
+      return $ret[0];
+    }
+
     /*
       Create the feedback table
     */
     function createFeedbackTable() {
       return $this->query('CREATE TABLE feedback (id INT PRIMARY KEY AUTO_INCREMENT, course INT, ta INT, description VARCHAR(2048), name VARCHAR(128), comments VARCHAR(2048), experience INT, importance INT, communication INT, email VARCHAR(128), ts TIMESTAMP DEFAULT CURRENT_TIMESTAMP)');
+    }
+
+    function getSizeFeedbackTable() {
+      $st = $this->pdo->prepare("SELECT COUNT(*) FROM feedback");
+      $st->execute();
+      $ret = $st->fetch();
+      return $ret[0];
     }
 
     /*
@@ -112,11 +133,11 @@
       Retreive a list of courses from the courses table
     */
     function getCourses() {
-      $st = $this->pdo->prepare('SELECT * FROM courses');
+      $st = $this->pdo->prepare('SELECT * FROM courses WHERE deleted=0');
       $st->execute();
       return $st->fetchAll();
     }
-	
+
 	function translateTA($ta) {
 		$st = $this->pdo->prepare('SELECT name FROM tas WHERE id=:id');
 		$st->bindParam(':id', $ta);

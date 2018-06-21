@@ -32,7 +32,8 @@
     if($rs) {
       echo '<p>Created table <em>courses</em>.</p><br />';
     } else {
-      echo '<p>Warning: Table <em>courses</em> already exists. This may result in some test cases not being able to be fully tested.</p><br />';
+      $size = $database->getSizeCoursesTable();
+      echo '<p>Warning: Table <em>courses</em> already exists. This may result in some test cases not being able to be fully tested. ', $size, ' elements already exist in-table.</p><br />';
     }
 
     // Query the database to create a new table - feedback
@@ -43,7 +44,8 @@
       echo '<p>Created table <em>feedback</em>.</p><br />';
       assertEquals(sizeof($database->getFeedback(1)), 0); // Since table should be empty, ensure it is
     } else {
-      echo '<p>Warning: Table <em>feedback</em> already exists. This may result in some test cases not being able to be fully tested.</p><br />';
+      $size = $database->getSizeFeedbackTable();
+      echo '<p>Warning: Table <em>feedback</em> already exists. This may result in some test cases not being able to be fully tested. ', $size, ' elements already exist in-table.</p><br />';
     }
 
     // Query the database to create a new table - tas
@@ -53,19 +55,39 @@
     if($rs) {
       echo '<p>Created table <em>tas</em>.</p><br />';
     } else {
-      echo '<p>Warning: Table <em>tas</em> already exists. This may result in some test cases not being able to be fully tested.</p><br />';
+      $size = $database->getSizeTAsTable();
+      echo '<p>Warning: Table <em>tas</em> already exists. This may result in some test cases not being able to be fully tested. ', $size, ' elements already exist in-table.</p><br />';
     }
 
     $database->addFeedback(1, 1, 'Test', 'good job', 'JohnWick', 3, 2, 1, 'yahoo@gmail.com');
 
     assertFalse(sizeof($database->getFeedback(1)) == 0); // Ensure the feedback table isn't empty
 
+    assertTrue(sizeof($database->getFeedbackByTA(1)) > 0); // Ensure feedback for given TA is greater than 0
+
+    $database->addTA('Johnny Test', -1);
+
+    assertTrue(sizeof($database->getTAs()) > 0); // Ensure after adding a dummy TA, size of TAs is greater than zero
+
+    assertTrue(sizeof($database->getTAsForCourse(-1)) > 0); // Ensure that after adding a dummy TA to course #-1, the number of tas for that course isn't 0
+
+    $course_id = $database->addCourse('Carl A Class', 'Carl A');
+    $course_id = $course_id['id'];
+
+    $courses_size = sizeof($database->getCourses());
+
+    assertTrue($courses_size > 0); // Ensure that size of courses is greater than 0 after creating a course
+
+    $database->removeCourse($course_id);
+
+    assertTrue(sizeof($database->getCourses()) < $courses_size); // Ensure course size decreases after removing earlier-added course
+
     /* End Unit Testing Here */
     /* DO NOT ADD UNIT TESTS BEYOND THIS COMMENT */
 
   } catch(Exception $e) {
     echo '<b>An exception occurred during testing! Message: </b>', $e->message;
-    var_dump($e);
+    //var_dump($e);
     exit();
   }
 

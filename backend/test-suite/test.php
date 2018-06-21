@@ -68,7 +68,7 @@
 
   } catch(Exception $e) {
     echo '<b>An exception occurred during testing! Message: </b>', $e->message;
-    var_dump($e);
+    //var_dump($e);
     exit();
   }
 

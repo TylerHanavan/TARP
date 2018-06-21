@@ -50,6 +50,12 @@
       return $this->query('CREATE TABLE feedback (id INT PRIMARY KEY AUTO_INCREMENT, course INT, ta INT, description VARCHAR(2048), name VARCHAR(128), comments VARCHAR(2048), experience INT, importance INT, communication INT, email VARCHAR(128), ts TIMESTAMP DEFAULT CURRENT_TIMESTAMP)');
     }
 
+    function getSizeFeedbackTable() {
+      $st = $this->pdo->prepare("SELECT COUNT(*) FROM feedback");
+      $st->execute();
+      return $st->fetch();
+    }
+
     /*
       Retrieve feedback items from a specified course
     */
@@ -116,7 +122,7 @@
       $st->execute();
       return $st->fetchAll();
     }
-	
+
 	function translateTA($ta) {
 		$st = $this->pdo->prepare('SELECT name FROM tas WHERE id=:id');
 		$st->bindParam(':id', $ta);

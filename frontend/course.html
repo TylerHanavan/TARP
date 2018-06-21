@@ -55,7 +55,11 @@
 			if (this.readyState == 4 && this.status == 200) {
 			  var courses = JSON.parse(this.responseText);
 				for(var x = 0; x < courses.length; x++) {
-					
+					if(courses[x].id == course) {
+						$("#course").text(courses[x].name);
+						$("#course").show();
+						return;
+					}
 				}
 			}
 	  };
@@ -95,7 +99,7 @@
 
 <body onload="init()">
 	<div class="container">
-		<h1 id="course">Course Name Here</h1><hr/>
+		<h1 id="course" style="display: none;">Course Name Here</h1><hr/>
 		<button type="submit" class="buttonStyle button open-modal" id="viewTaModalButton">View TAs</button>
 		<!--<button class="buttonStyle" type="submit" class="button">Remove Course</button>
 		<button style='float: right;'type="submit" class="buttonStyle" class="button">Add TAs</button>-->

@@ -7,7 +7,26 @@
 <script>
 	var editModal = document.getElementById('addTaModal');
 	var modalBtn = document.getElementById('modalLink');
-	
+
+	function loadCourse() {
+	  var course = window.location.href.split("=")[1];
+	  var xhttp = new XMLHttpRequest();
+	  xhttp.onreadystatechange = function() {
+			if (this.readyState == 4 && this.status == 200) {
+			  var courses = JSON.parse(this.responseText);
+				for(var x = 0; x < courses.length; x++) {
+					if(courses[x].id == course) {
+						$("#course").text(courses[x].name);
+						$("#course").show();
+						return;
+					}
+				}
+			}
+	  };
+	  xhttp.open("GET", "/CSE442-542/2018-Summer/team03/backend/get/courses.php?course="+course, true);
+	  xhttp.send();
+	}
+
 	function loadTAs() {
 	  var course = window.location.href.split("=")[1];
 	  var xhttp = new XMLHttpRequest();
@@ -27,16 +46,16 @@
 	  xhttp.open("GET", "/CSE442-542/2018-Summer/team03/backend/get/tas.php?course="+course, true);
 	  xhttp.send();
 	}
-	
+
 	function loadFeedback() {
-	  var course = window.location.href.split("=")[1];
+		var course = window.location.href.split("=")[1];
 	  var xhttp = new XMLHttpRequest();
 	  xhttp.onreadystatechange = function() {
 			if (this.readyState == 4 && this.status == 200) {
 			  var feedback = JSON.parse(this.responseText);
 			  var feedbackElement = document.getElementById("feedbackContainer");
 			  for(var i = 0; i < feedback.length; i++) {
-			  
+
 					var div = document.createElement('div');
 					feedbackElement.appendChild(div);
 					var child = document.createElement('p');
@@ -56,31 +75,33 @@
 	  xhttp.open("GET", "/CSE442-542/2018-Summer/team03/backend/get/feedback.php?course="+course, true);
 	  xhttp.send();
 	}
-		
+
 	function init() {
-	
+
 		$(jQuery).ready(function() {
-		
+
 			$('.modal').hide();
-			
+
 			loadTAs();
-	
+
 			loadFeedback();
-			
+
+			loadCourse();
+
 			$('.closeBtn').click(function() {
-			
+
 				$(this).parent().parent().hide();
-			
+
 			});
-			
+
 			$('#viewTaModalButton').click(function() {
-			
+
 				$('#viewTaModal').show();
-			
+
 			});
-			
+
 		});
-	
+
 	}
 
 </script>
@@ -89,17 +110,17 @@
 
 <body onload="init()">
 	<div class="container">
-		<h1>Course Name Here</h1><hr/>
+		<h1 id="course" style="display: none;">Course Name Here</h1><hr/>
 		<button type="submit" class="buttonStyle button open-modal" id="viewTaModalButton">View TAs</button>
 		<!--<button class="buttonStyle" type="submit" class="button">Remove Course</button>
 		<button style='float: right;'type="submit" class="buttonStyle" class="button">Add TAs</button>-->
-		
+
 		<div id="viewTaModal" class="modal" style="display: none;">
 				<div class="modal-content" id="viewTas">
 					<span class="closeBtn">&times;</span>
 				</div>
 		</div>
-		
+
 		<!--<div id="addTaModal" class="modal">
 				<div class="modal-content">
 					<form name="addTaToCourse" action="" method="POST">
@@ -111,14 +132,14 @@
 				</div>
 		</div>-->
 		<div id="feedbackContainer" class="feedbackContainer">
-			
+
 		</div>
 	</div>
 	<script
   src="https://code.jquery.com/jquery-3.3.1.js"
   integrity="sha256-2Kok7MbOyxpgUVvAk/HJ2jigOSYS2auK4Pfzbm7uH60="
   crossorigin="anonymous"></script>
-	
+
 </body>
 
 </html>

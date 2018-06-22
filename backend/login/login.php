@@ -6,4 +6,6 @@
   $database = new Database($CREDENTIALS["address"],$CREDENTIALS["database"], $CREDENTIALS["username"], $CREDENTIALS["password"]);
   $database->connect();
 
+  exit();
+
  ?>

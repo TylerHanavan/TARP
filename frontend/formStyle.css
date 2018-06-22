@@ -83,7 +83,7 @@ textarea{
 }
 /*Style for overall form look*/
 .boxed{
-	border: 5px black;
+	border: 3px solid black;
 	box-shadow: 8px 8px 8px 8px rgba(0,0,0,0.2);
 	padding: 2px 16px;
 	margin: auto;

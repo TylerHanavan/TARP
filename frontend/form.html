@@ -72,7 +72,7 @@
 </head>
 
 <body onload="onLoad()">
-	<!--div contains all data/buttons in the form, includes text input, slider, radio button, submit button -->
+	<!--div contains all data/buttons in the form, includes text input, slider, radio button, submit button -->	
 	<div class="boxed">
 		<h3 id="success" style="color: green; display: none;">Submission Successful</h3><hr/>
 		<!-- All data is written within the form tags so it can be processed by submit.php file-->
@@ -94,7 +94,7 @@
 				<input type="text" style="visibility:hidden;" name="taDescription" placeholder="Please describe your TA here..." maxlength="150">
 
 			<p>Please rate your overall experience with the TA:<p>
-				<input type="radio" name="overallExperience" value="1"> Very Bad
+				<input type="radio" name="overallExperience" value="1" required> Very Bad
 				<input type="radio" name="overallExperience" value="2"> Bad
 				<input type="radio" name="overallExperience" value="3"> Good
 				<input type="radio" name="overallExperience" value="4"> Very Good

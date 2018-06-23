@@ -1,8 +1,13 @@
 <!DOCTYPE html>
 <html>
 <head>
-<link rel="stylesheet" type="text/css" href="indexStyle.css">
+<meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE-edge">
 <meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" type="text/css" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+<link rel="stylesheet" type="text/css" href="indexStyle.css">
+
+	<title>Dashboard</title>
 	<script>
 		function loadCourses() {
 			var xhttp = new XMLHttpRequest();
@@ -36,23 +41,19 @@
 <body onload="loadCourses()">
 
 	<!-- dashBoard holds all objects: header buttons, card, modals, etc...-->
-	<div class="dashBoard">
-	
-		<!--Header contains title as well as logout and create class buttons -->
-		<header>
-			<ul>
-				<li style="float:left">
-					<!--<a href="login2.html"><h2>Logout</h2></a>-->
-				</li>
-				<li style="">
-					<h1>Classroom Dashboard</h1>
-				</li>
-				<li style="float:right">
-					<a href="#myModal" id="modalLink"class="texttrigger" data-toggle="modal"><h2>Add Course</h2></a>
-				</li>
+	<div class="container-fluid">
+		<div class="page-header">
+			<h1>Classroom Dashboard</h1>
+		</div>
+		
+		<nav class="navbar navbar-inverse navbar-fixed-left">
+			<ul class="nav navbar-nav">
+				<li><h3>Menu</h3></li>
+				<li class="active"><a href="#myModal" id="modalLink"class="texttrigger" data-toggle="modal">Add Course</a></li>
+				<li><a href="#">Delete Course</a>
+				<li><a href="login2.html">Logout</a></li>
 			</ul>
-		</header>
-
+		</nav>
 				<!-- addCourseModal holds class creation criteria-->
 			<div id="addCourseModal" class="modal">
 				<div class="modal-content">
@@ -64,7 +65,7 @@
 						<p>TA Names</p>
 							<input type="text" name="taName" id="courseTAInput" placeholder="Enter TA Names"><br/><br/>
 							
-						<input type="submit" class="buttonView" onclick="setCourseName()" name="submitButton" value="Create">
+						<input type="submit" class="btn btn-warning btn-lg" onclick="setCourseName()" name="submitButton" value="Create">
 					</form>
 				</div>
 			</div>
@@ -73,10 +74,11 @@
 			<div id="cards">
 				
 			</div>
-
+			
 	</div>
 	
 	<script src="functionality.js"></script>
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 	<script src="https://code.jquery.com/jquery-3.3.1.js" integrity="sha256-2Kok7MbOyxpgUVvAk/HJ2jigOSYS2auK4Pfzbm7uH60=" crossorigin="anonymous"></script>
 </body>
 

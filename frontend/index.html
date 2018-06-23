@@ -25,7 +25,7 @@
 			xhttp.send();
 		}
 		function hideModal() {
-			$('#simpleModal').hide();
+			$('#addCourseModal').hide();
 		}
 		function onLoad() {
 			loadCourses();
@@ -37,6 +37,7 @@
 
 	<!-- dashBoard holds all objects: header buttons, card, modals, etc...-->
 	<div class="dashBoard">
+	
 		<!--Header contains title as well as logout and create class buttons -->
 		<header>
 			<ul>
@@ -52,51 +53,31 @@
 			</ul>
 		</header>
 
-				<!--ViewFeedBackModal holds the list of TA Names that will eventually link to the form data for each TA -->
-			<div id="viewFeedbackModal" class="modal">
-				<div class="modal-content">
-					<span class="closeBtn">&times;</span>
-					<h2>View Feedback for the following TA's:</h2><hr align="left" width="50%">
-					<ul id="taList"></ul>
-				</div>
-			</div>
-
-				<!-- simpleModal holds class creation criteria-->
-			<div id="simpleModal" class="modal">
+				<!-- addCourseModal holds class creation criteria-->
+			<div id="addCourseModal" class="modal">
 				<div class="modal-content">
 					<form name="courseDataEntry" action="/CSE442-542/2018-Summer/team03/backend/submit/submitCourse.php" method="POST">
-					<span class="closeBtn" onclick="hideModal()">&times;</span>
-					<h2>Create A Class</h2><hr align="left" width="50%">
-					<p>Course Name</p>
-					<input type="text" name="name" id="name" placeholder="Enter Course Name">
-					<p>TA Names</p>
-					<input type="text" name="taName" id="courseTAInput" placeholder="Enter TA Names"><br/><br/>
-					<input type="submit" class="buttonView" onclick="setCourseName()" name="submitButton" value="Create">
-					<!--<button onclick="setCourseName()" class="buttonView">Create</button> -->
+						<span class="closeBtn" onclick="hideModal()">&times;</span>
+						<h2>Create A Class</h2><hr align="left" width="50%">
+						<p>Course Name</p>
+							<input type="text" name="name" id="name" placeholder="Enter Course Name">
+						<p>TA Names</p>
+							<input type="text" name="taName" id="courseTAInput" placeholder="Enter TA Names"><br/><br/>
+							
+						<input type="submit" class="buttonView" onclick="setCourseName()" name="submitButton" value="Create">
 					</form>
-
 				</div>
 			</div>
 
-					<!-- myDiv holds the basic structure for the class cards, and associated buttons-->
+				<!-- cards is the container div for the class cards-->
 			<div id="cards">
-				<!--<div class="card">
-					
-					<!--<button onclick="setTAList()" class="buttonView">View</button><br/><br/>
-					<button onclick="openModal()" class="buttonEdit">Edit</button><br/><br/>
-					<button onclick="deleteCard()" class="buttonDelete">Delete</button>
-				</div>-->
+				
 			</div>
 
-
 	</div>
-
-
+	
 	<script src="functionality.js"></script>
-	<script
-  src="https://code.jquery.com/jquery-3.3.1.js"
-  integrity="sha256-2Kok7MbOyxpgUVvAk/HJ2jigOSYS2auK4Pfzbm7uH60="
-  crossorigin="anonymous"></script>
+	<script src="https://code.jquery.com/jquery-3.3.1.js" integrity="sha256-2Kok7MbOyxpgUVvAk/HJ2jigOSYS2auK4Pfzbm7uH60=" crossorigin="anonymous"></script>
 </body>
 
 </html>

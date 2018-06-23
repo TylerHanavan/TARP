@@ -80,6 +80,7 @@ header {
 	margin: 0;
     padding: 0;
 }
+
 .modal-content li a {
     display: block;
     color: black;
@@ -91,73 +92,16 @@ header {
     background-color: #e6e6e6;
 }
 
-
 .closeBtn{
 	color: #000;
 	float: right;
 	font-size: 30px;
 }
+
 .closeBtn:hover, closeBtn:focus{
 	color: #000;
 	text-decoration:none;
 	cursor:pointer;
-}
-
-/*Button Styling */
-.buttonView{
-	font-family: "Trebuchet MS", Helvetica, sans-serif;
-	background-color: #4CAF50;
-    border: none;
-    color: white;
-    padding: 14px 32px;
-    text-align: center;
-    text-decoration: none;
-    display: inline-block;
-    font-size: 16px;
-    margin: 4px 2px;
-    cursor: pointer;
-	
-}
-
-.buttonEdit{
-	font-family: "Trebuchet MS", Helvetica, sans-serif;
-	background-color: #0066ff;
-	width: 55% auto;
-    border: none;
-    color: white;
-    padding: 14px 32px;
-    text-align: center;
-    text-decoration: none;
-    display: inline-block;
-    font-size: 16px;
-    margin: 4px 2px;
-    cursor: pointer;
-	
-}
-
-.buttonDelete{
-	font-family: "Trebuchet MS", Helvetica, sans-serif;
-	background-color: red;
-	width: 55% auto;
-    border: none;
-    color: white;
-    padding: 14px 23px;
-    text-align: center;
-    text-decoration: none;
-    display: inline-block;
-    font-size: 16px;
-    margin: 4px 2px;
-    cursor: pointer;
-}
-
-.buttonDelete:hover {
-    box-shadow: 0 12px 16px 0 rgba(0,0,0,0.24), 0 17px 50px 0 rgba(0,0,0,0.19);
-}
-.buttonEdit:hover {
-    box-shadow: 0 12px 16px 0 rgba(0,0,0,0.24), 0 17px 50px 0 rgba(0,0,0,0.19);
-}
-.buttonView:hover {
-    box-shadow: 0 12px 16px 0 rgba(0,0,0,0.24), 0 17px 50px 0 rgba(0,0,0,0.19);
 }
 
 .card{

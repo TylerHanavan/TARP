@@ -1,4 +1,7 @@
 /*Styling for overall body*/
+body, html{
+	min-height: 100%;
+}
 
 body {
     overflow: auto;
@@ -6,11 +9,11 @@ body {
 	background-repeat: no-repeat;
 	background-size: cover;
 }
-
-h3{
-	color: white;
-	padding: 10px 10px;
+.page-header{
+	background-color: #222;
+	box-shadow: 8px 8px 8px 8px rgba(0,0,0,0.2);
 }
+
 h1{
 	color: white;
 	padding: 10px 10px;
@@ -20,7 +23,8 @@ h1{
 	width: 140px;
 	position: fixed;
 	border-radius: 0;
-	height: 100%;
+	height: 60%;
+	box-shadow: 8px 8px 8px 8px rgba(0,0,0,0.2);
 }
 
 .navbar-fixed-left .navbar-nav > li{
@@ -29,6 +33,16 @@ h1{
 }
 .navbar-fixed-left + .container{
 	padding-left: 160px;
+}
+
+.navbar-nav>li>h3{
+	position: relative;
+    display: block;
+    padding: 5px 5px;
+	padding-top: 10px;
+    padding-bottom: 5px;
+    line-height: 20px;
+	color: white;
 }
 /*Style for background box*/
 .dashBoard{
@@ -101,12 +115,33 @@ h1{
 	cursor:pointer;
 }
 
-.card{
-	box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
-	transition: 0.3s;
-    width: 98%;
-	padding: 8px;
+#cards{
+	margin-top: 75px;
+	margin-left: 225px;
+
 }
+.card{
+	display: inline-block;
+	background-color: white;
+	box-shadow: 4px 4px 8px 4px rgba(0,0,0,0.2);
+	margin-right:20px;
+	margin-left: 20px;
+	margin-bottom:75px;
+	border-radius: 5px;
+    width: 250px;
+	height: 250px;
+	overflow:auto;
+}
+.card a{
+
+}
+.card button{
+	background-color: white;
+    width:100%;
+	height:100%;
+}
+
+
 /*Card Styling*/
 #myDIV {
 	font-family: "Trebuchet MS", Helvetica, sans-serif;

@@ -3,8 +3,9 @@
 <head>
 <meta charset="UTF-8">
 <meta http-equiv="X-UA-Compatible" content="IE-edge">
-<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 <link rel="stylesheet" type="text/css" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
 <link rel="stylesheet" type="text/css" href="indexStyle.css">
 
 	<title>Dashboard</title>
@@ -21,7 +22,7 @@
 						$("#cards").children().last().addClass('card').attr('id', 'card' + i);
 						$("#card" + i).append("<a></a>");
 						$("#card" + i + " a").attr('href', 'course.html?course=' + courses[i].id).append("<button></button>");
-						$("#card" + i + " a button").text(courses[i].name).css('width', '94%').css('height', '66px');
+						$("#card" + i + " a button").text(courses[i].name) //.css('width', '50%').css('height', '66px');
 					}
 
 				}
@@ -43,14 +44,14 @@
 	<!-- dashBoard holds all objects: header buttons, card, modals, etc...-->
 	<div class="container-fluid">
 		<div class="page-header">
-			<h1>Classroom Dashboard</h1>
+			<h1><u>Classroom Dashboard</u></h1>
 		</div>
 		
 		<nav class="navbar navbar-inverse navbar-fixed-left">
 			<ul class="nav navbar-nav">
-				<li><h3>Menu</h3></li>
-				<li class="active"><a href="#myModal" id="modalLink"class="texttrigger" data-toggle="modal">Add Course</a></li>
-				<li><a href="#">Delete Course</a>
+				<li><h3>Menu</h3><hr/></li>
+				<li><a href="#myModal" id="modalLink"class="texttrigger" data-toggle="modal">Add Course</a></li>
+				<li><a href="#">Delete Course</a></li>
 				<li><a href="login2.html">Logout</a></li>
 			</ul>
 		</nav>
@@ -71,9 +72,9 @@
 			</div>
 
 				<!-- cards is the container div for the class cards-->
-			<div id="cards">
+				<div id="cards">
 				
-			</div>
+				</div>
 			
 	</div>
 	

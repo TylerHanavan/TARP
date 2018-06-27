@@ -1,8 +1,14 @@
 <!DOCTYPE html>
 <html>
 <head>
+<meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE-edge">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="stylesheet" type="text/css" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
 <link rel="stylesheet" type="text/css" href="indexStyle.css">
-<meta name="viewport" content="width=device-width, initial-scale=1">
+
+	<title>Dashboard</title>
 	<script>
 		function loadCourses() {
 			var xhttp = new XMLHttpRequest();
@@ -16,7 +22,7 @@
 						$("#cards").children().last().addClass('card').attr('id', 'card' + i);
 						$("#card" + i).append("<a></a>");
 						$("#card" + i + " a").attr('href', 'course.html?course=' + courses[i].id).append("<button></button>");
-						$("#card" + i + " a button").text(courses[i].name).css('width', '94%').css('height', '66px');
+						$("#card" + i + " a button").text(courses[i].name) //.css('width', '50%').css('height', '66px');
 					}
 
 				}
@@ -25,7 +31,7 @@
 			xhttp.send();
 		}
 		function hideModal() {
-			$('#simpleModal').hide();
+			$('#addCourseModal').hide();
 		}
 		function onLoad() {
 			loadCourses();
@@ -36,67 +42,45 @@
 <body onload="loadCourses()">
 
 	<!-- dashBoard holds all objects: header buttons, card, modals, etc...-->
-	<div class="dashBoard">
-		<!--Header contains title as well as logout and create class buttons -->
-		<header>
-			<ul>
-				<li style="float:left">
-					<!--<a href="login2.html"><h2>Logout</h2></a>-->
-				</li>
-				<li style="">
-					<h1>Classroom Dashboard</h1>
-				</li>
-				<li style="float:right">
-					<a href="#myModal" id="modalLink"class="texttrigger" data-toggle="modal"><h2>Add Course</h2></a>
-				</li>
+	<div class="container-fluid">
+		<div class="page-header">
+			<h1><u>Classroom Dashboard</u></h1>
+		</div>
+		
+		<nav class="navbar navbar-inverse navbar-fixed-left">
+			<ul class="nav navbar-nav">
+				<li><h3>Menu</h3><hr/></li>
+				<li><a href="#myModal" id="modalLink"class="texttrigger" data-toggle="modal">Add Course</a></li>
+				<li><a href="#">Delete Course</a></li>
+				<li><a href="login2.html">Logout</a></li>
 			</ul>
-		</header>
-
-				<!--ViewFeedBackModal holds the list of TA Names that will eventually link to the form data for each TA -->
-			<div id="viewFeedbackModal" class="modal">
-				<div class="modal-content">
-					<span class="closeBtn">&times;</span>
-					<h2>View Feedback for the following TA's:</h2><hr align="left" width="50%">
-					<ul id="taList"></ul>
-				</div>
-			</div>
-
-				<!-- simpleModal holds class creation criteria-->
-			<div id="simpleModal" class="modal">
+		</nav>
+				<!-- addCourseModal holds class creation criteria-->
+			<div id="addCourseModal" class="modal">
 				<div class="modal-content">
 					<form name="courseDataEntry" action="/CSE442-542/2018-Summer/team03/backend/submit/submitCourse.php" method="POST">
-					<span class="closeBtn" onclick="hideModal()">&times;</span>
-					<h2>Create A Class</h2><hr align="left" width="50%">
-					<p>Course Name</p>
-					<input type="text" name="name" id="name" placeholder="Enter Course Name">
-					<p>TA Names</p>
-					<input type="text" name="taName" id="courseTAInput" placeholder="Enter TA Names"><br/><br/>
-					<input type="submit" class="buttonView" onclick="setCourseName()" name="submitButton" value="Create">
-					<!--<button onclick="setCourseName()" class="buttonView">Create</button> -->
+						<span class="closeBtn" onclick="hideModal()">&times;</span>
+						<h2>Create A Class</h2><hr align="left" width="50%">
+						<p>Course Name</p>
+							<input type="text" name="name" id="name" placeholder="Enter Course Name">
+						<p>TA Names</p>
+							<input type="text" name="taName" id="courseTAInput" placeholder="Enter TA Names"><br/><br/>
+							
+						<input type="submit" class="btn btn-warning btn-lg" onclick="setCourseName()" name="submitButton" value="Create">
 					</form>
-
 				</div>
 			</div>
 
-					<!-- myDiv holds the basic structure for the class cards, and associated buttons-->
-			<div id="cards">
-				<!--<div class="card">
-					
-					<!--<button onclick="setTAList()" class="buttonView">View</button><br/><br/>
-					<button onclick="openModal()" class="buttonEdit">Edit</button><br/><br/>
-					<button onclick="deleteCard()" class="buttonDelete">Delete</button>
-				</div>-->
-			</div>
-
-
+				<!-- cards is the container div for the class cards-->
+				<div id="cards">
+				
+				</div>
+			
 	</div>
-
-
+	
 	<script src="functionality.js"></script>
-	<script
-  src="https://code.jquery.com/jquery-3.3.1.js"
-  integrity="sha256-2Kok7MbOyxpgUVvAk/HJ2jigOSYS2auK4Pfzbm7uH60="
-  crossorigin="anonymous"></script>
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+	<script src="https://code.jquery.com/jquery-3.3.1.js" integrity="sha256-2Kok7MbOyxpgUVvAk/HJ2jigOSYS2auK4Pfzbm7uH60=" crossorigin="anonymous"></script>
 </body>
 
 </html>

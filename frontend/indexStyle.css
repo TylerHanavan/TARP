@@ -21,7 +21,7 @@ h1{
 	width: 140px;
 	position: fixed;
 	border-radius: 0;
-	height: 60%;
+	height: 40%;
 	box-shadow: 8px 8px 8px 8px rgba(0,0,0,0.2);
 	border: 2px solid #ffffff;
 }
@@ -37,7 +37,7 @@ h1{
 .navbar-nav>li>h3{
 	position: relative;
     display: block;
-    padding: 5px 5px;
+    padding: 5px 30px;
 	padding-top: 10px;
     padding-bottom: 5px;
     line-height: 20px;
@@ -131,10 +131,11 @@ h1{
 	height: 250px;
 	overflow:auto;
 }
+
 .card a{
 	font-family: Snell Roundhand, cursive;
 	font-weight: 900;
-	font-size: 25px;
+	font-size: 20px;
 
 }
 .card button{

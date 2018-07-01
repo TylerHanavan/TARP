@@ -22,7 +22,8 @@
   $username = strtolower($username);
 
   if(!$database->compareUserCredentials($username, $password)) {
-    header('Location: index.html?err=3')
+    header('Location: index.html?err=3');
+    exit();
   }
 
   exit();

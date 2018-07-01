@@ -10,12 +10,12 @@
   $password = $_POST['password'];
 
   if(!isset($username) || empty($username)) {
-    header('Location: index.html?err=1');
+    header('Location: ../../frontend/login.html?err=1');
     exit();
   }
 
   if(!isset($password) || empty($password)) {
-    header('Location: index.html?err=2');
+    header('Location: ../../frontend/login.html?err=2');
     exit();
   }
 
@@ -24,7 +24,7 @@
   $status = $database->compareUserCredentials($username, $password);
 
   if(!$status || sizeof($status) == 0) {
-    header('Location: index.html?err=3');
+    header('Location: ../../frontend/login.html?err=3');
     exit();
   }
 

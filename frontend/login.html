@@ -4,6 +4,7 @@
 <title>Login</title>
 <link rel="stylesheet" type="text/css" href="loginStyle.css">
 	<script>
+		var hashed = false;
 		function hex(buffer) {
 			var c = [];
 			var view = new DataView(buffer);
@@ -22,11 +23,23 @@
 		    return hex(hash);
 		  });
 		}
+
+		function init() {
+			$('form').on('submit', function(e) {
+				if(!hashed) {
+					hashed = true;
+					event.preventDefault();
+					sha256($("#password").val()).then(function(d) {
+						$("#password").val(d);
+						$('form').submit();
+					});
+				}
+			});
+		}
 	</script>
 </head>
 
-<!-- Basic structure for login window -->
-<body>
+<body onload="init()">
 	<div class="loginbox">
 		<img src="loginPerson.png" alt="Avatar" class="avatar">
 		<h1>Sign In</h1><hr/>
@@ -34,7 +47,7 @@
 			<p>Username</p>
 			<input type="text" name="username" placeholder="Enter Username">
 			<p>Password</p>
-			<input type="password" name="password" placeholder="Enter Password"><br/><br/>
+			<input type="password" id="password" name="password" placeholder="Enter Password"><br/><br/>
 			<input type="submit" name="" value="Login">
 
 		</form>

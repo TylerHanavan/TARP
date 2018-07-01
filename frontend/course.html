@@ -84,7 +84,8 @@
 	function init() {
 
 		$(jQuery).ready(function() {
-
+			
+			$('#courseID').val(window.location.href.split("=")[1]);
 			$('.modal').hide();
 
 			loadTAs();
@@ -137,7 +138,12 @@
 				<div class="modal-content" id="deleteCourse">
 					<span class="closeBtn">&times;</span>
 					<p align="center">Are You sure you want to delete this course?</p>
+					
+					<form action="../backend/submit/remove-course.php" method="POST">
 					<center><button type="submit" class="btn-success btn-lg">Yes</button>
+					<input id="courseID" name="course" style="display: none"></input>
+					</form>
+					
 					<button type="submit" class="btn-danger btn-lg">No</button></center>
 					
 				</div>

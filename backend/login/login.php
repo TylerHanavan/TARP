@@ -21,7 +21,9 @@
 
   $username = strtolower($username);
 
-  if(!$database->compareUserCredentials($username, $password)) {
+  $status = $database->compareUserCredentials($username, $password);
+
+  if(!$status || sizeof($status) == 0) {
     header('Location: index.html?err=3');
     exit();
   }

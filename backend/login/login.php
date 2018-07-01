@@ -10,12 +10,12 @@
   $password = $_POST['password'];
 
   if(!isset($username) || empty($username)) {
-    header('Location: /login?err=1');
+    header('Location: index.html?err=1');
     exit();
   }
 
   if(!isset($password) || empty($password)) {
-    header('Location: /login?err=2');
+    header('Location: index.html?err=2');
     exit();
   }
 

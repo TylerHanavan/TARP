@@ -37,6 +37,16 @@
     }
 
     /*
+      Get size of users table
+    */
+    function getSizeUsersTable() {
+      $st = $this->pdo->prepare("SELECT COUNT(*) FROM users");
+      $st->execute();
+      $ret = $st->fetch();
+      return $ret[0];
+    }
+
+    /*
       Create the TAs table
     */
     function createTAsTable() {

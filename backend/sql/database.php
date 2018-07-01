@@ -47,6 +47,17 @@
     }
 
     /*
+      Verifies that user exists in database with given password
+    */
+    function compareUserCredentials($username, $password) {
+      $st = $this->pdo->prepare('SELECT * FROM users WHERE username=:username AND password=:password');
+      $st->bindParam(':username', $username);
+      $st->bindParam(':password', $password);
+      $st->execute();
+      return $st->fetchAll();
+    }
+
+    /*
       Create the TAs table
     */
     function createTAsTable() {

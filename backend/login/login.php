@@ -6,6 +6,19 @@
   $database = new Database($CREDENTIALS["address"],$CREDENTIALS["database"], $CREDENTIALS["username"], $CREDENTIALS["password"]);
   $database->connect();
 
+  $username = $_POST['username'];
+  $password = $_POST['password'];
+
+  if(!isset($username) || empty($username)) {
+    header('Location: /login?err=1');
+    exit();
+  }
+
+  if(!isset($password) || empty($password)) {
+    header('Location: /login?err=2');
+    exit();
+  }
+
   exit();
 
  ?>

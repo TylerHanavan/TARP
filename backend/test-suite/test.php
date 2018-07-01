@@ -59,6 +59,17 @@
       echo '<p>Warning: Table <em>tas</em> already exists. This may result in some test cases not being able to be fully tested. ', $size, ' elements already exist in-table.</p><br />';
     }
 
+    // Query the database to create a new table - tas
+    $rs = $database->createUsersTable();
+
+    // Explain the result of creating the table.
+    if($rs) {
+      echo '<p>Created table <em>users</em>.</p><br />';
+    } else {
+      $size = $database->getSizeUsersTable();
+      echo '<p>Warning: Table <em>users</em> already exists. This may result in some test cases not being able to be fully tested. ', $size, ' elements already exist in-table.</p><br />';
+    }
+
     $database->addFeedback(1, 1, 'Test', 'good job', 'JohnWick', 3, 2, 1, 'yahoo@gmail.com');
 
     assertFalse(sizeof($database->getFeedback(1)) == 0); // Ensure the feedback table isn't empty

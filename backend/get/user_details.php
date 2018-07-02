@@ -4,4 +4,11 @@
 
   $data = array();
 
+  $data['username'] = $_SESSION['username'];
+  $data['user_id'] = $_SESSION['user_id'];
+
+  echo json_encode($data);
+
+  exit();
+
  ?>

@@ -8,6 +8,7 @@
 
   $logged_in = false;
   $debug = false;
+  $user_id = -1;
 
   session_start();
 
@@ -39,6 +40,10 @@
   if(isset($_SESSION['username']) && !empty($_SESSION['username'])) {
     $logged_in = true;
     $username = $_SESSION['username'];
+  }
+
+  if(isset($_SESSION['user_id']) && !empty($_SESSION['user_id'])) {
+    $user_id = $_SESSION['user_id'];
   }
 
  ?>

@@ -1,10 +1,10 @@
 <?php
 
-include $_SERVER['DOCUMENT_ROOT'] . '/CSE442-542/2018-Summer/team03/backend/sql/database.php';
-include $_SERVER['DOCUMENT_ROOT'] . '/CSE442-542/2018-Summer/team03/backend/sql/credentials.php';
+  include $_SERVER['DOCUMENT_ROOT'] . '/CSE442-542/2018-Summer/team03/backend/session/session.php';
 
-$database = new Database($CREDENTIALS["address"],$CREDENTIALS["database"], $CREDENTIALS["username"], $CREDENTIALS["password"]);
-$database->connect();
+  $instructor = $_GET['instructor'];
 
-echo json_encode ($database->getCourses());
-exit();
+  if(!isset($instructor) || empty($instructor)) $instructor = -1;
+
+  echo json_encode ($database->getCourses($instructor));
+  exit();

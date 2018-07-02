@@ -17,7 +17,6 @@
 					var courses = JSON.parse(this.responseText);
 
 					for(var i = 0; i < courses.length; i++) {
-						console.log(i);
 						$("#cards").append("<div></div>");
 						$("#cards").children().last().addClass('card').attr('id', 'card' + i);
 						$("#card" + i).append("<a></a>");
@@ -27,7 +26,7 @@
 
 				}
 			};
-			xhttp.open("GET", "/CSE442-542/2018-Summer/team03/backend/get/courses.php", true);
+			xhttp.open("GET", "/CSE442-542/2018-Summer/team03/backend/get/courses.php?set=self", true);
 			xhttp.send();
 		}
 		function hideModal() {
@@ -46,7 +45,7 @@
 		<div class="page-header">
 			<h1><u>Classroom Dashboard</u></h1>
 		</div>
-		
+
 		<nav class="navbar navbar-inverse navbar-fixed-left">
 			<ul class="nav navbar-nav">
 				<li><h3>Menu</h3><hr/></li>
@@ -64,7 +63,7 @@
 							<input type="text" name="name" id="name" placeholder="Enter Course Name">
 						<p>TA Names</p>
 							<input type="text" name="taName" id="courseTAInput" placeholder="Enter TA Names"><br/><br/>
-							
+
 						<input type="submit" class="btn btn-warning btn-lg" onclick="setCourseName()" name="submitButton" value="Create">
 					</form>
 				</div>
@@ -72,11 +71,11 @@
 
 				<!-- cards is the container div for the class cards-->
 				<div id="cards">
-				
+
 				</div>
-			
+
 	</div>
-	
+
 	<script src="functionality.js"></script>
 	<script src="https://code.jquery.com/jquery-3.3.1.js" integrity="sha256-2Kok7MbOyxpgUVvAk/HJ2jigOSYS2auK4Pfzbm7uH60=" crossorigin="anonymous"></script>
 	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>

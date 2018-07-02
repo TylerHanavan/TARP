@@ -73,7 +73,7 @@
 					if(exp == 2) exp = 'Bad';
 					if(exp == 3) exp = 'Good';
 					if(exp == 4) exp = 'Very Good';
-					child.innerHTML = '<u>TA:</u> ' + feedback[i].taName[0] + '<br /><u>Comments:</u> ' + feedback[i].comments + "<br /><u>Experience:</u> " + exp + "<br /><u>Contact Info:</u> " + feedback[i].email + "<br /><hr />";
+					child.innerHTML = 'TA: ' + feedback[i].taName[0] + '<br />Comments: ' + feedback[i].comments + "<br />Experience: " + exp + "<br />Contact Info: " + feedback[i].email + "<br /><hr />";
 			  }
 			}
 	  };
@@ -133,8 +133,8 @@
 		
 		<button type="submit" class="btn-success btn-lg button open-modal" id="viewTaModalButton">View TAs</button>
 		<button class="btn-danger btn-lg button open-modal" type="submit" id="delTaModalButton">Delete Course</button>
-		<!--<button style='float: right;'type="submit" class="buttonStyle" class="button">Add TAs</button>-->
-
+		<button type="submit" class="btn-primary btn-lg" class="button">Edit Course</button>
+		
 		<div id="viewTaModal" class="modal" style="display: none;">
 				<div class="modal-content" id="viewTas">
 					<span class="closeBtn">&times;</span>

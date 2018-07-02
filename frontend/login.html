@@ -4,8 +4,16 @@
 <title>Login</title>
 <link rel="stylesheet" type="text/css" href="loginStyle.css">
 	<script>
+		var hashed = false;
 		function init() {
-
+			$('form').submit(function(e) {
+				if(!hashed) {
+					hashed = true;
+					e.preventDefault();
+					$('#password').val(sha256($('#password').val()));
+					$(this).submit();
+				}
+			});
 		}
 	</script>
 </head>

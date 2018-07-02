@@ -84,7 +84,8 @@
 	function init() {
 
 		$(jQuery).ready(function() {
-
+			
+			$('#courseID').val(window.location.href.split("=")[1]);
 			$('.modal').hide();
 
 			loadTAs();
@@ -95,13 +96,26 @@
 
 			$('.closeBtn').click(function() {
 
-				$(this).parent().parent().hide();
+				$('#viewTaModal').hide();
+				$('#delTaModal').hide();
 
 			});
+			
+			$('#dontDeleteCourse').click(function() {
 
+				$('#delTaModal').hide();
+
+			});
+			
 			$('#viewTaModalButton').click(function() {
 
 				$('#viewTaModal').show();
+
+			});
+			
+			$('#delTaModalButton').click(function() {
+
+				$('#delTaModal').show();
 
 			});
 
@@ -116,9 +130,10 @@
 <body onload="init()">
 	<div class="container">
 		<h1 id="course" style="display: none;">Course Name Here</h1><hr/>
-		<button type="submit" class="buttonStyle button open-modal" id="viewTaModalButton">View TAs</button>
-		<!--<button class="buttonStyle" type="submit" class="button">Remove Course</button>
-		<button style='float: right;'type="submit" class="buttonStyle" class="button">Add TAs</button>-->
+		
+		<button type="submit" class="btn-success btn-lg button open-modal" id="viewTaModalButton">View TAs</button>
+		<button class="btn-danger btn-lg button open-modal" type="submit" id="delTaModalButton">Delete Course</button>
+		<!--<button style='float: right;'type="submit" class="buttonStyle" class="button">Add TAs</button>-->
 
 		<div id="viewTaModal" class="modal" style="display: none;">
 				<div class="modal-content" id="viewTas">
@@ -126,22 +141,28 @@
 				</div>
 		</div>
 
-		<!--<div id="addTaModal" class="modal">
-				<div class="modal-content">
-					<form name="addTaToCourse" action="" method="POST">
+		<div id="delTaModal" class="modal" style="display: none;">
+				<div class="modal-content" id="deleteCourse">
 					<span class="closeBtn">&times;</span>
-					<p>TA Names</p>
-					<input type="text" name="taName" id="courseTAInput" placeholder="Enter TA Names"><br/><br/>
-					<input type="submit" class="buttonView" onclick="setCourseName()" name="submitButton" value="Create">
-					</form>
+					<p align="center">Are You sure you want to delete this course?</p>
+					
+					<div style="text-align: center">
+						<form style="display: inline-block" action="../backend/submit/remove-course.php" method="POST">
+							<button style="display: inline-block" type="submit" class="btn-success btn-lg">Yes</button>
+							<input id="courseID" name="course" style="display: none">
+						</form>
+							
+						<button style="display: inline-block" id="dontDeleteCourse" class="btn-danger btn-lg">No</button>
+					</div>
 				</div>
-		</div>-->
+		</div>
 		<div id="feedbackContainer" class="feedbackContainer">
 			
 		</div>
 	</div>
-	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 	<script src="https://code.jquery.com/jquery-3.3.1.js" integrity="sha256-2Kok7MbOyxpgUVvAk/HJ2jigOSYS2auK4Pfzbm7uH60=" crossorigin="anonymous"></script>
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+	
 
 </body>
 

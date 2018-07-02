@@ -7,7 +7,7 @@
 
   $data = array();
 
-  if(session_status() != PHP_SESSSION_ACTIVE) {
+  if(!$logged_in) {
     $data['status'] = 'no session';
   } else {
     $data['username'] = $username;
@@ -16,5 +16,6 @@
 
 
   echo json_encode($data);
+  exit();
 
  ?>

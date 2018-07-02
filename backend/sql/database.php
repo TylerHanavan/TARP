@@ -160,8 +160,13 @@
     /*
       Retreive a list of courses from the courses table
     */
-    function getCourses() {
-      $st = $this->pdo->prepare('SELECT * FROM courses WHERE deleted=0');
+    function getCourses($instructor = -1) {
+      if($instructor == -1)
+        $st = $this->pdo->prepare('SELECT * FROM courses WHERE deleted=0');
+      else {
+        $st = $this->pdo->prepare('SELECT * FROM courses WHERE deleted=0 AND instructor=:instructor');
+        $st->bindParam(':instructor', $instructor);
+      }
       $st->execute();
       return $st->fetchAll();
     }

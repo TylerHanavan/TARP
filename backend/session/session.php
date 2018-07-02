@@ -8,6 +8,15 @@
 
   $logged_in = false;
 
-  
+  function getRandStr($size = 7, $caps_only = false) {
+    $p = 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890';
+    if($caps_only)
+      $p = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890';
+    $r = '';
+    for($x = 0; $x < $size; $x++) {
+      $r .= $p[rand(0, strlen($p))];
+    }
+    return $r;
+  }
 
  ?>

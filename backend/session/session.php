@@ -8,6 +8,8 @@
 
   $logged_in = false;
 
+  session_start();
+
   function getRandStr($size = 7, $caps_only = false) {
     $p = 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890';
     if($caps_only)

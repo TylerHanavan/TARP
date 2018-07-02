@@ -30,6 +30,7 @@
   }
 
   $_SESSION['username'] = $username;
+  header('Location: ../../frontend/index.html');
 
   exit();
 

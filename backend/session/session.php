@@ -10,7 +10,7 @@
   $debug = false;
 
   session_start();
-  
+
   if($debug) var_dump(session_id());
 
   function getRandStr($size = 7, $caps_only = false) {
@@ -34,6 +34,11 @@
     $cook = getRandStr();
     setcookie('sess', $cook, time() + 24 * 60 * 60 * 3, '/');
     if($debug) echo 'Session was not set: ', $cook;
+  }
+
+  if(isset($_SESSION['username']) && !empty($_SESSION['username'])) {
+    $logged_in = true;
+    $username = $_SESSION['username'];
   }
 
  ?>

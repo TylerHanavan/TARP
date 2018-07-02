@@ -3,10 +3,9 @@
   include $_SERVER['DOCUMENT_ROOT'] . '/CSE442-542/2018-Summer/team03/backend/session/session.php';
 
   $name = $_POST["name"];
-  $instructor = $_POST["instructor"];
   $taName = $_POST["taName"];
 
-  $id = $database->addCourse($name,$instructor);
+  $id = $database->addCourse($name, $_SESSION['user_id']);
 
   $tas = explode(',', $taName);
 

@@ -30,6 +30,34 @@
     }
 
     /*
+     Create the users table
+    */
+    function createUsersTable() {
+      return $this->query('CREATE TABLE users (id INT PRIMARY KEY AUTO_INCREMENT, username VARCHAR(24), password VARCHAR(2048))');
+    }
+
+    /*
+      Get size of users table
+    */
+    function getSizeUsersTable() {
+      $st = $this->pdo->prepare("SELECT COUNT(*) FROM users");
+      $st->execute();
+      $ret = $st->fetch();
+      return $ret[0];
+    }
+
+    /*
+      Verifies that user exists in database with given password
+    */
+    function compareUserCredentials($username, $password) {
+      $st = $this->pdo->prepare('SELECT * FROM users WHERE username=:username AND password=:password');
+      $st->bindParam(':username', $username);
+      $st->bindParam(':password', $password);
+      $st->execute();
+      return $st->fetchAll();
+    }
+
+    /*
       Create the TAs table
     */
     function createTAsTable() {

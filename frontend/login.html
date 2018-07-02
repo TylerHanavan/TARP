@@ -1,0 +1,41 @@
+<html>
+
+<head>
+<title>Login</title>
+<link rel="stylesheet" type="text/css" href="loginStyle.css">
+	<script>
+		var hashed = false;
+		function init() {
+			$('form').submit(function(e) {
+				if(!hashed) {
+					hashed = true;
+					e.preventDefault();
+					$('#password').val(sha256($('#password').val()));
+					$(this).submit();
+				}
+			});
+		}
+	</script>
+</head>
+
+<body onload="init()">
+	<div class="loginbox">
+		<img src="loginPerson.png" alt="Avatar" class="avatar">
+		<h1>Sign In</h1><hr/>
+		<form action="../backend/login/login.php" method="POST">
+			<p>Username</p>
+			<input type="text" name="username" placeholder="Enter Username">
+			<p>Password</p>
+			<input type="password" id="password" name="password" placeholder="Enter Password"><br/><br/>
+			<input type="submit" name="" value="Login">
+
+		</form>
+	</div>
+	<script
+  src="https://code.jquery.com/jquery-3.3.1.js"
+  integrity="sha256-2Kok7MbOyxpgUVvAk/HJ2jigOSYS2auK4Pfzbm7uH60="
+  crossorigin="anonymous"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/js-sha256/0.9.0/sha256.js"></script>
+</body>
+
+</html>

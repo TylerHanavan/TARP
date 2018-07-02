@@ -28,6 +28,8 @@
     exit();
   }
 
+  $_SESSION['username'] = $username;
+
   exit();
 
  ?>

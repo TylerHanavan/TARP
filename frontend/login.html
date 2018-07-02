@@ -4,37 +4,8 @@
 <title>Login</title>
 <link rel="stylesheet" type="text/css" href="loginStyle.css">
 	<script>
-		var hashed = false;
-		function hex(buffer) {
-			var c = [];
-			var view = new DataView(buffer);
-			for (var i = 0; i < view.byteLength; i += 4) {
-				var stringValue = view.getUint32(i).toString(16);
-				var padding = '00000000';
-				var paddedValue = (padding + stringValue).slice(-padding.length);
-				c.push(paddedValue);
-			}
-
-			return c.join("");
-		}
-
-		function sha256(str) {
-		  return crypto.subtle.digest("SHA-256", new TextEncoder("utf-8").encode(str)).then(function (hash) {
-		    return hex(hash);
-		  });
-		}
-
 		function init() {
-			$('form').on('submit', function(e) {
-				if(!hashed) {
-					hashed = true;
-					event.preventDefault();
-					sha256($("#password").val()).then(function(d) {
-						$("#password").val(d);
-						$('form').submit();
-					});
-				}
-			});
+
 		}
 	</script>
 </head>
@@ -56,6 +27,7 @@
   src="https://code.jquery.com/jquery-3.3.1.js"
   integrity="sha256-2Kok7MbOyxpgUVvAk/HJ2jigOSYS2auK4Pfzbm7uH60="
   crossorigin="anonymous"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/js-sha256/0.9.0/sha256.js"></script>
 </body>
 
 </html>

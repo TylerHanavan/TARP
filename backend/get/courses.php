@@ -4,5 +4,7 @@
 
   $instructor = $_GET['instructor'];
 
+  if(!isset($instructor) || empty($instructor)) $instructor = -1;
+
   echo json_encode ($database->getCourses($instructor));
   exit();

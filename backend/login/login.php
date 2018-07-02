@@ -28,6 +28,7 @@
   }
 
   $_SESSION['username'] = $username;
+  $_SESSION['user_id'] = $status['id'];
   header('Location: ../../frontend/index.html');
 
   exit();

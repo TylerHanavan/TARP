@@ -157,6 +157,13 @@
 	  return $st->execute();
 	}
 
+  function removeTA($name, $course) {
+    $st = $this->pdo->prepare('INSERT INTO tas (name, course) VALUES (:name, :course)');
+    $st->bindParam(':name', $name);
+    $st->bindParam(':course', $course);
+    return $st->execute();
+  }
+
     /*
       Retreive a list of courses from the courses table
     */

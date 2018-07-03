@@ -43,7 +43,6 @@
 					var child = document.createElement('p');
 					child.value = tas[i].id;
 					child.innerHTML = tas[i].name;
-					console.log(tas[i].name);
 					taElement.appendChild(child);
 			  }
 			}
@@ -66,7 +65,6 @@
 					var child = document.createElement('p');
 					div.append(child);
 					child.value = feedback[i].id;
-					console.log(feedback[i].name);
 					feedbackElement.appendChild(child);
 					var exp = feedback[i].experience;
 					if(exp == 1) exp = 'Very Bad';
@@ -83,8 +81,24 @@
 
 	function init() {
 
+		var xhttp = new XMLHttpRequest();
+		xhttp.onreadystatechange = function() {
+			if (this.readyState == 4 && this.status == 200) {
+				var details = JSON.parse(this.responseText);
+				if(details['user_id'] == undefined || details['user_id'] < 1) {
+					window.location.replace('login.html');
+				}
+				var courses = details['courses'].split(',');
+				if(!courses.includes(window.location.href.split("=")[1])) {
+					window.location.replace('index.html');
+				}
+			}
+		};
+		xhttp.open("GET", "/CSE442-542/2018-Summer/team03/backend/get/user_details.php", true);
+		xhttp.send();
+
 		$(jQuery).ready(function() {
-			
+
 			$('#courseID').val(window.location.href.split("=")[1]);
 			$('.modal').hide();
 
@@ -100,19 +114,19 @@
 				$('#delTaModal').hide();
 
 			});
-			
+
 			$('#dontDeleteCourse').click(function() {
 
 				$('#delTaModal').hide();
 
 			});
-			
+
 			$('#viewTaModalButton').click(function() {
 
 				$('#viewTaModal').show();
 
 			});
-			
+
 			$('#delTaModalButton').click(function() {
 
 				$('#delTaModal').show();
@@ -130,11 +144,11 @@
 <body onload="init()">
 	<div class="container">
 		<h1 id="course" style="display: none;">Course Name Here</h1><hr/>
-		
+
 		<button type="submit" class="btn-success btn-lg button open-modal" id="viewTaModalButton">View TAs</button>
 		<button class="btn-danger btn-lg button open-modal" type="submit" id="delTaModalButton">Delete Course</button>
 		<button type="submit" class="btn-primary btn-lg" class="button">Edit Course</button>
-		
+
 		<div id="viewTaModal" class="modal" style="display: none;">
 				<div class="modal-content" id="viewTas">
 					<span class="closeBtn">&times;</span>
@@ -145,24 +159,24 @@
 				<div class="modal-content" id="deleteCourse">
 					<span class="closeBtn">&times;</span>
 					<p align="center">Are You sure you want to delete this course?</p>
-					
+
 					<div style="text-align: center">
 						<form style="display: inline-block" action="../backend/submit/remove-course.php" method="POST">
 							<button style="display: inline-block" type="submit" class="btn-success btn-lg">Yes</button>
 							<input id="courseID" name="course" style="display: none">
 						</form>
-							
+
 						<button style="display: inline-block" id="dontDeleteCourse" class="btn-danger btn-lg">No</button>
 					</div>
 				</div>
 		</div>
 		<div id="feedbackContainer" class="feedbackContainer">
-			
+
 		</div>
 	</div>
 	<script src="https://code.jquery.com/jquery-3.3.1.js" integrity="sha256-2Kok7MbOyxpgUVvAk/HJ2jigOSYS2auK4Pfzbm7uH60=" crossorigin="anonymous"></script>
 	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-	
+
 
 </body>
 

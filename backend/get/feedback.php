@@ -14,9 +14,11 @@ else {
   $feedback = $database->getFeedbackByTA($ta);
 }
 for($x = 0; $x < sizeof($feedback); $x++) {
-	
+
+  $feedback[$x]['comments'] = htmlspecialchars($feedback[$x]['comments']);
+
 	$feedback[$x]['taName'] = $database->translateTA($feedback[$x]['ta']);
-	
+
 }
 echo json_encode($feedback);
 exit();

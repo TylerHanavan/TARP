@@ -43,14 +43,16 @@
 					var form = document.createElement('form');
 					form.action = "../backend/submit/remove-ta.php";
 					form.method = "POST";
+					form.classList.add('deleteTaForm');
 					taElement.appendChild(form);
 					var child = document.createElement('p');
 					child.style.display = "inline";
 					child.value = tas[i].id;
 					child.innerHTML = tas[i].name + "&nbsp;";
 					var deleteTaButton = document.createElement('button');
-					deleteTaButton.name = "submit";
+					deleteTaButton.classList.add("deleteTaButton");
 					deleteTaButton.innerHTML = "X";
+					deleteTaButton.type = "button";
 					form.appendChild(child);
 					form.appendChild(deleteTaButton);
 			  }
@@ -134,6 +136,23 @@
 			loadFeedback();
 
 			loadCourse();
+
+			$(document).on('click', '.deleteTaButton', function(e) {
+
+				if($(this).parent().attr('ready') != 1) {
+					$(this).attr('type', 'submit');
+					$(this).html('Click again to delete TA');
+					$(this).parent().attr('ready', '1');
+					e.preventDefault();
+				}
+
+			});
+
+			$('.deleteTaForm').submit(function(e) {
+				if($(this).attr('ready') != 1) {
+					e.preventDefault();
+				}
+			});
 
 			$('.closeBtn').click(function() {
 

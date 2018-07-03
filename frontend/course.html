@@ -55,6 +55,9 @@
 				addTaField.placeholder = "TA Name Here";
 				addTaForm.appendChild(addTaField);
 				var courseIdField = document.createElement("input");
+				courseIdField.style.display = "none";
+				courseIdField.name = "course";
+				courseIdField.value = course;
 				var addTaButton = document.createElement('button');
 				addTaButton.name = "submit";
 				addTaButton.innerHTML = "Add TA";

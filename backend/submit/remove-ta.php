@@ -5,5 +5,9 @@ include $_SERVER['DOCUMENT_ROOT'] . '/CSE442-542/2018-Summer/team03/backend/sess
 if (!$logged_in) {
   exit();
 }
+$courses = $database->getCourses($user_id);
+if (!in_array($course, $courses)) {
+  exit();
+}
 $database->removeTA($id, $course);
 exit();

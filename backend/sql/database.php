@@ -157,9 +157,9 @@
 	  return $st->execute();
 	}
 
-  function removeTA($name, $course) {
-    $st = $this->pdo->prepare('INSERT INTO tas (name, course) VALUES (:name, :course)');
-    $st->bindParam(':name', $name);
+  function removeTA($id, $course) {
+    $st = $this->pdo->prepare('DELETE FROM tas WHERE id = :id AND course = :course');
+    $st->bindParam(':id', $id);
     $st->bindParam(':course', $course);
     return $st->execute();
   }

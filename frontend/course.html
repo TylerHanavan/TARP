@@ -46,7 +46,7 @@
 					taElement.appendChild(child);
 			  }
 				var addTaForm = document.createElement("form");
-				addTaForm.action = "../../backend/submit/add-ta.php";
+				addTaForm.action = "../backend/submit/add-ta.php";
 				addTaForm.method = "POST";
 				taElement.appendChild(addTaForm);
 				var addTaField = document.createElement("input");
@@ -58,6 +58,7 @@
 				courseIdField.style.display = "none";
 				courseIdField.name = "course";
 				courseIdField.value = course;
+				addTaForm.appendChild(courseIdField);
 				var addTaButton = document.createElement('button');
 				addTaButton.name = "submit";
 				addTaButton.innerHTML = "Add TA";

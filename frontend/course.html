@@ -41,7 +41,7 @@
 			  var taElement = document.getElementById("viewTas");
 			  for(var i = 0; i < tas.length; i++) {
 					var form = document.createElement('form');
-					form.action = "";
+					form.action = "../backend/submit/remove-ta.php";
 					form.method = "POST";
 					taElement.appendChild(form);
 					var child = document.createElement('p');

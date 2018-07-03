@@ -40,14 +40,18 @@
 			  var tas = JSON.parse(this.responseText);
 			  var taElement = document.getElementById("viewTas");
 			  for(var i = 0; i < tas.length; i++) {
+					var form = document.createElement('form');
+					form.action = "";
+					form.method = "POST";
+					taElement.appendChild(form);
 					var child = document.createElement('p');
 					child.value = tas[i].id;
 					child.innerHTML = tas[i].name;
 					var deleteTaButton = document.createElement('button');
 					deleteTaButton.name = "submit";
 					deleteTaButton.innerHTML = "X";
-					taElement.appendChild(child);
-					taElement.appendChild(deleteTaButton);
+					form.appendChild(child);
+					form.appendChild(deleteTaButton);
 			  }
 				var addTaForm = document.createElement("form");
 				addTaForm.action = "../backend/submit/add-ta.php";

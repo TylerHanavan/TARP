@@ -40,10 +40,31 @@
 			  var tas = JSON.parse(this.responseText);
 			  var taElement = document.getElementById("viewTas");
 			  for(var i = 0; i < tas.length; i++) {
+					var form = document.createElement('form');
+					form.action = "../backend/submit/remove-ta.php";
+					form.method = "POST";
+					form.classList.add('deleteTaForm');
+					taElement.appendChild(form);
 					var child = document.createElement('p');
+					child.style.display = "inline";
 					child.value = tas[i].id;
-					child.innerHTML = tas[i].name;
-					taElement.appendChild(child);
+					child.innerHTML = tas[i].name + "&nbsp;";
+					var deleteTaButton = document.createElement('button');
+					deleteTaButton.classList.add("deleteTaButton");
+					deleteTaButton.innerHTML = "X";
+					deleteTaButton.type = "button";
+					form.appendChild(child);
+					form.appendChild(deleteTaButton);
+					var hiddenCourse = document.createElement('input');
+					hiddenCourse.value = course;
+					hiddenCourse.style.display = "none";
+					hiddenCourse.name = "course";
+					form.appendChild(hiddenCourse);
+					var hiddenTA = document.createElement('input');
+					hiddenTA.value = tas[i].id;
+					hiddenTA.style.display = "none";
+					hiddenTA.name = "id";
+					form.appendChild(hiddenTA);
 			  }
 				var addTaForm = document.createElement("form");
 				addTaForm.action = "../backend/submit/add-ta.php";
@@ -125,6 +146,23 @@
 			loadFeedback();
 
 			loadCourse();
+
+			$(document).on('click', '.deleteTaButton', function(e) {
+
+				if($(this).parent().attr('ready') != 1) {
+					$(this).attr('type', 'submit');
+					$(this).html('Click again to delete TA');
+					$(this).parent().attr('ready', '1');
+					e.preventDefault();
+				}
+
+			});
+
+			$('.deleteTaForm').submit(function(e) {
+				if($(this).attr('ready') != 1) {
+					e.preventDefault();
+				}
+			});
 
 			$('.closeBtn').click(function() {
 

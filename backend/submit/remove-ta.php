@@ -3,7 +3,7 @@ $course = $_POST['course'];
 $id = $_POST["id"];
 include $_SERVER['DOCUMENT_ROOT'] . '/CSE442-542/2018-Summer/team03/backend/session/session.php';
 if (!$logged_in) {
-  echo 'not logged in';
+  header('Location: ../../frontend/index.html');
   exit();
 }
 $b = false;
@@ -12,9 +12,9 @@ for($x = 0; $x < sizeof($courses); $x++)
   if($courses[$x]['id'] == $course)
     $b = true;
 if(!$b) {
-  echo 'not a course you own';
+  header('Location: ../../frontend/index.html');
   exit();
 }
 $database->removeTA($id, $course);
-echo 'success';
+header('Location: ../../frontend/index.html');
 exit();

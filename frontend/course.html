@@ -55,6 +55,16 @@
 					deleteTaButton.type = "button";
 					form.appendChild(child);
 					form.appendChild(deleteTaButton);
+					var hiddenCourse = document.createElement('input');
+					hiddenCourse.value = course;
+					hiddenCourse.style.display = "none";
+					hiddenCourse.name = "course";
+					form.appendChild(hiddenCourse);
+					var hiddenTA = document.createElement('input');
+					hiddenTA.value = tas[i].id;
+					hiddenTA.style.display = "none";
+					hiddenTA.name = "id";
+					form.appendChild(hiddenTA);
 			  }
 				var addTaForm = document.createElement("form");
 				addTaForm.action = "../backend/submit/add-ta.php";

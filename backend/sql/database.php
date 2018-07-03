@@ -157,6 +157,13 @@
 	  return $st->execute();
 	}
 
+  function removeTA($id, $course) {
+    $st = $this->pdo->prepare('DELETE FROM tas WHERE id = :id AND course = :course');
+    $st->bindParam(':id', $id);
+    $st->bindParam(':course', $course);
+    return $st->execute();
+  }
+
     /*
       Retreive a list of courses from the courses table
     */

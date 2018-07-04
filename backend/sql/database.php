@@ -61,7 +61,7 @@
       Create the TAs table
     */
     function createTAsTable() {
-      return $this->query('CREATE TABLE tas (id INT PRIMARY KEY AUTO_INCREMENT, name VARCHAR(256), course INT)');
+      return $this->query('CREATE TABLE tas (id INT PRIMARY KEY AUTO_INCREMENT, name VARCHAR(256), course INT, deleted TINYINT DEFAULT 0)');
     }
 
     function getSizeTAsTable() {
@@ -158,7 +158,7 @@
 	}
 
   function removeTA($id, $course) {
-    $st = $this->pdo->prepare('DELETE FROM tas WHERE id = :id AND course = :course');
+    $st = $this->pdo->prepare('UPDATE tas SET deleted=1 WHERE id = :id AND course = :course');
     $st->bindParam(':id', $id);
     $st->bindParam(':course', $course);
     return $st->execute();
@@ -179,17 +179,23 @@
     }
 
 	function translateTA($ta) {
-		$st = $this->pdo->prepare('SELECT name FROM tas WHERE id=:id');
+		$st = $this->pdo->prepare('SELECT name,deleted FROM tas WHERE id=:id');
 		$st->bindParam(':id', $ta);
 		$st->execute();
-		return $st->fetch();
+		$data = $st->fetch();
+    if($data['deleted'] == 1)
+      $data['name'] = $data['name'] . ' (deleted)';
+    return $data['name'];
 	}
 
     /*
       Retrieve a list of TAs from the tas table
     */
-    function getTAs() {
-      $st = $this->pdo->prepare('SELECT * FROM tas');
+    function getTAs($deleted = 0) {
+      if($deleted == 0)
+        $st = $this->pdo->prepare('SELECT * FROM tas WHERE deleted=0');
+      else
+        $st = $this->pdo->prepare('SELECT * FROM tas');
       $st->execute();
       return $st->fetchAll();
     }
@@ -197,8 +203,11 @@
     /*
       Retrieve a list of TAs from the tas table for a given course
     */
-    function getTAsForCourse($course) {
-      $st = $this->pdo->prepare('SELECT * FROM tas WHERE course = :course');
+    function getTAsForCourse($course, $deleted = 0) {
+      if($deleted == 0)
+        $st = $this->pdo->prepare('SELECT * FROM tas WHERE course = :course AND deleted=0');
+      else
+        $st = $this->pdo->prepare('SELECT * FROM tas WHERE course = :course');
       $st->bindParam(':course', $course);
       $st->execute();
       return $st->fetchAll();

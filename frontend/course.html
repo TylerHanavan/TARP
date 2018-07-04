@@ -131,7 +131,12 @@
 					var mins = date.getMinutes();
 					if(date.getMinutes() < 10) mins = '0' + date.getMinutes();
 					var dateString = months[date.getMonth()-1] + " " + date.getDate() + ", " + date.getFullYear() + ", " + hours + ":" + mins;
-					child.innerHTML = 'Date: ' + dateString + '<br />TA: ' + feedback[i].taName + '<br />Comments: ' + feedback[i].comments + "<br />Experience: " + exp + "<br />Contact Info: " + feedback[i].email + "<br /><hr />";
+					var studentName = '';
+					if(feedback[i].name != null && feedback[i].name != undefined && feedback[i].name !== '') {
+						studentName = '<br />Name: ' + feedback[i].name;
+					}
+					var ta = '<a href="course.html?ta=' + feedback[i].ta + '&course=' + getCourseId() + '">' + feedback[i].taName + "</a>";
+					child.innerHTML = 'Date: ' + dateString + '<br />TA: ' + ta + '<br />Comments: ' + feedback[i].comments + "<br />Experience: " + exp + studentName + "<br />Contact Info: " + feedback[i].email + "<br /><hr />";
 			  }
 			}
 	  };
@@ -223,6 +228,12 @@
 
 			});
 
+			$('#removeFilter').parent().attr('href', 'course.html?course=' + getCourseId());
+
+			if(getUrlParam('ta') != undefined && getUrlParam('ta') != null && getUrlParam('ta') !== '') {
+				$('#removeFilter').parent().show();
+			}
+
 		});
 
 	}
@@ -238,6 +249,7 @@
 		<button type="submit" class="btn-success btn-lg button open-modal" id="viewTaModalButton">View TAs</button>
 		<button class="btn-danger btn-lg button open-modal" type="submit" id="delTaModalButton">Delete Course</button>
 		<button type="submit" class="btn-primary btn-lg button" id="editCourseButton">Edit Course</button>
+		<a style="display: none;"><button class="btn-primary btn-lg button" id="removeFilter">Remove TA Filter</button></a>
 
 		<div id="viewTaModal" class="modal" style="display: none;">
 				<div class="modal-content" id="viewTas">
@@ -248,11 +260,11 @@
 		<div id="editCourseModal" class="modal" style="display: none;">
 				<div class="modal-content" id="editCourse">
 					<span class="closeBtn">&times;</span>
-					<form action="../backend/submit/edit-course.php" method="POST">
+					<form action="../backend/submit/change-course-name.php" method="POST">
 						<center>
 							<p>Rename the Course:</p>
 							<input id="courseName" name="course" />
-							<input name="editCourseId" style="display: none;" />
+							<input id="editCourseId" name="courseId" style="display: none;" />
 							<br />
 							<br />
 							<button class="btn-primary btn-lg button">Submit</button>

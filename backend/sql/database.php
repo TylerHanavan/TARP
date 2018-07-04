@@ -158,7 +158,7 @@
 	}
 
   function removeTA($id, $course) {
-    $st = $this->pdo->prepare('DELETE FROM tas WHERE id = :id AND course = :course');
+    $st = $this->pdo->prepare('UPDATE tas SET deleted=1 WHERE id = :id AND course = :course');
     $st->bindParam(':id', $id);
     $st->bindParam(':course', $course);
     return $st->execute();

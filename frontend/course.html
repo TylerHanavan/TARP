@@ -14,7 +14,12 @@
 	var modalBtn = document.getElementById('modalLink');
 
 	function getUrlParam(p) {
-		var params = window.location.href.split("=");
+		var params = window.location.href.split("?")[1].split("&");
+		for(var x = 0; x < params.length; x++) {
+			if(params[x].split("=")[0] === p)
+				return params[x].split("=")[1];
+		}
+		return 'undefined';
 	}
 
 	function getCourseId() {
@@ -41,7 +46,7 @@
 	}
 
 	function loadTAs() {
-	  var course = getCoruseId();
+	  var course = getCourseId();
 	  var xhttp = new XMLHttpRequest();
 	  xhttp.onreadystatechange = function() {
 			if (this.readyState == 4 && this.status == 200) {

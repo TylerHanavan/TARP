@@ -8,11 +8,5 @@ $database->connect();
 
 $data = $database->getTAsForCourse($course);
 
-for($x = 0; $x < sizeof($data); $x++) {
-  if($data[$x]['deleted'] == 1) {
-    $data[$x]['name'] = $data[$x]['name'] . ' (deleted)';
-  }
-}
-
 echo json_encode ($data);
 exit();

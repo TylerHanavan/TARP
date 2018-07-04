@@ -179,10 +179,13 @@
     }
 
 	function translateTA($ta) {
-		$st = $this->pdo->prepare('SELECT name FROM tas WHERE id=:id');
+		$st = $this->pdo->prepare('SELECT name,deleted FROM tas WHERE id=:id');
 		$st->bindParam(':id', $ta);
 		$st->execute();
-		return $st->fetch();
+		$data = $st->fetch();
+    if($data['deleted'] == 1)
+      $data['name'] = $data['name'] . ' (deleted)';
+    return $data['name'];
 	}
 
     /*

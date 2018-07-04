@@ -58,6 +58,16 @@
     }
 
     /*
+      Returns the salt for a given user's id
+    */
+    function getUserSalt($id) {
+      $st = $this->pdo->prepare('SELECT salt FROM users WHERE id=:id');
+      $st->bindParam(':id', $id);
+      $st->execute();
+      return $st->fetch();
+    }
+
+    /*
       Create the TAs table
     */
     function createTAsTable() {

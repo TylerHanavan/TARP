@@ -5,18 +5,18 @@ include $_SERVER['DOCUMENT_ROOT'] . '/CSE442-542/2018-Summer/team03/backend/sess
 
 if (!$logged_in) {
   echo 'please login';
-  header('Location: ../../frontend/course.html?err=1&course=' . $course);
+  header('Location: ../../frontend/course.html?course=' . $course);
   exit();
 }
 
 $b = false;
 $courses = $database->getCourses($user_id);
 for($x = 0; $x < sizeof($courses); $x++)
-  if($courses[$x]['id'] == $id)
+  if($courses[$x]['id'] == $course)
     $b = true;
 if(!$b) {
   echo 'please don\'t delete courses you don\'t own';
-  header('Location: ../../frontend/course.html?err=2&course=' . $course);
+  header('Location: ../../frontend/course.html?course=' . $course);
   exit();
 }
 

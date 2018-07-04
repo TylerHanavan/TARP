@@ -64,17 +64,19 @@
       $st = $this->pdo->prepare('SELECT salt FROM users WHERE id=:id');
       $st->bindParam(':id', $id);
       $st->execute();
-      return $st->fetch();
+      $rs = $st->fetch();
+      return $rs[0];
     }
 
     /*
       Returns the salt for a given user's id
     */
     function getUserSaltFromUsername($username) {
-      $st = $this->pdo->prepare('SELECT salt FROM users WHERE username=:username');
+      $st = $this->pdo->prepare('SELECT salt FROM users WHERE username LIKE :username');
       $st->bindParam(':username', $username);
       $st->execute();
-      return $st->fetch();
+      $rs = $st->fetch();
+      return $rs[0];
     }
 
     /*

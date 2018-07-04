@@ -20,6 +20,10 @@
 
   $username = strtolower($username);
 
+  $salt = $database->getUserSaltFromUsername($username);
+
+  $password = hash('sha256', $password . $salt);
+
   $status = $database->compareUserCredentials($username, $password);
 
   if(!$status || sizeof($status) == 0) {

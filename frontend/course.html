@@ -126,7 +126,11 @@
 					if(exp == 4) exp = 'Very Good';
 					var date = new Date(feedback[i].ts);
 					var months = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
-					var dateString = months[date.getMonth()-1] + " " + date.getDate() + " " + date.getFullYear() + ", " + date.getHours() + ":" + date.getMinutes();
+					var hours = date.getHours();
+					if(date.getHours() < 10) hours = '0' + date.getHours();
+					var mins = date.getMinutes();
+					if(date.getMinutes() < 10) mins = '0' + date.getMinutes();
+					var dateString = months[date.getMonth()-1] + " " + date.getDate() + ", " + date.getFullYear() + ", " + hours + ":" + mins;
 					child.innerHTML = 'Date: ' + dateString + '<br />TA: ' + feedback[i].taName + '<br />Comments: ' + feedback[i].comments + "<br />Experience: " + exp + "<br />Contact Info: " + feedback[i].email + "<br /><hr />";
 			  }
 			}
@@ -191,6 +195,7 @@
 
 				$('#viewTaModal').hide();
 				$('#delTaModal').hide();
+				$('#editCourseModal').hide();
 
 			});
 

@@ -61,7 +61,7 @@
       Create the TAs table
     */
     function createTAsTable() {
-      return $this->query('CREATE TABLE tas (id INT PRIMARY KEY AUTO_INCREMENT, name VARCHAR(256), course INT)');
+      return $this->query('CREATE TABLE tas (id INT PRIMARY KEY AUTO_INCREMENT, name VARCHAR(256), course INT, deleted TINYINT DEFAULT 0)');
     }
 
     function getSizeTAsTable() {

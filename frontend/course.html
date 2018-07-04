@@ -104,7 +104,7 @@
 	  xhttp.send();
 	}
 
-	function loadFeedback() {
+	function loadFeedback(ta, order) {
 		var course = getCourseId();
 	  var xhttp = new XMLHttpRequest();
 	  xhttp.onreadystatechange = function() {
@@ -140,7 +140,6 @@
 			  }
 			}
 	  };
-		var ta = getUrlParam('ta');
 		if(ta != undefined && ta != null) {
 	  	xhttp.open("GET", "/CSE442-542/2018-Summer/team03/backend/get/feedback.php?ta=" + ta + "&course="+course, true);
 		} else {
@@ -175,7 +174,7 @@
 
 			loadTAs();
 
-			loadFeedback();
+			loadFeedback(null, null);
 
 			loadCourse();
 

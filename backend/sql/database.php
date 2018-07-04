@@ -188,8 +188,11 @@
     /*
       Retrieve a list of TAs from the tas table
     */
-    function getTAs() {
-      $st = $this->pdo->prepare('SELECT * FROM tas');
+    function getTAs($deleted = 0) {
+      if($deleted == 0)
+        $st = $this->pdo->prepare('SELECT * FROM tas WHERE deleted=0');
+      else
+        $st = $this->pdo->prepare('SELECT * FROM tas');
       $st->execute();
       return $st->fetchAll();
     }
@@ -197,8 +200,11 @@
     /*
       Retrieve a list of TAs from the tas table for a given course
     */
-    function getTAsForCourse($course) {
-      $st = $this->pdo->prepare('SELECT * FROM tas WHERE course = :course');
+    function getTAsForCourse($course, $deleted = 0) {
+      if($deleted == 0)
+        $st = $this->pdo->prepare('SELECT * FROM tas WHERE course = :course AND deleted=0');
+      else
+        $st = $this->pdo->prepare('SELECT * FROM tas WHERE course = :course');
       $st->bindParam(':course', $course);
       $st->execute();
       return $st->fetchAll();

@@ -13,8 +13,16 @@
 	var editModal = document.getElementById('addTaModal');
 	var modalBtn = document.getElementById('modalLink');
 
+	function getUrlParam(p) {
+		var params = window.location.href.split("=");
+	}
+
+	function getCourseId() {
+		return getUrlParam('course');
+	}
+
 	function loadCourse() {
-	  var course = window.location.href.split("=")[1];
+	  var course = getCourseId();
 	  var xhttp = new XMLHttpRequest();
 	  xhttp.onreadystatechange = function() {
 			if (this.readyState == 4 && this.status == 200) {
@@ -33,7 +41,7 @@
 	}
 
 	function loadTAs() {
-	  var course = window.location.href.split("=")[1];
+	  var course = getCoruseId();
 	  var xhttp = new XMLHttpRequest();
 	  xhttp.onreadystatechange = function() {
 			if (this.readyState == 4 && this.status == 200) {
@@ -91,7 +99,7 @@
 	}
 
 	function loadFeedback() {
-		var course = window.location.href.split("=")[1];
+		var course = getCourseId();
 	  var xhttp = new XMLHttpRequest();
 	  xhttp.onreadystatechange = function() {
 			if (this.readyState == 4 && this.status == 200) {
@@ -128,7 +136,7 @@
 					window.location.replace('login.html');
 				}
 				var courses = details['courses'].split(',');
-				if(!courses.includes(window.location.href.split("=")[1])) {
+				if(!courses.includes(getCourseId())) {
 					window.location.replace('index.html');
 				}
 			}
@@ -138,7 +146,7 @@
 
 		$(jQuery).ready(function() {
 
-			$('#courseID').val(window.location.href.split("=")[1]);
+			$('#courseID').val(getCourseId());
 			$('.modal').hide();
 
 			loadTAs();

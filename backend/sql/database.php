@@ -33,7 +33,7 @@
      Create the users table
     */
     function createUsersTable() {
-      return $this->query('CREATE TABLE users (id INT PRIMARY KEY AUTO_INCREMENT, username VARCHAR(24), password VARCHAR(2048))');
+      return $this->query('CREATE TABLE users (id INT PRIMARY KEY AUTO_INCREMENT, username VARCHAR(24), password VARCHAR(2048), salt VARCHAR(16))');
     }
 
     /*

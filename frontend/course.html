@@ -53,6 +53,10 @@
 			if (this.readyState == 4 && this.status == 200) {
 			  var tas = JSON.parse(this.responseText);
 			  var taElement = document.getElementById("viewTas");
+				var close = document.createElement('span');
+				close.classList.add('closeBtn');
+				close.innerHTML = '&times;';
+				taElement.appendChild(close);
 			  for(var i = 0; i < tas.length; i++) {
 					var form = document.createElement('form');
 					form.action = "../backend/submit/remove-ta.php";
@@ -67,6 +71,7 @@
 					deleteTaButton.classList.add("deleteTaButton");
 					deleteTaButton.innerHTML = "X";
 					deleteTaButton.type = "button";
+					deleteTaButton.setAttribute('ta', tas[i].id);
 					form.appendChild(child);
 					form.appendChild(deleteTaButton);
 					var hiddenCourse = document.createElement('input');
@@ -96,6 +101,7 @@
 				addTaForm.appendChild(courseIdField);
 				var addTaButton = document.createElement('button');
 				addTaButton.name = "submit";
+				addTaButton.classList.add('addTaButton');
 				addTaButton.innerHTML = "Add TA";
 				addTaForm.appendChild(addTaButton);
 			}
@@ -104,7 +110,14 @@
 	  xhttp.send();
 	}
 
-	function loadFeedback() {
+	/*
+		Remove all TAs from the TA modal, as well as their respective buttons and the add ta text field
+	*/
+	function clearTAs() {
+		$('#viewTas').empty();
+	}
+
+	function loadFeedback(ta, order) {
 		var course = getCourseId();
 	  var xhttp = new XMLHttpRequest();
 	  xhttp.onreadystatechange = function() {
@@ -140,7 +153,6 @@
 			  }
 			}
 	  };
-		var ta = getUrlParam('ta');
 		if(ta != undefined && ta != null) {
 	  	xhttp.open("GET", "/CSE442-542/2018-Summer/team03/backend/get/feedback.php?ta=" + ta + "&course="+course, true);
 		} else {
@@ -175,19 +187,29 @@
 
 			loadTAs();
 
-			loadFeedback();
+			loadFeedback(null, null);
 
 			loadCourse();
 
 			$(document).on('click', '.deleteTaButton', function(e) {
-
-				if($(this).parent().attr('ready') != 1) {
-					$(this).attr('type', 'submit');
-					$(this).html('Click again to delete TA');
-					$(this).parent().attr('ready', '1');
-					e.preventDefault();
+				if($(this).attr('ready') == 1) {
+					$.post("../backend/submit/remove-ta.php", { id: $(this).attr('ta'), course: getCourseId() }, function(data, status){
+						clearTAs();
+						loadTAs(null, null);
+					});
+				} else {
+					$(this).attr('ready', 1);
+					$(this).html('Click again to delete');
 				}
+				e.preventDefault();
+			});
 
+			$(document).on('click', '.addTaButton', function(e) {
+				e.preventDefault();
+				$.post("../backend/submit/add-ta.php", { taName: $('#addtafield').val(), course: getCourseId() }, function(data, status){
+					clearTAs();
+		      loadTAs(null, null);
+			  });
 			});
 
 			$('.deleteTaForm').submit(function(e) {
@@ -196,7 +218,7 @@
 				}
 			});
 
-			$('.closeBtn').click(function() {
+			$(document).on('click', '.closeBtn', function(e) {
 
 				$('#viewTaModal').hide();
 				$('#delTaModal').hide();
@@ -253,7 +275,6 @@
 
 		<div id="viewTaModal" class="modal" style="display: none;">
 				<div class="modal-content" id="viewTas">
-					<span class="closeBtn">&times;</span>
 				</div>
 		</div>
 

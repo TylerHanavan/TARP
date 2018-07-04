@@ -35,6 +35,7 @@
 				for(var x = 0; x < courses.length; x++) {
 					if(courses[x].id == course) {
 						$("#course").text(courses[x].name);
+						$("#courseName").val(courses[x].name);
 						$("#course").show();
 						return;
 					}
@@ -152,6 +153,7 @@
 		$(jQuery).ready(function() {
 
 			$('#courseID').val(getCourseId());
+			$("#editCourseId").val(getCourseId());
 			$('.modal').hide();
 
 			loadTAs();
@@ -202,6 +204,12 @@
 
 			});
 
+			$('#editCourseButton').click(function() {
+
+				$('#editCourseModal').show();
+
+			});
+
 		});
 
 	}
@@ -216,11 +224,27 @@
 
 		<button type="submit" class="btn-success btn-lg button open-modal" id="viewTaModalButton">View TAs</button>
 		<button class="btn-danger btn-lg button open-modal" type="submit" id="delTaModalButton">Delete Course</button>
-		<button type="submit" class="btn-primary btn-lg" class="button">Edit Course</button>
+		<button type="submit" class="btn-primary btn-lg button" id="editCourseButton">Edit Course</button>
 
 		<div id="viewTaModal" class="modal" style="display: none;">
 				<div class="modal-content" id="viewTas">
 					<span class="closeBtn">&times;</span>
+				</div>
+		</div>
+
+		<div id="editCourseModal" class="modal" style="display: none;">
+				<div class="modal-content" id="editCourse">
+					<span class="closeBtn">&times;</span>
+					<form action="../backend/submit/edit-course.php" method="POST">
+						<center>
+							<p>Rename the Course:</p>
+							<input id="courseName" name="course" />
+							<input name="editCourseId" style="display: none;" />
+							<br />
+							<br />
+							<button class="btn-primary btn-lg button">Submit</button>
+						</center>
+					</form>
 				</div>
 		</div>
 

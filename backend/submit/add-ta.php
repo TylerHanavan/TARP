@@ -8,6 +8,10 @@ if (!$logged_in) {
   exit();
 }
 
+if(!isset($taName) || empty($taName) || $taName == '') {
+  exit();
+}
+
 $b = false;
 $courses = $database->getCourses($user_id);
 for($x = 0; $x < sizeof($courses); $x++)

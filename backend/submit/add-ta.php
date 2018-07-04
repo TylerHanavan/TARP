@@ -8,5 +8,15 @@ if (!$logged_in) {
   exit();
 }
 
+$b = false;
+$courses = $database->getCourses($user_id);
+for($x = 0; $x < sizeof($courses); $x++)
+  if($courses[$x]['id'] == $id)
+    $b = true;
+if(!$b) {
+  header('Location: ../../frontend/course.html?course=' . $id);
+  exit();
+}
+
 $database->addTA($taName, $course);
 exit();

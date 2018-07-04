@@ -16,4 +16,5 @@ if(!$b) {
   exit();
 }
 $database->changeCourseName($id, $name);
+header('Location: ../../frontend/course.html?course=' . $course);
 exit();

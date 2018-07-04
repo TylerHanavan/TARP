@@ -124,7 +124,10 @@
 					if(exp == 2) exp = 'Bad';
 					if(exp == 3) exp = 'Good';
 					if(exp == 4) exp = 'Very Good';
-					child.innerHTML = 'TA: ' + feedback[i].taName + '<br />Comments: ' + feedback[i].comments + "<br />Experience: " + exp + "<br />Contact Info: " + feedback[i].email + "<br /><hr />";
+					var date = new Date(feedback[i].ts);
+					var months = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
+					var dateString = '';
+					child.innerHTML = 'Date: ' + feedback[i].ts + '<br />TA: ' + feedback[i].taName + '<br />Comments: ' + feedback[i].comments + "<br />Experience: " + exp + "<br />Contact Info: " + feedback[i].email + "<br /><hr />";
 			  }
 			}
 	  };

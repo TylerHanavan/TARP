@@ -10,7 +10,7 @@ $feedback = array();
 if(!empty($course) && isset($course)) {
   $feedback = $database->getFeedback($course);
 }
-else {
+if(isset($ta) && !empty($ta)) {
   $feedback = $database->getFeedbackByTA($ta);
 }
 for($x = 0; $x < sizeof($feedback); $x++) {

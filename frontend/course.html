@@ -19,7 +19,7 @@
 			if(params[x].split("=")[0] === p)
 				return params[x].split("=")[1];
 		}
-		return 'undefined';
+		return null;
 	}
 
 	function getCourseId() {
@@ -128,7 +128,12 @@
 			  }
 			}
 	  };
-	  xhttp.open("GET", "/CSE442-542/2018-Summer/team03/backend/get/feedback.php?course="+course, true);
+		var ta = getUrlParam('ta');
+		if(ta != undefined && ta != null) {
+	  	xhttp.open("GET", "/CSE442-542/2018-Summer/team03/backend/get/feedback.php?ta=" + ta + "&course="+course, true);
+		} else {
+		  xhttp.open("GET", "/CSE442-542/2018-Summer/team03/backend/get/feedback.php?course="+course, true);
+		}
 	  xhttp.send();
 	}
 

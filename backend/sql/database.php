@@ -148,6 +148,16 @@
     }
 
 	/*
+      Change a course name
+    */
+	function changeCourseName($id, $name) {
+	  $st = $this->pdo->prepare('UPDATE courses SET name=:name WHERE id=:id');
+	  $st->bindParam(':name', $name);
+	  $st->bindParam(':id', $id);
+	  return $st->execute();
+	}
+
+	/*
       Add a ta (their name and linked course) to the tas table
     */
 	function addTA($name, $course) {

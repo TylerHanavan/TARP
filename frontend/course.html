@@ -53,10 +53,11 @@
 			if (this.readyState == 4 && this.status == 200) {
 			  var tas = JSON.parse(this.responseText);
 			  var taElement = document.getElementById("viewTas");
+				var close = document.createElement('span');
+				close.classList.add('closeBtn');
+				close.innerHTML = '&times;';
+				taElement.appendChild(close);
 			  for(var i = 0; i < tas.length; i++) {
-					var close = document.createElement('span');
-					close.classList.add('closeBtn');
-					close.innerHTML = '&times;';
 					var form = document.createElement('form');
 					form.action = "../backend/submit/remove-ta.php";
 					form.method = "POST";
@@ -217,7 +218,7 @@
 				}
 			});
 
-			$('.closeBtn').click(function() {
+			$(document).on('click', '.closeBtn', function(e) {
 
 				$('#viewTaModal').hide();
 				$('#delTaModal').hide();

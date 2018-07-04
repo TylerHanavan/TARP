@@ -4,7 +4,8 @@ $course = $_POST['course'];
 include $_SERVER['DOCUMENT_ROOT'] . '/CSE442-542/2018-Summer/team03/backend/session/session.php';
 
 if (!$logged_in) {
-  header('Location: ../../frontend/course.html?course=' . $course);
+  echo 'please login';
+  header('Location: ../../frontend/course.html?err=1&course=' . $course);
   exit();
 }
 
@@ -14,7 +15,8 @@ for($x = 0; $x < sizeof($courses); $x++)
   if($courses[$x]['id'] == $id)
     $b = true;
 if(!$b) {
-  header('Location: ../../frontend/course.html?course=' . $course);
+  echo 'please don\'t delete courses you don\'t own';
+  header('Location: ../../frontend/course.html?err=2&course=' . $course);
   exit();
 }
 

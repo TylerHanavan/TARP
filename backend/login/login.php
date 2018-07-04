@@ -1,7 +1,4 @@
 <?php
-  ini_set('display_errors', 1);
-  ini_set('display_startup_errors', 1);
-  error_reporting(E_ALL);
 
   include $_SERVER['DOCUMENT_ROOT'] . '/CSE442-542/2018-Summer/team03/backend/session/session.php';
 
@@ -19,6 +16,10 @@
   }
 
   $username = strtolower($username);
+
+  $salt = $database->getUserSaltFromUsername($username);
+
+  $password = hash('sha256', $password . $salt);
 
   $status = $database->compareUserCredentials($username, $password);
 

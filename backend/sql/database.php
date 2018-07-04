@@ -33,7 +33,7 @@
      Create the users table
     */
     function createUsersTable() {
-      return $this->query('CREATE TABLE users (id INT PRIMARY KEY AUTO_INCREMENT, username VARCHAR(24), password VARCHAR(2048))');
+      return $this->query('CREATE TABLE users (id INT PRIMARY KEY AUTO_INCREMENT, username VARCHAR(24), password VARCHAR(2048), salt VARCHAR(16))');
     }
 
     /*
@@ -55,6 +55,28 @@
       $st->bindParam(':password', $password);
       $st->execute();
       return $st->fetchAll();
+    }
+
+    /*
+      Returns the salt for a given user's id
+    */
+    function getUserSaltFromId($id) {
+      $st = $this->pdo->prepare('SELECT salt FROM users WHERE id=:id');
+      $st->bindParam(':id', $id);
+      $st->execute();
+      $rs = $st->fetch();
+      return $rs[0];
+    }
+
+    /*
+      Returns the salt for a given user's id
+    */
+    function getUserSaltFromUsername($username) {
+      $st = $this->pdo->prepare('SELECT salt FROM users WHERE username LIKE :username');
+      $st->bindParam(':username', $username);
+      $st->execute();
+      $rs = $st->fetch();
+      return $rs[0];
     }
 
     /*

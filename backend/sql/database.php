@@ -80,6 +80,13 @@
     }
 
     /*
+     Create the share table
+    */
+    function createShareTable() {
+      return $this->query('CREATE TABLE users (id INT PRIMARY KEY AUTO_INCREMENT, instructor INT, course INT)');
+    }
+
+    /*
       Create the TAs table
     */
     function createTAsTable() {

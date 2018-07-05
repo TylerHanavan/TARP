@@ -83,7 +83,7 @@
      Create the share table
     */
     function createShareTable() {
-      return $this->query('CREATE TABLE users (id INT PRIMARY KEY AUTO_INCREMENT, instructor INT, course INT)');
+      return $this->query('CREATE TABLE share (id INT PRIMARY KEY AUTO_INCREMENT, instructor INT, course INT)');
     }
 
     /*
@@ -207,20 +207,41 @@
     return $st->execute();
   }
 
-    /*
-      Retreive a list of courses from the courses table
-    */
-    function getCourses($instructor = -1) {
-      if($instructor == -1)
-        $st = $this->pdo->prepare('SELECT * FROM courses WHERE deleted=0');
-      else {
-        $st = $this->pdo->prepare('SELECT * FROM courses WHERE deleted=0 AND instructor=:instructor');
-        $st->bindParam(':instructor', $instructor);
-      }
-      $st->execute();
-      $data = $st->fetchAll();
-      return $data;
+  /*
+    returns a course based on id
+  */
+  function getCourse($id) {
+    $st = $this->pdo->prepare('SELECT * FROM courses WHERE id=:id');
+    $st->bindParam(':id', $id);
+    $st->execute();
+    return $st->fetch();
+  }
+
+  /*
+    Retreive a list of courses from the courses table
+  */
+  function getCourses($instructor = -1) {
+    if($instructor == -1)
+      $st = $this->pdo->prepare('SELECT * FROM courses WHERE deleted=0');
+    else {
+      $st = $this->pdo->prepare('SELECT * FROM courses WHERE deleted=0 AND instructor=:instructor');
+      $st->bindParam(':instructor', $instructor);
     }
+    $st->execute();
+    $data = $st->fetchAll();
+
+    if($instructor != -1) {
+      $st = $this->pdo->prepare('SELECT * FROM share WHERE instructor=:instructor');
+      $st->bindParam(':instructor', $instructor);
+      $st->execute();
+      $res = $st->fetchAll();
+      for($x = 0; $x < sizeof($res); $x++) {
+        $res[sizeof($res)] = getCourse($res[$x]['id']);
+      }
+    }
+
+    return $data;
+  }
 
 	function translateTA($ta) {
 		$st = $this->pdo->prepare('SELECT name,deleted FROM tas WHERE id=:id');

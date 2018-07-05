@@ -12,6 +12,7 @@
 <script>
 	var editModal = document.getElementById('addTaModal');
 	var modalBtn = document.getElementById('modalLink');
+	var sortLoaded = false;
 
 	function getUrlParam(p) {
 		var params = window.location.href.split("?")[1].split("&");
@@ -67,6 +68,8 @@
 					child.style.display = "inline";
 					child.value = tas[i].id;
 					child.innerHTML = tas[i].name + "&nbsp;";
+					if(!sortLoaded)
+						addTaToSort(tas[i].id, tas[i].name);
 					var deleteTaButton = document.createElement('button');
 					deleteTaButton.classList.add("deleteTaButton");
 					deleteTaButton.innerHTML = "X";
@@ -104,6 +107,7 @@
 				addTaButton.classList.add('addTaButton');
 				addTaButton.innerHTML = "Add TA";
 				addTaForm.appendChild(addTaButton);
+				sortLoaded = true;
 			}
 	  };
 	  xhttp.open("GET", "/CSE442-542/2018-Summer/team03/backend/get/tas.php?course="+course, true);
@@ -159,6 +163,22 @@
 		  xhttp.open("GET", "/CSE442-542/2018-Summer/team03/backend/get/feedback.php?course="+course, true);
 		}
 	  xhttp.send();
+	}
+
+	function clearFeedback() {
+		$("#feedbackContainer").empty();
+	}
+
+	function onTaChange() {
+		clearFeedback();
+		loadFeedback($("#ta-sort").val(), null);
+	}
+
+	function addTaToSort(id, name) {
+		var taOption = $("<option/>");
+		$("#ta-sort").append(taOption);
+		taOption.val(id);
+		taOption.html(name);
 	}
 
 	function init() {
@@ -272,6 +292,19 @@
 		<button class="btn-danger btn-lg button open-modal" type="submit" id="delTaModalButton">Delete Course</button>
 		<button type="submit" class="btn-primary btn-lg button" id="editCourseButton">Edit Course</button>
 		<a style="display: none;"><button class="btn-primary btn-lg button" id="removeFilter">Remove TA Filter</button></a>
+
+		<br />
+
+		<select name="ta-sort" id="ta-sort-example" style="display: none">
+			<option value="">Select a TA Here to Filter</option>
+		</select>
+
+		<p>Select a TA to Filter By:<p>
+		<div class="custom-select">
+				<select name="ta-sort" id="ta-sort" onchange="onTaChange()">
+					<option value="">Select a TA Here to Filter</option>
+				</select>
+		</div>
 
 		<div id="viewTaModal" class="modal" style="display: none;">
 				<div class="modal-content" id="viewTas">

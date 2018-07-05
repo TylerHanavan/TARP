@@ -104,7 +104,7 @@
       Create the courses table
     */
     function createCoursesTable() {
-      return $this->query('CREATE TABLE courses (id INT PRIMARY KEY AUTO_INCREMENT, name VARCHAR(256), instructor INT, deleted TINYINT DEFAULT 0)');
+      return $this->query('CREATE TABLE courses (id INT PRIMARY KEY AUTO_INCREMENT, name VARCHAR(256), instructor INT, owner INT, deleted TINYINT DEFAULT 0)');
     }
 
     function getSizeCoursesTable() {
@@ -218,7 +218,8 @@
         $st->bindParam(':instructor', $instructor);
       }
       $st->execute();
-      return $st->fetchAll();
+      $data = $st->fetchAll();
+      return $data;
     }
 
 	function translateTA($ta) {

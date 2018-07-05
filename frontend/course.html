@@ -155,7 +155,7 @@
 					if(feedback[i].name != null && feedback[i].name != undefined && feedback[i].name !== '') {
 						studentName = '<br />Name: ' + feedback[i].name;
 					}
-					var ta = '<a href="course.html?ta=' + feedback[i].ta + '&course=' + getCourseId() + '">' + feedback[i].taName + "</a>";
+					var ta = /*'<a href="course.html?ta=' + feedback[i].ta + '&course=' + getCourseId() + '">' +*/ feedback[i].taName /*+ "</a>"*/;
 					child.innerHTML = 'Date: ' + dateString + '<br />TA: ' + ta + '<br />Comments: ' + feedback[i].comments + "<br />Experience: " + exp + studentName + "<br />Contact Info: " + feedback[i].email + "<br /><hr />";
 			  }
 			}

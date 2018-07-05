@@ -156,6 +156,9 @@
 						studentName = '<br />Name: ' + feedback[i].name;
 					}
 					var ta = /*'<a href="course.html?ta=' + feedback[i].ta + '&course=' + getCourseId() + '">' +*/ feedback[i].taName /*+ "</a>"*/;
+					if(ta == null) {
+						ta = 'Not Sure<br />Description: ' + feedback[i].description;
+					}
 					child.innerHTML = 'Date: ' + dateString + '<br />TA: ' + ta + '<br />Comments: ' + feedback[i].comments + "<br />Experience: " + exp + studentName + "<br />Contact Info: " + feedback[i].email + "<br /><hr />";
 			  }
 			}

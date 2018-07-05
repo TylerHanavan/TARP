@@ -14,6 +14,9 @@
 	var modalBtn = document.getElementById('modalLink');
 	var sortLoaded = false;
 
+	var ta = -1;
+	var order = 1;
+
 	function getUrlParam(p) {
 		var params = window.location.href.split("?")[1].split("&");
 		for(var x = 0; x < params.length; x++) {
@@ -157,7 +160,7 @@
 			  }
 			}
 	  };
-		if(ta != undefined && ta != null) {
+		if(ta != undefined && ta != null && ta != -1) {
 	  	xhttp.open("GET", "/CSE442-542/2018-Summer/team03/backend/get/feedback.php?ta=" + ta + "&course="+course, true);
 		} else {
 		  xhttp.open("GET", "/CSE442-542/2018-Summer/team03/backend/get/feedback.php?course="+course, true);
@@ -171,7 +174,14 @@
 
 	function onTaChange() {
 		clearFeedback();
-		loadFeedback($("#ta-sort").val(), null);
+		ta = $("#ta-sort").val();
+		loadFeedback(ta, order);
+	}
+
+	function onOrderChange() {
+		clearFeedback();
+		order = $("#order-sort").val();
+		loadFeedback(ta, order);
 	}
 
 	function addTaToSort(id, name) {
@@ -299,12 +309,29 @@
 			<option value="">Select a TA Here to Filter</option>
 		</select>
 
-		<p>Select a TA to Filter By:<p>
-		<div class="custom-select">
-				<select name="ta-sort" id="ta-sort" onchange="onTaChange()">
-					<option value="">Select a TA Here to Filter</option>
-				</select>
-		</div>
+		<table>
+			<tr>
+				<td><p>Select a TA to Filter By:<p></td>
+				<td><p>Select an order to Sort By:</p></td>
+			</tr>
+			<tr>
+				<td>
+					<div class="custom-select">
+							<select name="ta-sort" id="ta-sort" onchange="onTaChange()">
+								<option value="">Select a TA Here to Filter</option>
+							</select>
+					</div>
+				</td>
+				<td>
+					<div class="custom-select">
+							<select name="order-sort" id="order-sort" onchange="onOrderChange()">
+								<option value="1">Most Recent</option>
+								<option value="1">Least Recent</option>
+							</select>
+					</div>
+				</td>
+			</tr>
+		</table>
 
 		<div id="viewTaModal" class="modal" style="display: none;">
 				<div class="modal-content" id="viewTas">

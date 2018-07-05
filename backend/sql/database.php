@@ -30,10 +30,67 @@
     }
 
     /*
+     Create the users table
+    */
+    function createUsersTable() {
+      return $this->query('CREATE TABLE users (id INT PRIMARY KEY AUTO_INCREMENT, username VARCHAR(24), password VARCHAR(2048), salt VARCHAR(16))');
+    }
+
+    /*
+      Get size of users table
+    */
+    function getSizeUsersTable() {
+      $st = $this->pdo->prepare("SELECT COUNT(*) FROM users");
+      $st->execute();
+      $ret = $st->fetch();
+      return $ret[0];
+    }
+
+    /*
+      Verifies that user exists in database with given password
+    */
+    function compareUserCredentials($username, $password) {
+      $st = $this->pdo->prepare('SELECT * FROM users WHERE username=:username AND password=:password');
+      $st->bindParam(':username', $username);
+      $st->bindParam(':password', $password);
+      $st->execute();
+      return $st->fetchAll();
+    }
+
+    /*
+      Returns the salt for a given user's id
+    */
+    function getUserSaltFromId($id) {
+      $st = $this->pdo->prepare('SELECT salt FROM users WHERE id=:id');
+      $st->bindParam(':id', $id);
+      $st->execute();
+      $rs = $st->fetch();
+      return $rs[0];
+    }
+
+    /*
+      Returns the salt for a given user's id
+    */
+    function getUserSaltFromUsername($username) {
+      $st = $this->pdo->prepare('SELECT salt FROM users WHERE username LIKE :username');
+      $st->bindParam(':username', $username);
+      $st->execute();
+      $rs = $st->fetch();
+      return $rs[0];
+    }
+
+    /*
+     Create the share table
+    */
+    function createShareTable() {
+      return $this->query('CREATE TABLE share (id INT PRIMARY KEY AUTO_INCREMENT, instructor INT, course INT)');
+    }
+
+    /*
       Create the TAs table
     */
     function createTAsTable() {
-      return $this->query('CREATE TABLE tas (id INT PRIMARY KEY AUTO_INCREMENT, name VARCHAR(256), course INT)');
+      return $this->query('CREATE TABLE tas (id INT PRIMARY KEY AUTO_INCREMENT, name VARCHAR(256), course INT, deleted TINYINT DEFAULT 0)');
     }
 
     function getSizeTAsTable() {
@@ -47,7 +104,7 @@
       Create the courses table
     */
     function createCoursesTable() {
-      return $this->query('CREATE TABLE courses (id INT PRIMARY KEY AUTO_INCREMENT, name VARCHAR(256), instructor INT, deleted TINYINT DEFAULT 0)');
+      return $this->query('CREATE TABLE courses (id INT PRIMARY KEY AUTO_INCREMENT, name VARCHAR(256), instructor INT, owner INT, deleted TINYINT DEFAULT 0)');
     }
 
     function getSizeCoursesTable() {
@@ -74,15 +131,19 @@
     /*
       Retrieve feedback items from a specified course
     */
-    function getFeedback($course) {
-      $st = $this->pdo->prepare('SELECT * FROM feedback WHERE course=:course');
+    function getFeedback($course, $order = 1) {
+      $st = $this->pdo->prepare('SELECT * FROM feedback WHERE course=:course ORDER BY id DESC');
+      if($order == 2)
+        $st = $this->pdo->prepare('SELECT * FROM feedback WHERE course=:course ORDER BY id ASC');
       $st->bindParam(':course', $course);
       $st->execute();
       return $st->fetchAll();
     }
 
-    function getFeedbackByTA($ta) {
-      $st = $this->pdo->prepare('SELECT * FROM feedback WHERE ta=:ta');
+    function getFeedbackByTA($ta, $order = 1) {
+      $st = $this->pdo->prepare('SELECT * FROM feedback WHERE ta=:ta ORDER BY id DESC');
+      if($order == 2)
+        $st = $this->pdo->prepare('SELECT * FROM feedback WHERE ta=:ta ORDER BY id ASC');
       $st->bindParam(':ta', $ta);
       $st->execute();
       return $st->fetchAll();
@@ -120,6 +181,16 @@
     }
 
 	/*
+      Change a course name
+    */
+	function changeCourseName($id, $name) {
+	  $st = $this->pdo->prepare('UPDATE courses SET name=:name WHERE id=:id');
+	  $st->bindParam(':name', $name);
+	  $st->bindParam(':id', $id);
+	  return $st->execute();
+	}
+
+	/*
       Add a ta (their name and linked course) to the tas table
     */
 	function addTA($name, $course) {
@@ -129,27 +200,67 @@
 	  return $st->execute();
 	}
 
-    /*
-      Retreive a list of courses from the courses table
-    */
-    function getCourses() {
+  function removeTA($id, $course) {
+    $st = $this->pdo->prepare('UPDATE tas SET deleted=1 WHERE id = :id AND course = :course');
+    $st->bindParam(':id', $id);
+    $st->bindParam(':course', $course);
+    return $st->execute();
+  }
+
+  /*
+    returns a course based on id
+  */
+  function getCourse($id) {
+    $st = $this->pdo->prepare('SELECT * FROM courses WHERE id=:id');
+    $st->bindParam(':id', $id);
+    $st->execute();
+    return $st->fetch();
+  }
+
+  /*
+    Retreive a list of courses from the courses table
+  */
+  function getCourses($instructor = -1) {
+    if($instructor == -1)
       $st = $this->pdo->prepare('SELECT * FROM courses WHERE deleted=0');
+    else {
+      $st = $this->pdo->prepare('SELECT * FROM courses WHERE deleted=0 AND instructor=:instructor');
+      $st->bindParam(':instructor', $instructor);
+    }
+    $st->execute();
+    $data = $st->fetchAll();
+
+    if($instructor != -1) {
+      $st = $this->pdo->prepare('SELECT * FROM share WHERE instructor=:instructor');
+      $st->bindParam(':instructor', $instructor);
       $st->execute();
-      return $st->fetchAll();
+      $res = $st->fetchAll();
+      for($x = 0; $x < sizeof($res); $x++) {
+        $data[sizeof($data)] = $this->getCourse($res[$x]['course']);
+      }
     }
 
+    return $data;
+  }
+
 	function translateTA($ta) {
-		$st = $this->pdo->prepare('SELECT name FROM tas WHERE id=:id');
+		$st = $this->pdo->prepare('SELECT name,deleted FROM tas WHERE id=:id');
 		$st->bindParam(':id', $ta);
 		$st->execute();
-		return $st->fetch();
+		$data = $st->fetch();
+    if($data['deleted'] == 1)
+      $data['name'] = $data['name'] . ' (deleted)';
+    return $data['name'];
 	}
 
     /*
       Retrieve a list of TAs from the tas table
     */
-    function getTAs() {
-      $st = $this->pdo->prepare('SELECT * FROM tas');
+    function getTAs($deleted = 0) {
+      if($deleted == 0)
+        $st = $this->pdo->prepare('SELECT * FROM tas WHERE deleted=0');
+      else
+        $st = $this->pdo->prepare('SELECT * FROM tas');
       $st->execute();
       return $st->fetchAll();
     }
@@ -157,8 +268,11 @@
     /*
       Retrieve a list of TAs from the tas table for a given course
     */
-    function getTAsForCourse($course) {
-      $st = $this->pdo->prepare('SELECT * FROM tas WHERE course = :course');
+    function getTAsForCourse($course, $deleted = 0) {
+      if($deleted == 0)
+        $st = $this->pdo->prepare('SELECT * FROM tas WHERE course = :course AND deleted=0');
+      else
+        $st = $this->pdo->prepare('SELECT * FROM tas WHERE course = :course');
       $st->bindParam(':course', $course);
       $st->execute();
       return $st->fetchAll();

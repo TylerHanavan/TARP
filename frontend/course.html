@@ -1,15 +1,39 @@
 <!DOCTYPE html>
 <html>
 <head>
+<meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE-edge">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="stylesheet" type="text/css" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
 <link rel="stylesheet" type="text/css" href="courseStyle.css">
-<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Course Page</title>
 
 <script>
 	var editModal = document.getElementById('addTaModal');
 	var modalBtn = document.getElementById('modalLink');
+	var sortLoaded = false;
+
+	var ta = -1;
+	var order = 1;
+
+	/* Returns a URL parameter if it exists; otherwise returns null */
+	function getUrlParam(p) {
+		var params = window.location.href.split("?")[1].split("&");
+		for(var x = 0; x < params.length; x++) {
+			if(params[x].split("=")[0] === p)
+				return params[x].split("=")[1];
+		}
+		return null;
+	}
+
+	/* Returns the course id for the current page */
+	function getCourseId() {
+		return getUrlParam('course');
+	}
 
 	function loadCourse() {
-	  var course = window.location.href.split("=")[1];
+	  var course = getCourseId();
 	  var xhttp = new XMLHttpRequest();
 	  xhttp.onreadystatechange = function() {
 			if (this.readyState == 4 && this.status == 200) {
@@ -17,6 +41,7 @@
 				for(var x = 0; x < courses.length; x++) {
 					if(courses[x].id == course) {
 						$("#course").text(courses[x].name);
+						$("#courseName").val(courses[x].name);
 						$("#course").show();
 						return;
 					}
@@ -28,27 +53,81 @@
 	}
 
 	function loadTAs() {
-	  var course = window.location.href.split("=")[1];
+	  var course = getCourseId();
 	  var xhttp = new XMLHttpRequest();
 	  xhttp.onreadystatechange = function() {
 			if (this.readyState == 4 && this.status == 200) {
 			  var tas = JSON.parse(this.responseText);
 			  var taElement = document.getElementById("viewTas");
+				var close = document.createElement('span');
+				close.classList.add('closeBtn');
+				close.innerHTML = '&times;';
+				taElement.appendChild(close);
 			  for(var i = 0; i < tas.length; i++) {
+					var form = document.createElement('form');
+					form.action = "../backend/submit/remove-ta.php";
+					form.method = "POST";
+					form.classList.add('deleteTaForm');
+					taElement.appendChild(form);
 					var child = document.createElement('p');
+					child.style.display = "inline";
 					child.value = tas[i].id;
-					child.innerHTML = tas[i].name;
-					console.log(tas[i].name);
-					taElement.appendChild(child);
+					child.innerHTML = tas[i].name + "&nbsp;";
+					if(!sortLoaded)
+						addTaToSort(tas[i].id, tas[i].name);
+					var deleteTaButton = document.createElement('button');
+					deleteTaButton.classList.add("deleteTaButton");
+					deleteTaButton.innerHTML = "X";
+					deleteTaButton.type = "button";
+					deleteTaButton.setAttribute('ta', tas[i].id);
+					form.appendChild(child);
+					form.appendChild(deleteTaButton);
+					var hiddenCourse = document.createElement('input');
+					hiddenCourse.value = course;
+					hiddenCourse.style.display = "none";
+					hiddenCourse.name = "course";
+					form.appendChild(hiddenCourse);
+					var hiddenTA = document.createElement('input');
+					hiddenTA.value = tas[i].id;
+					hiddenTA.style.display = "none";
+					hiddenTA.name = "id";
+					form.appendChild(hiddenTA);
 			  }
+				var addTaForm = document.createElement("form");
+				addTaForm.action = "../backend/submit/add-ta.php";
+				addTaForm.method = "POST";
+				taElement.appendChild(addTaForm);
+				var addTaField = document.createElement("input");
+				addTaField.id = "addtafield";
+				addTaField.name = "taName";
+				addTaField.placeholder = "TA Name Here";
+				addTaForm.appendChild(addTaField);
+				var courseIdField = document.createElement("input");
+				courseIdField.style.display = "none";
+				courseIdField.name = "course";
+				courseIdField.value = course;
+				addTaForm.appendChild(courseIdField);
+				var addTaButton = document.createElement('button');
+				addTaButton.name = "submit";
+				addTaButton.classList.add('addTaButton');
+				addTaButton.innerHTML = "Add TA";
+				addTaForm.appendChild(addTaButton);
+				sortLoaded = true;
 			}
 	  };
 	  xhttp.open("GET", "/CSE442-542/2018-Summer/team03/backend/get/tas.php?course="+course, true);
 	  xhttp.send();
 	}
 
-	function loadFeedback() {
-		var course = window.location.href.split("=")[1];
+	/*
+		Remove all TAs from the TA modal, as well as their respective buttons and the add ta text field
+	*/
+	function clearTAs() {
+		$('#viewTas').empty();
+	}
+
+	function loadFeedback(ta, order) {
+		var course = getCourseId();
 	  var xhttp = new XMLHttpRequest();
 	  xhttp.onreadystatechange = function() {
 			if (this.readyState == 4 && this.status == 200) {
@@ -61,36 +140,136 @@
 					var child = document.createElement('p');
 					div.append(child);
 					child.value = feedback[i].id;
-					console.log(feedback[i].name);
 					feedbackElement.appendChild(child);
 					var exp = feedback[i].experience;
 					if(exp == 1) exp = 'Very Bad';
 					if(exp == 2) exp = 'Bad';
 					if(exp == 3) exp = 'Good';
 					if(exp == 4) exp = 'Very Good';
-					child.innerHTML = 'TA: ' + feedback[i].taName[0] + '<br />Comments: ' + feedback[i].comments + "<br />Experience: " + exp + "<br />Contact Info: " + feedback[i].email + "<br /><hr />";
+					var date = new Date(feedback[i].ts);
+					var months = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
+					var hours = date.getHours();
+					if(date.getHours() < 10) hours = '0' + date.getHours();
+					var mins = date.getMinutes();
+					if(date.getMinutes() < 10) mins = '0' + date.getMinutes();
+					var dateString = months[date.getMonth()-1] + " " + date.getDate() + ", " + date.getFullYear() + ", " + hours + ":" + mins;
+					var studentName = '';
+					if(feedback[i].name != null && feedback[i].name != undefined && feedback[i].name !== '') {
+						studentName = '<br />Name: ' + feedback[i].name;
+					}
+					var ta = /*'<a href="course.html?ta=' + feedback[i].ta + '&course=' + getCourseId() + '">' +*/ feedback[i].taName /*+ "</a>"*/;
+					if(ta == null) {
+						ta = 'Not Sure<br />Description: ' + feedback[i].description;
+					}
+					child.innerHTML = 'Date: ' + dateString + '<br />TA: ' + ta + '<br />Comments: ' + feedback[i].comments + "<br />Experience: " + exp + studentName + "<br />Contact Info: " + feedback[i].email + "<br /><hr />";
 			  }
 			}
 	  };
-	  xhttp.open("GET", "/CSE442-542/2018-Summer/team03/backend/get/feedback.php?course="+course, true);
+		if(ta != undefined && ta != null && ta != -1) {
+			if(order != undefined && order != null && order != -1)
+	  		xhttp.open("GET", "/CSE442-542/2018-Summer/team03/backend/get/feedback.php?ta=" + ta + "&course="+course + "&order=" + order, true);
+			else
+				xhttp.open("GET", "/CSE442-542/2018-Summer/team03/backend/get/feedback.php?ta=" + ta + "&course="+course, true);
+		} else {
+			if(order != undefined && order != null && order != -1)
+	  		xhttp.open("GET", "/CSE442-542/2018-Summer/team03/backend/get/feedback.php?course="+course + "&order=" + order, true);
+		 	else
+		  	xhttp.open("GET", "/CSE442-542/2018-Summer/team03/backend/get/feedback.php?course="+course, true);
+		}
 	  xhttp.send();
+	}
+
+	function clearFeedback() {
+		$("#feedbackContainer").empty();
+	}
+
+	function onTaChange() {
+		clearFeedback();
+		ta = $("#ta-sort").val();
+		loadFeedback(ta, order);
+	}
+
+	function onOrderChange() {
+		clearFeedback();
+		order = $("#order-sort").val();
+		loadFeedback(ta, order);
+	}
+
+	function addTaToSort(id, name) {
+		var taOption = $("<option/>");
+		$("#ta-sort").append(taOption);
+		taOption.val(id);
+		taOption.html(name);
 	}
 
 	function init() {
 
+		var xhttp = new XMLHttpRequest();
+		xhttp.onreadystatechange = function() {
+			if (this.readyState == 4 && this.status == 200) {
+				var details = JSON.parse(this.responseText);
+				if(details['user_id'] == undefined || details['user_id'] < 1) {
+					window.location.replace('login.html');
+				}
+				var courses = details['courses'].split(',');
+				if(!courses.includes(getCourseId())) {
+					window.location.replace('index.html');
+				}
+			}
+		};
+		xhttp.open("GET", "/CSE442-542/2018-Summer/team03/backend/get/user_details.php", true);
+		xhttp.send();
+
 		$(jQuery).ready(function() {
 
+			$('#courseID').val(getCourseId());
+			$("#editCourseId").val(getCourseId());
 			$('.modal').hide();
 
 			loadTAs();
 
-			loadFeedback();
+			loadFeedback(null, null);
 
 			loadCourse();
 
-			$('.closeBtn').click(function() {
+			$(document).on('click', '.deleteTaButton', function(e) {
+				if($(this).attr('ready') == 1) {
+					$.post("../backend/submit/remove-ta.php", { id: $(this).attr('ta'), course: getCourseId() }, function(data, status){
+						clearTAs();
+						loadTAs(null, null);
+					});
+				} else {
+					$(this).attr('ready', 1);
+					$(this).html('Click again to delete');
+				}
+				e.preventDefault();
+			});
 
-				$(this).parent().parent().hide();
+			$(document).on('click', '.addTaButton', function(e) {
+				e.preventDefault();
+				$.post("../backend/submit/add-ta.php", { taName: $('#addtafield').val(), course: getCourseId() }, function(data, status){
+					clearTAs();
+		      loadTAs(null, null);
+			  });
+			});
+
+			$('.deleteTaForm').submit(function(e) {
+				if($(this).attr('ready') != 1) {
+					e.preventDefault();
+				}
+			});
+
+			$(document).on('click', '.closeBtn', function(e) {
+
+				$('#viewTaModal').hide();
+				$('#delTaModal').hide();
+				$('#editCourseModal').hide();
+
+			});
+
+			$('#dontDeleteCourse').click(function() {
+
+				$('#delTaModal').hide();
 
 			});
 
@@ -99,6 +278,24 @@
 				$('#viewTaModal').show();
 
 			});
+
+			$('#delTaModalButton').click(function() {
+
+				$('#delTaModal').show();
+
+			});
+
+			$('#editCourseButton').click(function() {
+
+				$('#editCourseModal').show();
+
+			});
+
+			$('#removeFilter').parent().attr('href', 'course.html?course=' + getCourseId());
+
+			if(getUrlParam('ta') != undefined && getUrlParam('ta') != null && getUrlParam('ta') !== '') {
+				$('#removeFilter').parent().show();
+			}
 
 		});
 
@@ -111,34 +308,85 @@
 <body onload="init()">
 	<div class="container">
 		<h1 id="course" style="display: none;">Course Name Here</h1><hr/>
-		<button type="submit" class="buttonStyle button open-modal" id="viewTaModalButton">View TAs</button>
-		<!--<button class="buttonStyle" type="submit" class="button">Remove Course</button>
-		<button style='float: right;'type="submit" class="buttonStyle" class="button">Add TAs</button>-->
+
+		<button type="submit" class="btn-success btn-lg button open-modal" id="viewTaModalButton">View TAs</button>
+		<button class="btn-danger btn-lg button open-modal" type="submit" id="delTaModalButton">Delete Course</button>
+		<button type="submit" class="btn-primary btn-lg button" id="editCourseButton">Edit Course</button>
+		<a style="display: none;"><button class="btn-primary btn-lg button" id="removeFilter">Remove TA Filter</button></a>
+
+		<br />
+
+		<select name="ta-sort" id="ta-sort-example" style="display: none">
+			<option value="">Select a TA Here to Filter</option>
+		</select>
+
+		<table align="center">
+			<tr>
+				<td><p>Select a TA to Filter By:<p></td>
+				<td><p>Select an order to Sort By:</p></td>
+			</tr>
+			<tr>
+				<td>
+					<div class="custom-select">
+							<select name="ta-sort" id="ta-sort" onchange="onTaChange()">
+								<option value="">Select a TA Here to Filter</option>
+							</select>
+					</div>
+				</td>
+				<td>
+					<div class="custom-select">
+							<select name="order-sort" id="order-sort" onchange="onOrderChange()">
+								<option value="1">Most Recent</option>
+								<option value="2">Least Recent</option>
+							</select>
+					</div>
+				</td>
+			</tr>
+		</table>
 
 		<div id="viewTaModal" class="modal" style="display: none;">
 				<div class="modal-content" id="viewTas">
-					<span class="closeBtn">&times;</span>
 				</div>
 		</div>
 
-		<!--<div id="addTaModal" class="modal">
-				<div class="modal-content">
-					<form name="addTaToCourse" action="" method="POST">
+		<div id="editCourseModal" class="modal" style="display: none;">
+				<div class="modal-content" id="editCourse">
 					<span class="closeBtn">&times;</span>
-					<p>TA Names</p>
-					<input type="text" name="taName" id="courseTAInput" placeholder="Enter TA Names"><br/><br/>
-					<input type="submit" class="buttonView" onclick="setCourseName()" name="submitButton" value="Create">
+					<form action="../backend/submit/change-course-name.php" method="POST">
+						<center>
+							<p>Rename the Course:</p>
+							<input id="courseName" name="course" />
+							<input id="editCourseId" name="courseId" style="display: none;" />
+							<br />
+							<br />
+							<button class="btn-primary btn-lg button">Submit</button>
+						</center>
 					</form>
 				</div>
-		</div>-->
+		</div>
+
+		<div id="delTaModal" class="modal" style="display: none;">
+				<div class="modal-content" id="deleteCourse">
+					<span class="closeBtn">&times;</span>
+					<p align="center">Are You sure you want to delete this course?</p>
+
+					<div style="text-align: center">
+						<form style="display: inline-block" action="../backend/submit/remove-course.php" method="POST">
+							<button style="display: inline-block" type="submit" class="btn-success btn-lg">Yes</button>
+							<input id="courseID" name="course" style="display: none">
+						</form>
+
+						<button style="display: inline-block" id="dontDeleteCourse" class="btn-danger btn-lg">No</button>
+					</div>
+				</div>
+		</div>
 		<div id="feedbackContainer" class="feedbackContainer">
 
 		</div>
 	</div>
-	<script
-  src="https://code.jquery.com/jquery-3.3.1.js"
-  integrity="sha256-2Kok7MbOyxpgUVvAk/HJ2jigOSYS2auK4Pfzbm7uH60="
-  crossorigin="anonymous"></script>
+	<script src="https://code.jquery.com/jquery-3.3.1.js" integrity="sha256-2Kok7MbOyxpgUVvAk/HJ2jigOSYS2auK4Pfzbm7uH60=" crossorigin="anonymous"></script>
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+
 
 </body>
 

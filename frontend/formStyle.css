@@ -1,0 +1,94 @@
+/*style for body*/
+body{
+	/*background-color: #3399ff;*/
+	background-image: url(images/hawaii_background.png);
+}
+/*style for header*/
+h2{
+	text-align: center;
+}
+/* style for submit button*/
+input[type=submit] {
+	background-size: 100%;
+	background-color: #4CAF50; /* Green */
+	border: none;
+	color: white;
+	padding: 15px 32px;
+	text-align: center;
+	text-decoration: none;
+	display: inline-block;
+	font-size: 16px;
+	margin: auto;
+	cursor: pointer;
+	width: 100%;
+	overflow-x:auto;
+}
+
+/*style for slider*/
+input[type=range] {
+	width: 80%;
+}
+
+/*style for text input*/
+input[type=text] {
+	width: 100%;
+	box-sizing: border-box;
+	border: 2px solid #ccc;
+	border-radius: 4px;
+	font-size: 16px;
+	background-color: white;
+	background-position: 10px 10px;
+	background-repeat: no-repeat;
+	padding: 12px 20px 12px 20px;
+
+}
+/*style for email input*/
+input[type=email] {
+	width: 100%;
+	box-sizing: border-box;
+	border: 2px solid #ccc;
+	border-radius: 4px;
+	font-size: 16px;
+	background-color: white;
+	background-position: 10px 10px;
+	background-repeat: no-repeat;
+	padding: 12px 20px 12px 20px;
+
+}
+
+/*style for dropdowns*/
+select{
+	width: 100%;
+	box-sizing: border-box;
+	border: 2px solid #ccc;
+	border-radius: 4px;
+	font-size: 16px;
+	background-color: white;
+	padding: 12px 20px 12px 20px;
+}
+/*style for text area*/
+textarea{
+	width: 100%;
+	box-sizing: border-box;
+	border: 2px solid #ccc;
+	border-radius: 4px;
+	font-size: 16px;
+	background-color: white;
+	background-position: 10px 10px;
+	background-repeat: no-repeat;
+	padding: 12px 20px 12px 20px;
+}
+.hidden{
+	display: none;
+}
+/*Style for overall form look*/
+.boxed{
+	border: 10px solid tan;
+	box-shadow: 8px 8px 8px 8px rgba(0,0,0,0.2);
+	padding: 2px 16px;
+	margin: auto;
+	width: 50%;
+	background-color: #ffffff;
+	font-family: "Trebuchet MS", Helvetica, sans-serif;
+	overflow-x:auto;
+}

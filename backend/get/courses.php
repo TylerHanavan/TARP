@@ -1,10 +1,15 @@
 <?php
 
-include $_SERVER['DOCUMENT_ROOT'] . '/CSE442-542/2018-Summer/team03/backend/sql/database.php';
-include $_SERVER['DOCUMENT_ROOT'] . '/CSE442-542/2018-Summer/team03/backend/sql/credentials.php';
+  include $_SERVER['DOCUMENT_ROOT'] . '/CSE442-542/2018-Summer/team03/backend/session/session.php';
 
-$database = new Database($CREDENTIALS["address"],$CREDENTIALS["database"], $CREDENTIALS["username"], $CREDENTIALS["password"]);
-$database->connect();
+  $instructor = $_GET['instructor'];
 
-echo json_encode ($database->getCourses());
-exit();
+  $set = $_GET['set'];
+
+  if(strcmp($set, 'self') == 0) $instructor = $_SESSION['user_id'];
+
+  if(!isset($instructor) || empty($instructor)) $instructor = -1;
+  if(!isset($set) || empty($set)) $set = 'all';
+
+  echo json_encode ($database->getCourses($instructor));
+  exit();

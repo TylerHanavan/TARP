@@ -1,35 +1,28 @@
 body{
 	margin: 0;
 	padding: 0;
-	background-color: #3399ff;
+	background-image: url(images/hawaii_background.png);
 	color: black;
-}
-
-hr{
-	margin: 0;
-	padding: 0;
 }
 
 .container{
 	width: 90%;
-	height: 600px;
 	background: #ffffff;
 	color: black;
+	margin-top: 50px;
+	margin-bottom: 50px;
 	text-align: center;
-	top: 50%;
-	left: 50%;
-	margin: 0 auto;
-	position: absolute;
-	transform: translate(-50%, -50%);
 	box-sizing: border-box;
 	box-shadow: 8px 8px 8px 8px rgba(0,0,0,0.2);
-	overflow: auto;	
+	
 }
+
 
 .container h1{
 	background-color: #d9d9d9;
 	margin: 0;
 	padding: 20px;
+	font-family: Verdana, Geneva, sans-serif;
 }
 
 .buttonStyle{
@@ -41,12 +34,9 @@ hr{
 }
 
 .feedbackContainer{
-	width: 80%;
-	height: 400px;
-	border: 1px solid black;
+	text-align: left;
 	margin: auto;
 	padding-top: 30px;
-	overflow: auto;
 }
 .modal{
 	position: fixed;

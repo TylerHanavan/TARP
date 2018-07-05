@@ -1,171 +1,79 @@
 <!DOCTYPE html>
 <html>
+
 <head>
-	<title>Evaluation Form</title>
-	<script type="text/javascript">
-		function showHideEmail() {
-			var chekbox = document.getElementById("chk");
-			var hiddenInputs = document.getElementsByClassName("hidden");
-			for(var i = 0; i < hiddenInputs.length; i++) {
-				if(chekbox.checked){
-					hiddenInputs[i].style.display="block";
-					document.getElementById("contactField").required = true;
-				}else{
-					hiddenInputs[i].style.display="none";
-					document.getElementById("contactField").required = false;
-				}
+<title>Evaluation Form</title>
+<link rel="stylesheet" type="text/css" href="formStyle.css">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<script type="text/javascript">
+	function showHideEmail() {
+		var chekbox = document.getElementById("chk");
+		var hiddenInputs = document.getElementsByClassName("hidden");
+		for(var i = 0; i < hiddenInputs.length; i++) {
+			if(chekbox.checked){
+				hiddenInputs[i].style.display="block";
+				document.getElementById("contactField").required = true;
+			}else{
+				hiddenInputs[i].style.display="none";
+				document.getElementById("contactField").required = false;
 			}
 		}
-		function loadCourses() {
-		  var xhttp = new XMLHttpRequest();
-		  xhttp.onreadystatechange = function() {
-				if (this.readyState == 4 && this.status == 200) {
-				  var courses = JSON.parse(this.responseText);
-				  var courseElement = document.getElementById("course");
-				  for(var i = 0; i < courses.length; i++) {
-						var child = document.createElement('option');
-						child.value = courses[i].id;
-						child.innerHTML = courses[i].name;
-						courseElement.appendChild(child);
-				  }
-				}
-		  };
-		  xhttp.open("GET", "/CSE442-542/2018-Summer/team03/backend/get/courses.php", true);
-		  xhttp.send();
-		}
-		function loadTAs(course) {
-		  var xhttp = new XMLHttpRequest();
-		  xhttp.onreadystatechange = function() {
-				if (this.readyState == 4 && this.status == 200) {
-				  var tas = JSON.parse(this.responseText);
-				  var taElement = document.getElementById("ta");
-				  for(var i = 0; i < tas.length; i++) {
-						var child = document.createElement('option');
-						child.value = tas[i].id;
-						child.innerHTML = tas[i].name;
-						taElement.appendChild(child);
-				  }
+	}
+	function loadCourses() {
+	  var xhttp = new XMLHttpRequest();
+	  xhttp.onreadystatechange = function() {
+			if (this.readyState == 4 && this.status == 200) {
+			  var courses = JSON.parse(this.responseText);
+			  var courseElement = document.getElementById("course");
+			  for(var i = 0; i < courses.length; i++) {
 					var child = document.createElement('option');
-					child.value = '-1';
-					child.innerHTML = 'Not Sure';
-					taElement.appendChild(child);
-				}
-		  };
-		  xhttp.open("GET", "/CSE442-542/2018-Summer/team03/backend/get/tas.php?course="+course, true);
-		  xhttp.send();
-		}
-		function onLoad() {
-			loadCourses();
-			if(window.location.href.split("=")[1] === "success") {
-				$("#success").show();
+					child.value = courses[i].id;
+					child.innerHTML = courses[i].name;
+					courseElement.appendChild(child);
+			  }
 			}
+	  };
+	  xhttp.open("GET", "/CSE442-542/2018-Summer/team03/backend/get/courses.php", true);
+	  xhttp.send();
+	}
+	function loadTAs(course) {
+	  var xhttp = new XMLHttpRequest();
+	  xhttp.onreadystatechange = function() {
+			if (this.readyState == 4 && this.status == 200) {
+			  var tas = JSON.parse(this.responseText);
+			  var taElement = document.getElementById("ta");
+			  for(var i = 0; i < tas.length; i++) {
+					var child = document.createElement('option');
+					child.value = tas[i].id;
+					child.innerHTML = tas[i].name;
+					taElement.appendChild(child);
+			  }
+				var child = document.createElement('option');
+				child.value = '-1';
+				child.innerHTML = 'Not Sure';
+				taElement.appendChild(child);
+			}
+	  };
+	  xhttp.open("GET", "/CSE442-542/2018-Summer/team03/backend/get/tas.php?course="+course, true);
+	  xhttp.send();
+	}
+	function onLoad() {
+		loadCourses();
+		if(window.location.href.split("=")[1] === "success") {
+			$("#success").show();
 		}
-		function onCourseChange(){
-			document.getElementById("ta").innerHTML="";
-			var element = document.getElementById("course");
-			loadTAs(element.options[element.selectedIndex].value);
-		}
-	</script>
-	<style type="text/css">
-		/* style for submit button*/
-		input[type=submit] {
-			background-size: 100%;
-			background-color: #4CAF50; /* Green */
-			border: none;
-			color: white;
-			padding: 15px 32px;
-			text-align: center;
-			text-decoration: none;
-			display: inline-block;
-			font-size: 16px;
-			margin: auto;
-			cursor: pointer;
-			width: 100%;
-
-			overflow-x:auto;
-		}
-
-		/*style for slider*/
-		input[type=range] {
-			width: 80%;
-		}
-
-		/*style for text input*/
-		input[type=text] {
-			width: 100%;
-			box-sizing: border-box;
-			border: 2px solid #ccc;
-			border-radius: 4px;
-			font-size: 16px;
-			background-color: white;
-			background-position: 10px 10px;
-			background-repeat: no-repeat;
-			padding: 12px 20px 12px 20px;
-
-		}
-		/*style for email input*/
-		input[type=email] {
-			width: 100%;
-			box-sizing: border-box;
-			border: 2px solid #ccc;
-			border-radius: 4px;
-			font-size: 16px;
-			background-color: white;
-			background-position: 10px 10px;
-			background-repeat: no-repeat;
-			padding: 12px 20px 12px 20px;
-
-		}
-
-		/*Style for overall form look*/
-		.boxed{
-			border: 5px black;
-			box-shadow: 8px 8px 8px 8px rgba(0,0,0,0.2);
-			padding: 2px 16px;
-			margin: auto;
-			width: 50%;
-			background-color: #ffffff;
-			font-family: "Trebuchet MS", Helvetica, sans-serif;
-			overflow-x:auto;
-		}
-		/*style for header*/
-		h2{
-			text-align: center;
-		}
-		/*style for body*/
-		body{
-			background-color: #3399ff
-		}
-		/*style for dropdowns*/
-		select{
-			width: 100%;
-			box-sizing: border-box;
-			border: 2px solid #ccc;
-			border-radius: 4px;
-			font-size: 16px;
-			background-color: white;
-			padding: 12px 20px 12px 20px;
-		}
-		/*style for text area*/
-		textarea{
-			width: 100%;
-			box-sizing: border-box;
-			border: 2px solid #ccc;
-			border-radius: 4px;
-			font-size: 16px;
-			background-color: white;
-			background-position: 10px 10px;
-			background-repeat: no-repeat;
-			padding: 12px 20px 12px 20px;
-		}
-		.hidden{
-			display: none;
-		}
-	</style>
-
+	}
+	function onCourseChange(){
+		document.getElementById("ta").innerHTML="";
+		var element = document.getElementById("course");
+		loadTAs(element.options[element.selectedIndex].value);
+	}
+</script>
 </head>
+
 <body onload="onLoad()">
-	<!--div contains all data/buttons in the form, includes text input, slider, radio button, submit button -->
+	<!--div contains all data/buttons in the form, includes text input, slider, radio button, submit button -->	
 	<div class="boxed">
 		<h3 id="success" style="color: green; display: none;">Submission Successful</h3><hr/>
 		<!-- All data is written within the form tags so it can be processed by submit.php file-->
@@ -184,25 +92,13 @@
 					<select name="ta" id="ta" onchange="if (this.value=='-1'){this.form['taDescription'].style.visibility='visible'; this.form['taDescription'].required='true'}else {this.form['taDescription'].style.visibility='hidden'; this.form['taDescription'].required=false};">
 					</select>
 				</div><br/>
-
 				<input type="text" style="visibility:hidden;" name="taDescription" placeholder="Please describe your TA here..." maxlength="150">
 
 			<p>Please rate your overall experience with the TA:<p>
-				<input type="radio" name="overallExperience" value="1"> Very Bad
+				<input type="radio" name="overallExperience" value="1" required> Very Bad
 				<input type="radio" name="overallExperience" value="2"> Bad
 				<input type="radio" name="overallExperience" value="3"> Good
 				<input type="radio" name="overallExperience" value="4"> Very Good
-
-			<!--<p>How well do you feel your TA communicated the material?<p>
-				<input type="radio" name="overallComm" value="1" checked> Very Bad
-				<input type="radio" name="overallComm" value="2"> Bad
-				<input type="radio" name="overallComm" value="3"> Good
-				<input type="radio" name="overallComm" value="4"> Very Good	-->
-		<!--	<p>How important do you feel your feedback is to the course?<p>
-				<input type="radio" name="feedbackPriority" value="1" checked> Not that important
-				<input type="radio" name="feedbackPriority" value="2"> Somewhat important
-				<input type="radio" name="feedbackPriority" value="3"> Important
-				<input type="radio" name="feedbackPriority" value="4"> Very important -->
 
 			<p>Please leave any comments you have regarding your TA below:<p>
 				<textarea rows="4" cols="50" name="comments" maxlength="360"></textarea>
@@ -215,14 +111,13 @@
 
 			<label class="hidden">Your Contact Info(Email, Phone Number, etc.):</label>
 				<input type="text" id="contactField"name="email" class="hidden" maxlength="60"><br/>
+				
 			<br/><br/>
 				<input type="submit" name="submitButton" value="Submit">
 			<br/><br/>
 		</form>
 	</div>
-	<script
-  src="https://code.jquery.com/jquery-3.3.1.js"
-  integrity="sha256-2Kok7MbOyxpgUVvAk/HJ2jigOSYS2auK4Pfzbm7uH60="
-  crossorigin="anonymous"></script>
+	<script src="https://code.jquery.com/jquery-3.3.1.js" integrity="sha256-2Kok7MbOyxpgUVvAk/HJ2jigOSYS2auK4Pfzbm7uH60=" crossorigin="anonymous"></script>
 </body>
+
 </html>

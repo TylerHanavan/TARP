@@ -236,7 +236,7 @@
       $st->execute();
       $res = $st->fetchAll();
       for($x = 0; $x < sizeof($res); $x++) {
-        $res[sizeof($res)] = getCourse($res[$x]['id']);
+        $data[sizeof($data)] = $this->getCourse($res[$x]['course']);
       }
     }
 

@@ -17,6 +17,7 @@
 	var ta = -1;
 	var order = 1;
 
+	/* Returns a URL parameter if it exists; otherwise returns null */
 	function getUrlParam(p) {
 		var params = window.location.href.split("?")[1].split("&");
 		for(var x = 0; x < params.length; x++) {
@@ -26,6 +27,7 @@
 		return null;
 	}
 
+	/* Returns the course id for the current page */
 	function getCourseId() {
 		return getUrlParam('course');
 	}

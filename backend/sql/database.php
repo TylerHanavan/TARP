@@ -124,15 +124,19 @@
     /*
       Retrieve feedback items from a specified course
     */
-    function getFeedback($course) {
+    function getFeedback($course, $order = 1) {
       $st = $this->pdo->prepare('SELECT * FROM feedback WHERE course=:course');
+      if($order == 2)
+        $st = $this->pdo->prepare('SELECT * FROM feedback WHERE course=:course ORDER BY id DESC');
       $st->bindParam(':course', $course);
       $st->execute();
       return $st->fetchAll();
     }
 
-    function getFeedbackByTA($ta) {
+    function getFeedbackByTA($ta, $order = 1) {
       $st = $this->pdo->prepare('SELECT * FROM feedback WHERE ta=:ta');
+      if($order == 2)
+        $st = $this->pdo->prepare('SELECT * FROM feedback WHERE ta=:ta ORDER BY id DESC');
       $st->bindParam(':ta', $ta);
       $st->execute();
       return $st->fetchAll();

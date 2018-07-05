@@ -12,7 +12,12 @@
 <script>
 	var editModal = document.getElementById('addTaModal');
 	var modalBtn = document.getElementById('modalLink');
+	var sortLoaded = false;
 
+	var ta = -1;
+	var order = 1;
+
+	/* Returns a URL parameter if it exists; otherwise returns null */
 	function getUrlParam(p) {
 		var params = window.location.href.split("?")[1].split("&");
 		for(var x = 0; x < params.length; x++) {
@@ -22,6 +27,7 @@
 		return null;
 	}
 
+	/* Returns the course id for the current page */
 	function getCourseId() {
 		return getUrlParam('course');
 	}
@@ -67,6 +73,8 @@
 					child.style.display = "inline";
 					child.value = tas[i].id;
 					child.innerHTML = tas[i].name + "&nbsp;";
+					if(!sortLoaded)
+						addTaToSort(tas[i].id, tas[i].name);
 					var deleteTaButton = document.createElement('button');
 					deleteTaButton.classList.add("deleteTaButton");
 					deleteTaButton.innerHTML = "X";
@@ -104,6 +112,7 @@
 				addTaButton.classList.add('addTaButton');
 				addTaButton.innerHTML = "Add TA";
 				addTaForm.appendChild(addTaButton);
+				sortLoaded = true;
 			}
 	  };
 	  xhttp.open("GET", "/CSE442-542/2018-Summer/team03/backend/get/tas.php?course="+course, true);
@@ -148,17 +157,49 @@
 					if(feedback[i].name != null && feedback[i].name != undefined && feedback[i].name !== '') {
 						studentName = '<br />Name: ' + feedback[i].name;
 					}
-					var ta = '<a href="course.html?ta=' + feedback[i].ta + '&course=' + getCourseId() + '">' + feedback[i].taName + "</a>";
+					var ta = /*'<a href="course.html?ta=' + feedback[i].ta + '&course=' + getCourseId() + '">' +*/ feedback[i].taName /*+ "</a>"*/;
+					if(ta == null) {
+						ta = 'Not Sure<br />Description: ' + feedback[i].description;
+					}
 					child.innerHTML = 'Date: ' + dateString + '<br />TA: ' + ta + '<br />Comments: ' + feedback[i].comments + "<br />Experience: " + exp + studentName + "<br />Contact Info: " + feedback[i].email + "<br /><hr />";
 			  }
 			}
 	  };
-		if(ta != undefined && ta != null) {
-	  	xhttp.open("GET", "/CSE442-542/2018-Summer/team03/backend/get/feedback.php?ta=" + ta + "&course="+course, true);
+		if(ta != undefined && ta != null && ta != -1) {
+			if(order != undefined && order != null && order != -1)
+	  		xhttp.open("GET", "/CSE442-542/2018-Summer/team03/backend/get/feedback.php?ta=" + ta + "&course="+course + "&order=" + order, true);
+			else
+				xhttp.open("GET", "/CSE442-542/2018-Summer/team03/backend/get/feedback.php?ta=" + ta + "&course="+course, true);
 		} else {
-		  xhttp.open("GET", "/CSE442-542/2018-Summer/team03/backend/get/feedback.php?course="+course, true);
+			if(order != undefined && order != null && order != -1)
+	  		xhttp.open("GET", "/CSE442-542/2018-Summer/team03/backend/get/feedback.php?course="+course + "&order=" + order, true);
+		 	else
+		  	xhttp.open("GET", "/CSE442-542/2018-Summer/team03/backend/get/feedback.php?course="+course, true);
 		}
 	  xhttp.send();
+	}
+
+	function clearFeedback() {
+		$("#feedbackContainer").empty();
+	}
+
+	function onTaChange() {
+		clearFeedback();
+		ta = $("#ta-sort").val();
+		loadFeedback(ta, order);
+	}
+
+	function onOrderChange() {
+		clearFeedback();
+		order = $("#order-sort").val();
+		loadFeedback(ta, order);
+	}
+
+	function addTaToSort(id, name) {
+		var taOption = $("<option/>");
+		$("#ta-sort").append(taOption);
+		taOption.val(id);
+		taOption.html(name);
 	}
 
 	function init() {
@@ -272,6 +313,36 @@
 		<button class="btn-danger btn-lg button open-modal" type="submit" id="delTaModalButton">Delete Course</button>
 		<button type="submit" class="btn-primary btn-lg button" id="editCourseButton">Edit Course</button>
 		<a style="display: none;"><button class="btn-primary btn-lg button" id="removeFilter">Remove TA Filter</button></a>
+
+		<br />
+
+		<select name="ta-sort" id="ta-sort-example" style="display: none">
+			<option value="">Select a TA Here to Filter</option>
+		</select>
+
+		<table align="center">
+			<tr>
+				<td><p>Select a TA to Filter By:<p></td>
+				<td><p>Select an order to Sort By:</p></td>
+			</tr>
+			<tr>
+				<td>
+					<div class="custom-select">
+							<select name="ta-sort" id="ta-sort" onchange="onTaChange()">
+								<option value="">Select a TA Here to Filter</option>
+							</select>
+					</div>
+				</td>
+				<td>
+					<div class="custom-select">
+							<select name="order-sort" id="order-sort" onchange="onOrderChange()">
+								<option value="1">Most Recent</option>
+								<option value="2">Least Recent</option>
+							</select>
+					</div>
+				</td>
+			</tr>
+		</table>
 
 		<div id="viewTaModal" class="modal" style="display: none;">
 				<div class="modal-content" id="viewTas">

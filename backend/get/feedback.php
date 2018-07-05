@@ -1,6 +1,7 @@
 <?php
 $course = $_GET ['course'];
 $ta = $_GET ['ta'];
+$order = $_GET ['order'];
 include $_SERVER['DOCUMENT_ROOT'] . '/CSE442-542/2018-Summer/team03/backend/sql/database.php';
 include $_SERVER['DOCUMENT_ROOT'] . '/CSE442-542/2018-Summer/team03/backend/sql/credentials.php';
 
@@ -8,10 +9,16 @@ $database = new Database($CREDENTIALS["address"],$CREDENTIALS["database"], $CRED
 $database->connect();
 $feedback = array();
 if(!empty($course) && isset($course)) {
-  $feedback = $database->getFeedback($course);
+  if(isset($order) && !empty($order) && $order == 2)
+    $feedback = $database->getFeedback($course, 2);
+  else
+    $feedback = $database->getFeedback($course);
 }
 if(isset($ta) && !empty($ta)) {
-  $feedback = $database->getFeedbackByTA($ta);
+  if(isset($order) && !empty($order) && $order == 2)
+    $feedback = $database->getFeedbackByTA($ta, 2);
+  else
+    $feedback = $database->getFeedbackByTA($ta);
 }
 for($x = 0; $x < sizeof($feedback); $x++) {
 

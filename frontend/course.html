@@ -161,9 +161,15 @@
 			}
 	  };
 		if(ta != undefined && ta != null && ta != -1) {
-	  	xhttp.open("GET", "/CSE442-542/2018-Summer/team03/backend/get/feedback.php?ta=" + ta + "&course="+course, true);
+			if(order != undefined && order != null && order != -1)
+	  		xhttp.open("GET", "/CSE442-542/2018-Summer/team03/backend/get/feedback.php?ta=" + ta + "&course="+course + "&order=" + order, true);
+			else
+				xhttp.open("GET", "/CSE442-542/2018-Summer/team03/backend/get/feedback.php?ta=" + ta + "&course="+course, true);
 		} else {
-		  xhttp.open("GET", "/CSE442-542/2018-Summer/team03/backend/get/feedback.php?course="+course, true);
+			if(order != undefined && order != null && order != -1)
+	  		xhttp.open("GET", "/CSE442-542/2018-Summer/team03/backend/get/feedback.php?course="+course + "&order=" + order, true);
+		 	else
+		  	xhttp.open("GET", "/CSE442-542/2018-Summer/team03/backend/get/feedback.php?course="+course, true);
 		}
 	  xhttp.send();
 	}
@@ -326,7 +332,7 @@
 					<div class="custom-select">
 							<select name="order-sort" id="order-sort" onchange="onOrderChange()">
 								<option value="1">Most Recent</option>
-								<option value="1">Least Recent</option>
+								<option value="2">Least Recent</option>
 							</select>
 					</div>
 				</td>
